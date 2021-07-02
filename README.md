@@ -48,3 +48,15 @@ popd
     - それらしきオプション見当たらん
 
 ので、N-file あったら pandoc も N 回呼ぶことになる……
+
+# pandoc じゃないけどついでに mkdocs も試す
+
+```
+ not found in the documentation files.
+WARNING -  Documentation file 'scrapboxで創作.md' contains a link to '知的生産者間のコミュニケ
+ーション.md' which is not found in the documentation files.
+INFO    -  Documentation built in 3.51 seconds
+```
+
+え、早い、いいじゃん
+

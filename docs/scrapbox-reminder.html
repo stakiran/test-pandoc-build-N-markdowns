@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>Scrapbox reminder - MkDocsでmany markdown filesの変換テスト</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <link href="stylesheet.css" rel="stylesheet">
+
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href=".">MkDocsでmany markdown filesの変換テスト</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#scrapbox-reminder" class="nav-link">scrapbox-reminder</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#links" class="nav-link">Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#2hop-links" class="nav-link">2hop Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="scrapbox-reminder">scrapbox-reminder</h2>
+<p>んー、微妙かも</p>
+<ul>
+<li>まとめ<ul>
+<li>必要性はないです</li>
+<li>遊びや勉強としてつくるのは面白そうだけど</li>
+</ul>
+</li>
+<li>:sta:は必要性を感じない<ul>
+<li>キッチンタイマー使えばいい</li>
+</ul>
+</li>
+<li>ただUserScriptで遊ぶ題材としては面白そう</li>
+<li>あとは<a href="Scrapbox%E3%81%A7GTD.html">ScrapboxでGTD</a>か<ul>
+<li>「Scrapboxにこもる」コンセプトなので、リマインダーもScrapboxでやりたい思いが強い</li>
+<li>でも利用者にUserScript使わせる負担ができてしまう</li>
+<li>普通に「キッチンタイマー各自で使ってね」が良い気がする</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p>実装方針</p>
+<ul>
+<li>設定ページ名<ul>
+<li>.remind</li>
+<li>:sta:[Scrapbox As A Configuration]として共通フォーマット定めた方が良い気がしている<ul>
+<li><a href="Dotfiles.md">Dotfiles</a>文化に乗っ取ると<code>.pagename</code>なんだよな</li>
+<li>これかなぁ</li>
+</ul>
+</li>
+<li>config-remind<ul>
+<li>これはちょっとダサいか</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>文法<ul>
+<li>まとめ</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-remind">1030メシ買う
+1445そろそろ会議やぞ
+</code></pre>
+<ul>
+<li>...<ul>
+<li>...<ul>
+<li>順不動</li>
+<li>リスト表記も不要 or パース時に吸収しても良い</li>
+</ul>
+</li>
+<li><code>(DateRange) (Time) (Message)</code> この路線だろう<ul>
+<li>~~DateRangeは「毎日」「一回だけ(Once)」の2つでいい~~毎日さえも要らないな、まずはシンプルにすべき</li>
+<li>それ以外の細かいリマインドはカレンダーアプリでやればいい</li>
+</ul>
+</li>
+<li><code>(Time) (Message)</code> この路線<ul>
+<li>10:30にリマインド<ul>
+<li><code>10:30 会議だしメシ買いに行くか</code></li>
+</ul>
+</li>
+<li>~~今から30分後にリマインド~~シンプルにしたいのでいったんなし<ul>
+<li><code>30m そろそろメシ買いに行くか</code></li>
+<li>設定ページでこれ実現するのはきついな</li>
+<li>or <code>30m そろそろメシ買いに行くか(from 09:17)</code> みたいな基準記入が必要になる</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>あとは書き方<ul>
+<li><code>10:30 メシ買う</code></li>
+<li><code>1030 メシ買う</code></li>
+<li><code>1030メシ買う</code></li>
+<li>これは要らんか、一度に2メッセージをリマインドはおかしい</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-remind">1030
+ メシ買う
+ ★このやり方だと一つのtimeに複数のメッセージをぶら下げされる
+</code></pre>
+<p><br></p>
+<p>これがあると何が嬉しい？</p>
+<ul>
+<li>.remindページに「1030メシ」と書いておくだけで、10:30になると「メシ」と表示される<ul>
+<li>Scrapboxから外に出る必要がない</li>
+</ul>
+</li>
+<li>Q:プライベートなこと書けないのでは？<ul>
+<li>それはある</li>
+<li>ちょっと極端な例を書くけど<ul>
+<li>「あ、今日は妻が～～で余裕あるからセックスできそうだ」</li>
+<li>「打診しておかないとな」</li>
+<li><code>1120妻とセックス交渉</code></li>
+</ul>
+</li>
+<li>さすがにこういうのは書けないだろうｗ</li>
+<li>Aさんのpublic project <code>/a-public</code>があるとして、<code>/a-public/.remind</code>にこういうことが書かれていたら、まあ引くよね（ひく人がマジョリティだよね）<ul>
+<li>僕は別に引かないけど</li>
+<li>むしろ<a href="下ネタを隠す教.md">下ネタを隠す教</a>から逸脱している点で好感さえ持てる</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Q:public projectにこもっているときはリマインドできないの？<ul>
+<li>できない</li>
+<li>というより作用範囲は「"このリマインダーを仕込んでいるproject" を開いていること」になる</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p>背景</p>
+<ul>
+<li><a href="UserScript.md">UserScript</a>だけでリマインダーを実現する</li>
+<li>実装方針<ul>
+<li>UserScriptだけ使う</li>
+<li><a href="ゲームループ.md">ゲームループ</a>つくってインターバルで一致判定する</li>
+<li>リマインド設定は<code>.remind</code>みたいな設定ページに列挙する</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p><a href="開発ネタ.md">#開発ネタ</a></p>
+<p><br></p>
+<h2 id="links">Links</h2>
+<ul>
+<li>← <a href="UserScriptでリマインダーを実現する.md">UserScriptでリマインダーを実現する</a></li>
+</ul>
+<h2 id="2hop-links">2hop Links</h2>
+<ul>
+<li>→ <a href="Scrapbox%E3%81%A7GTD.html">ScrapboxでGTD</a><ul>
+<li>← <a href="UserScriptでリマインダーを実現する.md">UserScriptでリマインダーを実現する</a></li>
+</ul>
+</li>
+<li>→ <a href="UserScript.md">UserScript</a><ul>
+<li>← <a href="Scrapbox%E3%81%B8%E3%81%AE%E8%A6%81%E6%9C%9B.html">Scrapboxへの要望</a></li>
+<li>← <a href="ScrapCalc.md">ScrapCalc</a></li>
+<li>← <a href="Scrapbox_As_A_Brarea.html">Scrapbox As A Brarea</a></li>
+</ul>
+</li>
+<li>→ <a href="Scrapbox_As_A_Configuration.html">Scrapbox As A Configuration</a><ul>
+<li>← <a href="Scrapbox_As_A_XXXX.html">Scrapbox As A XXXX</a></li>
+<li>← <a href="Scrapbox_As_A_Matching.html">Scrapbox As A Matching</a></li>
+<li>← <a href="詰めマイン.md">詰めマイン</a></li>
+</ul>
+</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js" defer></script>
+        <script src="search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

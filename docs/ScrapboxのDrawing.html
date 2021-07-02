@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>ScrapboxのDrawing - MkDocsでmany markdown filesの変換テスト</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <link href="stylesheet.css" rel="stylesheet">
+
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href=".">MkDocsでmany markdown filesの変換テスト</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#scrapboxdrawing" class="nav-link">ScrapboxのDrawing</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#links" class="nav-link">Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#2hop-links" class="nav-link">2hop Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="scrapboxdrawing">ScrapboxのDrawing</h2>
+<ul>
+<li>やっぱり欲しい<ul>
+<li><a href="反応.md">反応</a>の図描くだけで10回は消しゴム使ってイラッとした</li>
+<li>Ctrl+ZでUndoする ← このレベルでサクっとやりたい</li>
+<li>結局<a href="ziteboard.md">ziteboard</a>使った</li>
+<li>マウスで使うこと想定してない？<ul>
+<li>ペンタブだったら消しゴム使うのもタッチするだけだからそんなにイラッとはしない</li>
+</ul>
+</li>
+<li>僕のようなスキルレベルを想定していない？<ul>
+<li>たとえば絵描きさんならミスせずにスラスラ書けるだろうから消しゴムが要らない</li>
+</ul>
+</li>
+<li>Q: アナログで描くときは僕はどうしてる？<ul>
+<li>消しゴムあんま使わないっすね</li>
+<li>描くことに慣れてるから</li>
+<li>……慣れ（スキル）か</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Undoがマジで欲しい<ul>
+<li><a href="https://scrapbox.io/forum-jp/Drawingにundo, redo, color機能などが欲しい">/forum-jp/Drawingにundo, redo, color機能などが欲しい</a></li>
+<li>要望書いた</li>
+<li>空気読まずにめっちゃ書いてみるテスト<ul>
+<li><a href="https://gyazo.com/8a9d7e33a39e531cbd72a0d032c8afb2" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/8a9d7e33a39e531cbd72a0d032c8afb2/raw" /></a></li>
+</ul>
+</li>
+<li>まあ僕が開発者だったら「別のツールでなんとかせい」言いそうな気もするが<ul>
+<li><a href="JS_Paint.md">JS Paint</a>初耳</li>
+<li>でもなー、Drawingのような単純なパレットが好きなのよん<ul>
+<li><a href="https://gyazo.com/203598a067579b83691ea66de105713b" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/203598a067579b83691ea66de105713b/raw" /></a></li>
+<li>これだけやからね</li>
+<li>mspaintは「ちょっと何か描きたい」場合にはノイジー</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>極力Scrapboxにこもりたい</li>
+<li>実装されたらしい！？<ul>
+<li><a href="https://gyazo.com/b14d5103c4eb4b6b1dd111cfbcf71b44" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/b14d5103c4eb4b6b1dd111cfbcf71b44/raw" /></a></li>
+<li>これ書くのに5回くらいundoした<ul>
+<li>してなかったら、消しゴムと行き来して、で二倍は時間かかってる</li>
+<li>いい</li>
+</ul>
+</li>
+<li>感謝を表明した<ul>
+<li><a href="https://gyazo.com/48ae815e0ac4ddb334d8aa4d30fbc152" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/48ae815e0ac4ddb334d8aa4d30fbc152/raw" /></a></li>
+<li><a href="https://scrapbox.io/forum-jp/Drawingにundo, redo, color機能などが欲しい#6056f5a379d3a90000c13ce0">/forum-jp/Drawingにundo, redo, color機能などが欲しい#6056f5a379d3a90000c13ce0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<h2 id="links">Links</h2>
+<ul>
+<li>← <a href="JS_Paint.md">JS Paint</a></li>
+</ul>
+<h2 id="2hop-links">2hop Links</h2>
+<ul>
+<li>→ <a href="ziteboard.md">ziteboard</a><ul>
+<li>← <a href="AWSの構成図つくるのマジでしんどい.md">AWSの構成図つくるのマジでしんどい</a></li>
+<li>← <a href="図や絵は描き込めるよりも埋め込める方が良い.md">図や絵は描き込めるよりも埋め込める方が良い</a></li>
+<li>← <a href="スレッドもチャンネルも、ページすらないオープンワールドSNS_純粋_.md">スレッドもチャンネルも、ページすらないオープンワールドSNS(純粋)</a></li>
+</ul>
+</li>
+<li>→ <a href="反応.md">反応</a><ul>
+<li>← <a href="反応するのはやめる.md">反応するのはやめる</a></li>
+<li>← <a href="PC2_ASUS_Gaming_Windows.md">PC2 ASUS Gaming Windows</a></li>
+<li>← <a href="7つの習慣.md">7つの習慣</a></li>
+</ul>
+</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js" defer></script>
+        <script src="search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>Scrapbox to Markdown 画像とicon記法の実装 - MkDocsでmany markdown filesの変換テスト</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <link href="stylesheet.css" rel="stylesheet">
+
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href=".">MkDocsでmany markdown filesの変換テスト</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#scrapbox-to-markdown-icon" class="nav-link">Scrapbox to Markdown 画像とicon記法の実装</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#links" class="nav-link">Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#2hop-links" class="nav-link">2hop Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="scrapbox-to-markdown-icon">Scrapbox to Markdown 画像とicon記法の実装</h2>
+<p>impl6</p>
+<ul>
+<li>画像いきます</li>
+<li><a href="Gyazoのリンクから画像の直リンクを得る.md">Gyazoのリンクから画像の直リンクを得る</a>には？<ul>
+<li><a href="Gyazo_API.md">Gyazo API</a>使うしかなさそう</li>
+<li>12500requests/日<ul>
+<li><a href="https://scrapbox.io/sta">/sta</a>が4500page、仮に5pageに1pageで画像1枚使ってるとすると、900枚</li>
+<li>まあ問題なさそうか</li>
+</ul>
+</li>
+<li>pagesize 1～100<ul>
+<li>100回をn回ぶん回すことになるね</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>実装は？<ul>
+<li>ステップ分けた方がいい</li>
+<li>json to markdownする前に「画像リンクするのに必要な情報を集めてくるフェーズ」を設ける<ul>
+<li>コマンド一発で行えるようにする</li>
+<li>トークンはたぶん用意してもらう必要があるな</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>つまり<ul>
+<li><code>.png</code>決め打ちでいいので変換をつくりきる</li>
+<li>Gyazo API使って正しいurlをゲットする処理（というかコマンド）</li>
+<li>↑ この二つがある</li>
+</ul>
+</li>
+<li>変換済ませたいから、前者からいきまふ<ul>
+<li><a href="PythonでinlineのScrapbox記法をMarkdown記法に変換する正規表現.md">PythonでinlineのScrapbox記法をMarkdown記法に変換する正規表現</a></li>
+<li>帰還</li>
+<li>追加で以下が必要です<ul>
+<li><a href="Gyazo_API.md">Gyazo API</a>を使って画像のURLと縦横比を手に入れる（手に入れておく）</li>
+<li>icon記法をパースして<code>&lt;img&gt;</code>タグに置換し、（その中身を）手に入れてた情報を使って仕上げる</li>
+</ul>
+</li>
+<li>が、これは<code>scb_to_markdown_in_line()</code>より上のレイヤーの仕事なので、ここではしません</li>
+</ul>
+</li>
+<li><a href="Scrapbox%E3%81%AEicon%E8%A8%98%E6%B3%95%E8%A1%A8%E7%A4%BA%E6%99%82%E3%81%AE%E7%B8%A6%E6%A8%AA%E6%AF%94.html">Scrapboxのicon記法表示時の縦横比</a> 調べる<ul>
+<li>行に収まるように配置している</li>
+<li>imgタグのheight/widthではどう指定すればいい？<ul>
+<li>ScrapboxはCSSで処理してるっぽいけど、Markdownに載せる場合はimgタグの表現力しか使えない</li>
+<li>だが<a href="HTMLのimgタグのheightやwidthで%は使っちゃダメ.md">HTMLのimgタグのheightやwidthで%は使っちゃダメ</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>imgタグ置換処理<ul>
+<li><code>:sta:</code></li>
+<li><code>:sta:</code> 丸々カットして</li>
+<li>replace <code>:XXX:</code> to <code>&lt;img src='ページXXXに載ってる画像のURL' width="同左縦横比に基づいたX" height="同左縦横比に基づいたY" /&gt;</code></li>
+<li>markdown layerではCSSもjsも使えないから、結論として<ul>
+<li>pixel値だけで頑張る必要がある</li>
+<li>行の高さはわからない（ので適当に決め打ちするしかない）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>実装<ul>
+<li>repl.it用</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-py">import re
+
+s = '''画像 noindent
+
+![](https://i.gyazo.com/e4aae2345d1927c777db267138d1e419.jpg)
+
+&lt;br&gt;
+
+画像 indent
+
+- ![](https://i.gyazo.com/639242beda8d44936421325524cd99f3.jpg)
+    - ![](https://i.gyazo.com/777cfb7cd2528ebf90db1617ed659a40.jpg)
+
+&lt;br&gt;
+
+- ユーザーアイコンはどうしましょうか:sta:
+    - わかるー（x3 してます）:sta:
+    - わかるー:sta::sta::sta:
+
+&lt;br&gt;
+'''
+lines = s.split('\n')
+
+RE_ICON_TO_REMOVE_NONGREEDY = re.compile(r'\(.+?\.icon(\*[0-9]+){0,1}\.md\)')
+
+RE_ICON_TO_REPLACE_TO_IMG = re.compile(r'\[(.+?)\.icon\]')
+
+for i,line in enumerate(lines):
+  newline = line
+  newline = re.sub(RE_ICON_TO_REMOVE_NONGREEDY, '', newline)
+  if line==newline:
+    continue
+
+  newline = re.sub(RE_ICON_TO_REPLACE_TO_IMG, '&lt;img src=&quot;\\1&quot; height=&quot;32&quot; /&gt;', newline)
+  print('{}: {}'.format(i, newline))
+</code></pre>
+<ul>
+<li>...<ul>
+<li>丸々カット<ul>
+<li><code>RE_ICON_TO_REMOVE = re.compile(r'\(.+\.icon(\*[0-9](0-9.md)+){0,1}\.md\)')</code><ul>
+<li>これだと非貪欲にならん</li>
+</ul>
+</li>
+<li><code>RE_ICON_TO_REMOVE_NONGREEDY = re.compile(r'\((.+\.icon(\*[0-9](0-9.md)+){0,1}\.md)?\)')</code><ul>
+<li>これも結果変わらず</li>
+<li>というか「非貪欲の<code>?</code>」は<code>?</code>か<code>*</code>か<code>+</code>につけるものか</li>
+</ul>
+</li>
+<li><code>RE_ICON_TO_REMOVE_NONGREEDY = re.compile(r'\(.+?\.icon(\*[0-9](0-9.md)+){0,1}\.md\)')</code><ul>
+<li>year!</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>imgタグ化<ul>
+<li><code>RE_ICON_TO_REPLACE_TO_IMG = re.compile(r'\[(.+?)\.icon(\*[0-9]((.+?)\.icon(\*[0-9.md)+){0,1}\]')</code></li>
+<li><a href="https://gyazo.com/3ce91d9512e81b8c1b45e4af5df96176" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/3ce91d9512e81b8c1b45e4af5df96176/raw" /></a></li>
+<li><code>icon*3</code> ← このn-repeatの対処が難しい。。。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<h2 id="links">Links</h2>
+<ul>
+<li>← <a href="Scrapbox_to_Markdown.html">Scrapbox to Markdown</a></li>
+<li>← <a href="アイコン記法を画像として埋め込む.md">アイコン記法を画像として埋め込む</a></li>
+</ul>
+<h2 id="2hop-links">2hop Links</h2>
+<ul>
+<li>→ <a href="HTMLのimgタグのheightやwidthで%は使っちゃダメ.md">HTMLのimgタグのheightやwidthで%は使っちゃダメ</a><ul>
+<li>← <a href="アイコン記法を画像として埋め込む.md">アイコン記法を画像として埋め込む</a></li>
+</ul>
+</li>
+<li>→ <a href="Scrapbox%E3%81%AEicon%E8%A8%98%E6%B3%95%E8%A1%A8%E7%A4%BA%E6%99%82%E3%81%AE%E7%B8%A6%E6%A8%AA%E6%AF%94.html">Scrapboxのicon記法表示時の縦横比</a><ul>
+<li>← <a href="アイコン記法を画像として埋め込む.md">アイコン記法を画像として埋め込む</a></li>
+</ul>
+</li>
+<li>→ <a href="Gyazoのリンクから画像の直リンクを得る.md">Gyazoのリンクから画像の直リンクを得る</a><ul>
+<li>← <a href="✅Gyazo埋め込みの画像を表示する.md">✅Gyazo埋め込みの画像を表示する</a></li>
+<li>← <a href="Gyazo_API.md">Gyazo API</a></li>
+</ul>
+</li>
+<li>→ <a href="PythonでinlineのScrapbox記法をMarkdown記法に変換する正規表現.md">PythonでinlineのScrapbox記法をMarkdown記法に変換する正規表現</a><ul>
+<li>← <a href="Scrapbox_to_Markdown_%E6%96%87%E6%B3%95%E5%A4%89%E6%8F%9B%E3%81%AE%E8%A8%AD%E8%A8%88%E3%82%84%E3%82%89%E5%AE%9F%E8%A3%85%E3%82%84%E3%82%89.html">Scrapbox to Markdown 文法変換の設計やら実装やら</a></li>
+<li>← <a href="Scrapbox_to_Markdown_%E3%82%B3%E3%83%BC%E3%83%89%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF.html">Scrapbox to Markdown コードブロック</a></li>
+</ul>
+</li>
+<li>→ <a href="Gyazo_API.md">Gyazo API</a><ul>
+<li>← <a href="✅Gyazo埋め込みの画像を表示する.md">✅Gyazo埋め込みの画像を表示する</a></li>
+<li>← <a href="PythonでinlineのScrapbox記法をMarkdown記法に変換する正規表現.md">PythonでinlineのScrapbox記法をMarkdown記法に変換する正規表現</a></li>
+<li>← <a href="Gyazoのリンクから画像の直リンクを得る.md">Gyazoのリンクから画像の直リンクを得る</a></li>
+</ul>
+</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js" defer></script>
+        <script src="search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

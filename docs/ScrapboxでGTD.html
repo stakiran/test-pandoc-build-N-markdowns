@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>ScrapboxでGTD - MkDocsでmany markdown filesの変換テスト</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <link href="stylesheet.css" rel="stylesheet">
+
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href=".">MkDocsでmany markdown filesの変換テスト</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#scrapboxgtd" class="nav-link">ScrapboxでGTD</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#links" class="nav-link">Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#2hop-links" class="nav-link">2hop Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="scrapboxgtd">ScrapboxでGTD</h2>
+<p><br></p>
+<p><strong>2021/02/11</strong></p>
+<ul>
+<li>モチベーションが続かない</li>
+<li>それと<a href="My_Wtta.md">My Wtta</a>つくったので、こっちで満足しそう</li>
+</ul>
+<p><br></p>
+<p><strong>2021/01/30</strong></p>
+<ul>
+<li><a href="https://scrapbox.io/sta-gtd">/sta-gtd</a>でサンプルつくってみている<ul>
+<li><a href="GTDを噛み砕く.md">GTDを噛み砕く</a>のテンプレートつくってる感じになってる</li>
+<li>サンプルは僕の例（を公開しても問題ないようにいじったもの）</li>
+</ul>
+</li>
+<li>厄介そうなもの<ul>
+<li>~~リマインダー~~各自外部ツール使う</li>
+<li>~~カレンダー~~各自外部ツール使う</li>
+<li>NextAction</li>
+<li>レビューログ<ul>
+<li>たぶん<a href="デイリーページ.md">デイリーページ</a>つくって、そこに日記とデイリータスクリストと日時レビュー書く感じになる</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p><strong>2021/01/19</strong></p>
+<ul>
+<li>普通にいけると思った<ul>
+<li>主要な箱をpinnedする</li>
+<li>各箱ページは以下構成にする<ul>
+<li>何を書くか</li>
+<li>一行一ネタで書き並べる</li>
+<li>でかい内容は別ページつくる</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>部品のうち実装が難しそうなもの<ul>
+<li>リマインダー<ul>
+<li>キッチンタイマーなど別手段で頑張ってもらうしか……</li>
+<li><a href="UserScriptでリマインダーを実現する.md">UserScriptでリマインダーを実現する</a></li>
+</ul>
+</li>
+<li>カレンダー<ul>
+<li>ただの予定リストになる</li>
+<li><a href="カレンダーではなく予定リストを使う.md">カレンダーではなく予定リストを使う</a></li>
+</ul>
+</li>
+<li>NextAction<ul>
+<li>:sta:ここで力尽きた。続きここからねー</li>
+<li>うちデイリータスクリストは、今つくってる<a href="scrapbox-dailytasklist.html">scrapbox-dailytasklist</a>でいける</li>
+</ul>
+</li>
+<li>レビューログ</li>
+</ul>
+</li>
+<li>箱はどう実装するか<ul>
+<li>以下のいずれかにする<ul>
+<li>箱ページ内に、1行1ネタで書く</li>
+<li>1ネタを1ページでつくり、箱タグをつける</li>
+</ul>
+</li>
+<li>確実に目を通したいネタは、箱ページ内に列挙しておく</li>
+<li>以下の箱については、箱タグが良い（常に新規ページで投入する）<ul>
+<li>インボックス</li>
+<li>いつかやる</li>
+</ul>
+</li>
+<li>以下の箱については、箱タグも箱ページ内記載も必須ではない<ul>
+<li>資料</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>pinnedはどれくらい？<ul>
+<li>:v:23, 20, 18, 14<ul>
+<li>ただしログページは換算してないです</li>
+</ul>
+</li>
+<li>愚直に行けば23</li>
+<li>heightの4つを1ページにするなら-3、20</li>
+<li>3つのステップも1ページにするなら-2、18</li>
+<li>レビューも1ページにするなら-4、14</li>
+</ul>
+</li>
+<li>部品たち x23<ul>
+<li>動き方 x11<ul>
+<li>小道具 x2<ul>
+<li>トリガーリスト</li>
+<li>リマインダー</li>
+</ul>
+</li>
+<li>レビュー x5<ul>
+<li>日次</li>
+<li>週次</li>
+<li>月次</li>
+<li>年次</li>
+<li>随時</li>
+</ul>
+</li>
+<li>定期性 x1<ul>
+<li>デイリータスクリスト（ルーチンタスクを日々列挙する）</li>
+</ul>
+</li>
+<li>3つのステップ  x3<ul>
+<li>収集<ul>
+<li>徹底的</li>
+<li>定期的</li>
+<li>突発的</li>
+</ul>
+</li>
+<li>やるやらない仕分け</li>
+<li>ブレイクダウン</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>箱 x12(カッコ内はリストボリューム。10、100、1000、10000)<ul>
+<li>height x4<ul>
+<li>5000m(-10)</li>
+<li>4000m(-10)</li>
+<li>3000m(-100)</li>
+<li>2000m(-10)</li>
+</ul>
+</li>
+<li>1000m(Project)(-1000)</li>
+<li>0m(NextAction)(-1000)</li>
+<li>インボックス(-100)</li>
+<li>ゴミ箱(-)</li>
+<li>資料(-10000)</li>
+<li>いつかやる(-10000)</li>
+<li>カレンダー(-100)</li>
+<li>連絡待ち(-100)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p>tools</p>
+<ul>
+<li>改行1000行の挿入 for inbox洗い出し</li>
+</ul>
+<p><br></p>
+<p><strong>2020/06/12</strong></p>
+<ul>
+<li>Scrapboxで<a href="GTD.md">GTD</a>システムを実現できるか</li>
+<li>:sta:多少「この手順に従え」感は出てくるが、いける気がする<ul>
+<li>テンプレつくって json をアップして「各自これインポートしたら使えるよ」にしたい</li>
+<li>インポートしたら、あとは指示に従って動かしてみてねーみたいな</li>
+<li><a href="GTDを噛み砕く.md">GTDを噛み砕く</a>をそのままScrapboxプロジェクトにする感じになると思う<ul>
+<li>(2021/01/19) これは正しそうだぞ</li>
+</ul>
+</li>
+</ul>
+</li>
+<li></li>
+</ul>
+<p><br></p>
+<h2 id="links">Links</h2>
+<ul>
+<li>← <a href="scrapbox-reminder.html">scrapbox-reminder</a></li>
+<li>← <a href="UserScriptでリマインダーを実現する.md">UserScriptでリマインダーを実現する</a></li>
+</ul>
+<h2 id="2hop-links">2hop Links</h2>
+<ul>
+<li>→ <a href="カレンダーではなく予定リストを使う.md">カレンダーではなく予定リストを使う</a><ul>
+<li>← <a href="個人タスク管理を見直す.md">個人タスク管理を見直す</a></li>
+</ul>
+</li>
+<li>→ <a href="scrapbox-dailytasklist.html">scrapbox-dailytasklist</a><ul>
+<li>← <a href="UserScriptとの付き合い方を再考する.md">UserScriptとの付き合い方を再考する</a></li>
+<li>← <a href="Scrapbox_As_A_TaskManagement.html">Scrapbox As A TaskManagement</a></li>
+<li>← <a href="プログラミングフットワーク.md">プログラミングフットワーク</a></li>
+</ul>
+</li>
+<li>→ <a href="GTDを噛み砕く.md">GTDを噛み砕く</a><ul>
+<li>← <a href="トリガーリスト.md">トリガーリスト</a></li>
+<li>← <a href="強い人は喋れる_.md">強い人は喋れる？</a></li>
+<li>← <a href="格言.md">格言</a></li>
+</ul>
+</li>
+<li>→ <a href="デイリーページ.md">デイリーページ</a><ul>
+<li>← <a href="今日整理したこと.md">今日整理したこと</a></li>
+</ul>
+</li>
+<li>→ <a href="My_Wtta.md">My Wtta</a><ul>
+<li>← <a href="作業机.md">作業机</a></li>
+<li>← <a href="群島のメタファー.md">群島のメタファー</a></li>
+<li>← <a href="そろそろペインでもタブでもない新しいUIが欲しい.md">そろそろペインでもタブでもない新しいUIが欲しい</a></li>
+</ul>
+</li>
+<li>→ <a href="GTD.md">GTD</a><ul>
+<li>← <a href="パーキングロット.md">パーキングロット</a></li>
+<li>← <a href="多重ビジョンとカメレオンビジョン.md">多重ビジョンとカメレオンビジョン</a></li>
+<li>← <a href="パフォーマンスとしての抱負.md">パフォーマンスとしての抱負</a></li>
+</ul>
+</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js" defer></script>
+        <script src="search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>Scrapboxでタスク管理できるか考えてみる スクリプト未使用  - MkDocsでmany markdown filesの変換テスト</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <link href="stylesheet.css" rel="stylesheet">
+
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href=".">MkDocsでmany markdown filesの変換テスト</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#scrapbox" class="nav-link">Scrapboxでタスク管理できるか考えてみる（スクリプト未使用）</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#links" class="nav-link">Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#2hop-links" class="nav-link">2hop Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="scrapbox">Scrapboxでタスク管理できるか考えてみる（スクリプト未使用）</h2>
+<ul>
+<li>「Scrapboxだけ使ってタスク管理をしなければなりません」としたら</li>
+<li>まずは実行日の概念<ul>
+<li><a href="2020_06_04.md">2020/06/04</a>みたいなページをデイリーリストにする</li>
+<li><a href="2020_06_05.md">2020/06/05</a></li>
+</ul>
+</li>
+<li>タスク<ul>
+<li>せっかくならページ持たせたいよな</li>
+<li>入力補完で再利用性＆入力簡略化できそう</li>
+</ul>
+</li>
+<li>ルーチンタスク<ul>
+<li>ページ名に属性を持たせる<ul>
+<li>@3</li>
+<li>セクションは？<ul>
+<li>a 午前</li>
+<li>b 昼休憩</li>
+<li>c 午後前半</li>
+<li>d おやつタイム</li>
+<li>e 午後後半</li>
+<li>f 撤収</li>
+<li>g 夜休憩</li>
+<li>h 就寝前フリー</li>
+<li>z いつでも</li>
+</ul>
+</li>
+<li><a href="@3_a_洗濯.md">@3 a 洗濯</a></li>
+<li><a href="@3_a_掃除_床_トイレ.md">@3 a 掃除 床 トイレ</a></li>
+<li><a href="@3_a_掃除_床_リビング.md">@3 a 掃除 床 リビング</a></li>
+<li><a href="@3_z_掃除_机_ほこり.md">@3 z 掃除 机 ほこり</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>終了操作
+        - <a href="@3_a_洗濯.md">@3 a 洗濯</a><ul>
+<li>↓ complete<ul>
+<li>~~<a href="@3_a_洗濯.md">@3 a 洗濯</a>~~ <code>~~[@3 a 洗濯~~(@3_a_洗濯.md)]</code></li>
+<li>~~@3 a 洗濯~~ <code>~~@3 a 洗濯~~</code></li>
+<li><a href="@3_a_洗濯.md">@3 a 洗濯</a>] <code>[@3 a 洗濯](@3_a_洗濯.md)]</code></li>
+<li>[<a href="[@3_a_洗濯.md">@3 a 洗濯</a>] <code>[[@3 a 洗濯]([@3_a_洗濯.md)]</code></li>
+<li>~~@3 a 洗濯~~] <code>~~@3 a 洗濯~~]</code></li>
+<li>~~[@3 a 洗濯~~(@3 a 洗濯.md) <code>~~[@3 a 洗濯~~(@3 a 洗濯.md)</code></li>
+</ul>
+</li>
+<li>正解<ul>
+<li>todo<ul>
+<li>
+<ul>
+<li><a href="@3_a_洗濯.md">@3 a 洗濯</a>]</li>
+<li>こっちが打ちやすいかな</li>
+</ul>
+</li>
+<li>[ <a href="_[@3_a_洗濯.md">@3 a 洗濯</a>]</li>
+</ul>
+</li>
+<li>done <code>~~[@3 a 洗濯~~(@3 a 洗濯.md)]</code><ul>
+<li>~~<a href="@3_a_洗濯.md">@3 a 洗濯</a>~~</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>- [@3 a 洗濯](@3_a_洗濯.md)]</code> これを手で打つのはしんどい<ul>
+<li><a href="UserScript.md">UserScript</a>でAdd Task的な操作を用意してやる<ul>
+<li>possible?<ul>
+<li>yes!<ul>
+<li><a href="https://gyazo.com/d86fdcf9b38ec0a3b1bdc1161b1d488a" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/d86fdcf9b38ec0a3b1bdc1161b1d488a/raw" /></a></li>
+<li><code>.cursor-line</code>でselectできる</li>
+<li>insert時はちょっと煩雑<ul>
+<li><a href="https://gyazo.com/4e326876b592bb480067762a8c618748" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/4e326876b592bb480067762a8c618748/raw" /></a></li>
+<li>spanタグ一つに1文字</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="console.log(scrapbox).md">console.log(scrapbox)</a> scrapbox objではダメね</li>
+<li>クリップボード？ <a href="https://developer.mozilla.org/ja/docs/Mozilla/Add-ons/WebExtensions/Interact_with_the_clipboard">クリップボードとのやりとり - Mozilla - MDN</a></li>
+<li>keypush?<ul>
+<li><a href="https://stackoverflow.com/questions/596481/is-it-possible-to-simulate-key-press-events-programmatically">javascript - Is it possible to simulate key press events programmatically? - Stack Overflow</a><ul>
+<li>無理やりそうで動くかわかんねぇ</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>- [★]](★].md)</code><ul>
+<li>★にカーソル</li>
+<li>ちゃんと補完きく</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>一日のデイリータスクリスト組み立て<ul>
+<li>その日のデイリーページつくる</li>
+<li>タスク列挙</li>
+<li>ルーチンタスク列挙<ul>
+<li>ここがだるいよなぁ</li>
+<li>@3 とかだとカウントできない</li>
+<li>曜日固定？<ul>
+<li><a href="wed_トイレ_掃除.md">wed トイレ 掃除</a></li>
+<li>これだと水曜固定になるが<ul>
+<li>いや、木曜のデイリーページから補完して書くってのもできる</li>
+</ul>
+</li>
+<li>@2ならたとえば木土にして<a href="thu_トイレ_掃除.md">thu トイレ 掃除</a>と<a href="sat_トイレ_掃除.md">sat トイレ 掃除</a>をつくっておくとか</li>
+<li>トイレ掃除をfriにしたい<ul>
+<li><a href="fri_トイレ_掃除.md">fri トイレ 掃除</a>つくればいいさー</li>
+<li>で、各タスクページみたら「何月何日にリストに入れたか」が全部見える</li>
+</ul>
+</li>
+<li>水曜のページだと機械的に wed- と打ちたいよな<ul>
+<li>いや we- でいい</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>曜日prefixでいけそうやぞ</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>★続きここから</li>
+</ul>
+<p><br></p>
+<p><strong>3</strong></p>
+<ul>
+<li>TODOリストとしての使用に落ち着きそう？<ul>
+<li><a href="Scrapbox%E4%B8%8A%E3%81%A7%E3%83%AB%E3%83%BC%E3%83%A0%E3%83%84%E3%82%A2%E3%83%BC%E3%82%84%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%8B_Ver4.0.html">Scrapbox上でルームツアーやってみる Ver4.0</a>で試しに</li>
+<li><a href="https://gyazo.com/0c93ced160579189e4e45714e656afb8" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/0c93ced160579189e4e45714e656afb8/raw" /></a></li>
+<li>あと <code>]</code> を書くだけで strike out になるわけよ</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p><strong>2</strong></p>
+<ul>
+<li>記録ベースにするなら<ul>
+<li>06:26:45 タスクA</li>
+<li>06:26:49 タスクBをした この時間はつらい</li>
+<li>06:26:59 タスクC </li>
+<li>……</li>
+</ul>
+</li>
+<li>デイリーログをベースにするのがやりやすいかも<ul>
+<li>taskchuteみたく家事など些細なことの管理はやめる</li>
+<li>これ、もろ<a href="日記の魔力.md">日記の魔力</a>読んでて思いついたやつなんだがｗ</li>
+</ul>
+</li>
+<li>こうか？<ul>
+<li>計画的タスク管理……宣言的。いつ何をやるか、後で何するかを先に入れておく。</li>
+<li>記録的タスク管理……報告的。やったことを簡潔に記録し、あとでやるレビューや内省の材料にする。</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p><strong>1</strong></p>
+<ul>
+<li><a href="Scrapbox.html">#Scrapbox</a> で <a href="タスク管理.md">#タスク管理</a> 、考えてみたら面白そう</li>
+<li>~~script？使ったら <a href="-#Tritask]_Tritask.md">#Tritask~~(Tritask.md) 的な行指向できそうだが</a> 的な行指向できそうだが.md) いったん手作業オンリーを想定する</li>
+<li>アウトライナーでやるみたいになるのかなぁ……</li>
+<li>バレットジャーナル</li>
+<li>本質的には手作業で <a href="DWMY.md">DWMY</a> なエリアをつくってる</li>
+<li>Scrapbox の性質<ul>
+<li>プロジェクト</li>
+<li>ページ</li>
+<li>リスト</li>
+<li>リンク</li>
+<li>code</li>
+<li>同時編集ができる<ul>
+<li>パートナータスク管理しやすそう</li>
+<li>Slack 夫婦で使ってる、の Scrapbox 版<ul>
+<li>Slack はフローなやり取りメイン</li>
+<li>Scrapbox はストックなやり取りメイン？</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ルーチンタスク<ul>
+<li>ページにストックしていたのを毎日デイリータスクリストにコピペ？</li>
+<li>前日のデイリータスクリストを見て「これ要るわ」な分を今日のリストにコピペ？</li>
+<li>テーブルつくったら「家事当番テーブル」みたいな感じで実現できないか？<ul>
+<li><a href="ルーチンエリア.md">ルーチンエリア</a></li>
+<li>table:routines</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th>↓</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>taskname</td>
+<td>毎日</td>
+<td>月</td>
+<td>火</td>
+<td>水</td>
+<td>木</td>
+<td>金</td>
+<td>土</td>
+<td>日</td>
+</tr>
+<tr>
+<td>routine1</td>
+<td>*</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>routine2</td>
+<td></td>
+<td>*</td>
+<td></td>
+<td></td>
+<td>*</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>routine3</td>
+<td></td>
+<td>*</td>
+<td></td>
+<td></td>
+<td></td>
+<td>*</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>routine4</td>
+<td></td>
+<td>*</td>
+<td>*</td>
+<td>*</td>
+<td>*</td>
+<td>*</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>routine5</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>*</td>
+<td>*</td>
+</tr>
+<tr>
+<td>routine6</td>
+<td></td>
+<td></td>
+<td>*</td>
+<td>*</td>
+<td>*</td>
+<td></td>
+<td>*</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>...<ul>
+<li>...<ul>
+<li>↑ こんな感じであらかじめつくっておく</li>
+<li>ページにストック、の「テーブルで書いておく」版か</li>
+<li>今日は目印として <code>↓</code> でも書いておけばいい</li>
+<li>惜しい、アイコンまではかけねえかー</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>-</code> つけるだけで todo リストできる？<ul>
+<li><code>[ todo](_todo.md)</code> ダメ。リンクになる</li>
+<li><code>[-0 todo]</code> 0 を消せば打ち消し線になる<ul>
+<li>何文字だと一番いい？</li>
+<li>[-0 todo]</li>
+<li>[-= todo]</li>
+<li>[-todo]<ul>
+<li>間にスペース入れて打ち消しできる</li>
+<li>が、リンクになっちゃうな</li>
+</ul>
+</li>
+<li>[- todo<ul>
+<li>これは？</li>
+<li>終わったら末尾に <code>]</code> つけるだけでいい<ul>
+<li>---- 画像 ----</li>
+<li><a href="https://gyazo.com/2d260e0ddd0204c846bab6c59fbe12df" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/2d260e0ddd0204c846bab6c59fbe12df/raw" /></a></li>
+<li>---- 画像 ----</li>
+</ul>
+</li>
+<li>先頭も <code>[</code> がついてるので視覚的に todo だとわかりやすい</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p><strong>0</strong></p>
+<ul>
+<li>:sta:ちょっとガチりたい<ul>
+<li>タスク管理じゃない情報蓄積ツール上でタスク管理を実現する</li>
+<li>いわばタスク管理システムの<a href="DIY.md">DIY</a>ともいうべき考え方<ul>
+<li>いや<a href="DDIY.md">DDIY</a>か</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>違うかも<ul>
+<li>「n種類のタスク」セット</li>
+<li>これをどのように管理するかを考えることで、色んなシステムを想定することができる的な</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p><br></p>
+<h2 id="links">Links</h2>
+<ul>
+<li>← <a href="Scrapbox%E3%81%A7%E3%82%BF%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86.html">Scrapboxでタスク管理</a></li>
+</ul>
+<h2 id="2hop-links">2hop Links</h2>
+<ul>
+<li>→ <a href="DDIY.md">DDIY</a><ul>
+<li>← <a href="ガラケーどうする.md">ガラケーどうする</a></li>
+<li>← <a href="家計簿をDDIYする.md">家計簿をDDIYする</a></li>
+<li>← <a href="連番を自動生成したい.md">連番を自動生成したい</a></li>
+</ul>
+</li>
+<li>→ <a href="タスク管理.md">タスク管理</a><ul>
+<li>← <a href="Scrapbox%E3%81%A0%E3%81%A8Expose_my_life%E3%81%8C%E5%8A%A0%E9%80%9F%E3%81%A7%E3%81%8D%E3%82%8B%E6%B0%97%E3%81%8C%E3%81%99%E3%82%8B.html">ScrapboxだとExpose my lifeが加速できる気がする</a></li>
+<li>← <a href="タスク管理の体系化.md">タスク管理の体系化</a></li>
+<li>← <a href="不発.md">不発</a></li>
+</ul>
+</li>
+<li>→ <a href="Scrapbox%E4%B8%8A%E3%81%A7%E3%83%AB%E3%83%BC%E3%83%A0%E3%83%84%E3%82%A2%E3%83%BC%E3%82%84%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%8B_Ver4.0.html">Scrapbox上でルームツアーやってみる Ver4.0</a><ul>
+<li>← <a href="デスク1.md">デスク1</a></li>
+<li>← <a href="僕のミニマリズム.md">僕のミニマリズム</a></li>
+<li>← <a href="ルームツアー日記.md">ルームツアー日記</a></li>
+</ul>
+</li>
+<li>→ <a href="UserScript.md">UserScript</a><ul>
+<li>← <a href="Scrapbox%E3%81%B8%E3%81%AE%E8%A6%81%E6%9C%9B.html">Scrapboxへの要望</a></li>
+<li>← <a href="ScrapCalc.md">ScrapCalc</a></li>
+<li>← <a href="Scrapbox_As_A_Brarea.html">Scrapbox As A Brarea</a></li>
+</ul>
+</li>
+<li>→ <a href="日記の魔力.md">日記の魔力</a><ul>
+<li>← <a href="タスクランチャー.md">タスクランチャー</a></li>
+<li>← <a href="知的生産入門者のための「知的生産のABCD」.md">知的生産入門者のための「知的生産のABCD」</a></li>
+<li>← <a href="航海日誌スタイル.md">航海日誌スタイル</a></li>
+</ul>
+</li>
+<li>→ <a href="console.log_scrapbox_.md">console.log(scrapbox)</a><ul>
+<li>← <a href="takker-tritask-scrapboxの実装を読む.md">takker-tritask-scrapboxの実装を読む</a></li>
+<li>← <a href="tritask-scrapboxの初期検討残骸.md">tritask-scrapboxの初期検討残骸</a></li>
+</ul>
+</li>
+<li>→ <a href="DIY.md">DIY</a><ul>
+<li>← <a href="面白ければなんでもあり_発行累計6000万部――とある編集の仕事目録.md">面白ければなんでもあり　発行累計6000万部――とある編集の仕事目録</a></li>
+<li>← <a href="充電ケーブル類をぶらさげて保管したい.md">充電ケーブル類をぶらさげて保管したい</a></li>
+<li>← <a href="じぶんリリースノート_0.32.10.md">じぶんリリースノート 0.32.10</a></li>
+</ul>
+</li>
+<li>→ <a href="DWMY.md">DWMY</a><ul>
+<li>← <a href="締切制約.md">締切制約</a></li>
+<li>← <a href="起承転結.md">起承転結</a></li>
+<li>← <a href="Habitica.md">Habitica</a></li>
+</ul>
+</li>
+<li>→ <a href="ルーチンエリア.md">ルーチンエリア</a><ul>
+<li>← <a href="scrapbox-routinearea.html">scrapbox-routinearea</a></li>
+</ul>
+</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js" defer></script>
+        <script src="search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

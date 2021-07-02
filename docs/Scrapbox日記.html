@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>Scrapbox日記 - MkDocsでmany markdown filesの変換テスト</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <link href="stylesheet.css" rel="stylesheet">
+
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href=".">MkDocsでmany markdown filesの変換テスト</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#scrapbox" class="nav-link">Scrapbox日記</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#links" class="nav-link">Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#2hop-links" class="nav-link">2hop Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="scrapbox">Scrapbox日記</h2>
+<p>Scrapboxに関する気づきや学びや感想を並べていく。</p>
+<p>日付は書かないが、新しいものほど上。</p>
+<p><br></p>
+<ul>
+<li>……と思ったけど、いちいち並べるのもだるいので、もういいか</li>
+</ul>
+<p><br></p>
+<ul>
+<li><a href="Scrapbox%E3%82%92%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E3%81%A8Firefox%E3%81%8C%E9%87%8D%E3%81%8F%E3%81%AA%E3%82%8B%E3%81%93%E3%81%A8%E3%81%8C%E3%81%82%E3%82%8B.html">ScrapboxをしているとFirefoxが重くなることがある</a></li>
+<li><a href="Scrapbox%E3%81%A7%E3%81%A9%E3%81%AE%E7%A8%8B%E5%BA%A6%E3%81%8A%E7%A4%BC%E3%82%92%E6%9B%B8%E3%81%91%E3%81%B0%E3%81%84%E3%81%84%E3%81%8B%E3%81%8C%E3%82%8F%E3%81%8B%E3%82%89%E3%81%AA%E3%81%84.html">Scrapboxでどの程度お礼を書けばいいかがわからない</a></li>
+<li><a href="Scrapbox%E3%81%A7%E3%82%BF%E3%82%A4%E3%83%88%E3%83%AB%E3%82%92%E7%84%A1%E8%A6%96%E3%81%97%E3%81%9F%E4%BD%BF%E3%81%84%E6%96%B9%E3%82%92%E3%81%99%E3%82%8C%E3%81%B0KJ%E6%B3%95%E3%81%A3%E3%81%BD%E3%81%84%E3%81%93%E3%81%A8%E3%81%8C%E3%81%A7%E3%81%8D%E3%82%8B_.html">Scrapboxでタイトルを無視した使い方をすればKJ法っぽいことができる？</a></li>
+<li><a href="URLをメモしておいたら検索しやすい.md">URLをメモしておいたら検索しやすい</a></li>
+<li><a href="結論アイコンを導入した.md">結論アイコンを導入した</a></li>
+<li><a href="oxアイコンを導入した.md">oxアイコンを導入した</a></li>
+<li><a href="キャラアイコンをつくって会話する遊び.md">キャラアイコンをつくって会話する遊び</a></li>
+<li><a href="Scrapbox%E4%B8%8A%E3%81%A7%E3%83%AB%E3%83%BC%E3%83%81%E3%83%B3%E3%82%BF%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%81%97%E3%81%9F%E3%81%84.html">Scrapbox上でルーチンタスク管理したい</a></li>
+<li><a href="自宅でScrapboxで反省できるから良い.md">自宅でScrapboxで反省できるから良い</a></li>
+<li><a href="個人public_projectに下ネタも書く理由.md">個人public projectに下ネタも書く理由</a></li>
+<li><a href="VScrapboxer.md">VScrapboxer</a></li>
+<li><a href="Scrapbox%E3%81%AB%E3%82%B3%E3%83%A1%E3%83%B3%E3%83%88%E3%82%92%E3%81%A4%E3%81%91%E3%82%8B.html">Scrapboxにコメントをつける</a></li>
+<li><a href="あえて手動で登録する手間をかける.md">あえて手動で登録する手間をかける</a></li>
+<li><a href="数日前に書いたページの存在を忘れる.md">数日前に書いたページの存在を忘れる</a></li>
+<li><a href="etc.md">etc</a></li>
+<li><a href="Scrapbox%E3%81%A7%E6%9B%B4%E6%96%B0%E3%81%AB%E6%B0%97%E4%BB%98%E3%81%8F%E6%96%B9%E6%B3%95.html">Scrapboxで更新に気付く方法</a></li>
+<li><a href="既存ページに合わせた強引な表現をする.md">既存ページに合わせた強引な表現をする</a></li>
+<li><a href="CAAAI.md">CAAAI</a></li>
+<li><a href="トップレベルでも箇条書きで書くと行並び替えが使える.md">トップレベルでも箇条書きで書くと行並び替えが使える</a></li>
+<li><a href="Scrapbox%E3%81%AE%E3%83%94%E3%83%B3%E7%95%99%E3%82%81%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%92%E5%86%8D%E8%80%83%E3%81%99%E3%82%8B.html">Scrapboxのピン留めページを再考する</a></li>
+<li>タイトルわかりづらいので変更<ul>
+<li>before: Scrapboxを使い始めてみる</li>
+<li>after: Scrapbox日記</li>
+</ul>
+</li>
+<li><a href="Scrapbox%E3%81%84%E3%81%98%E3%82%8A.html">Scrapboxいじり</a></li>
+<li><a href="Scrapbox%E3%81%A7%E3%83%A9%E3%83%96%E3%82%B3%E3%83%A1%E3%83%A9%E3%83%8E%E3%83%99.html">Scrapboxでラブコメラノベ</a></li>
+<li><a href="TwitterだとクソリプになるがScrapboxだとクソリプにならない.md">TwitterだとクソリプになるがScrapboxだとクソリプにならない</a></li>
+<li><a href="view2.md">view2</a></li>
+<li><a href="YouTubeで動画視聴しながらScrapboxでメモを取る.md">YouTubeで動画視聴しながらScrapboxでメモを取る</a></li>
+<li><a href="正論と情報をぶつけていきたいという欲求が加速する.md">正論と情報をぶつけていきたいという欲求が加速する</a></li>
+<li><a href="Scrapbox%E3%81%8C%E3%83%9E%E3%83%B3%E3%83%8D%E3%83%AA%E5%8C%96%E3%81%97%E3%81%9F%E3%82%89%E3%83%A9%E3%83%B3%E3%83%80%E3%83%A0%E3%83%9C%E3%82%BF%E3%83%B3_%E2%86%90_%E3%83%80%E3%83%A1%E3%81%A7%E3%81%99.html">Scrapboxがマンネリ化したらランダムボタン ← ダメです</a></li>
+<li><a href="リンクを付けない単発ページはどうすればいいんだろう.md">リンクを付けない単発ページはどうすればいいんだろう</a></li>
+<li><a href="記録したいから記録する_←_このモチベがあると強い.md">記録したいから記録する ← このモチベがあると強い</a></li>
+<li><a href="_で始めると強調されるんですが何ですかこれ_.md">?で始めると強調されるんですが何ですかこれ？</a></li>
+<li><a href="Scrapboxのsort by(特にlast visited)を非表示にする.md">Scrapboxのsort by(特にlast visited)を非表示にする</a></li>
+<li><a href="全部入りScrapboxならプライベートにした方が良いかも.md">全部入りScrapboxならプライベートにした方が良いかも</a></li>
+<li><a href="全部入りScrapboxの限界.md">全部入りScrapboxの限界</a></li>
+<li><a href="着飾るためのコンテンツをScrapboxに置くのは違うんじゃないか.md">着飾るためのコンテンツをScrapboxに置くのは違うんじゃないか</a></li>
+<li><a href="Streamページを並べてると出会えるかもしれない.md">Streamページを並べてると出会えるかもしれない</a></li>
+<li><a href="月一でカラフルになるScrapbox.md">月一でカラフルになるScrapbox</a></li>
+<li><a href="創作に浸かると更新が停滞する.md">創作に浸かると更新が停滞する</a></li>
+<li><a href="リンクは書きたいがLinksに表示させたくない場合.md">リンクは書きたいがLinksに表示させたくない場合</a></li>
+<li><a href="ブラウズ履歴が量産される.md">ブラウズ履歴が量産される</a></li>
+<li>マンネリ化したScrapboxに彩りを<ul>
+<li><a href="表記揺れ「やぁ」.md">表記揺れ「やぁ」</a></li>
+<li>セルフツッコミ</li>
+<li>ダミーユーザーに喋らせる<ul>
+<li>:user1:「こういうやつです」</li>
+<li>ページ名XXXに画像をアップすれば、<code>:XXX:</code>でアイコンになる</li>
+<li>僕は以下をつくっている<ul>
+<li><a href="テスト用ユーザー_users_for_test.md">テスト用ユーザー users for test</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="表記揺れ「やぁ」.md">表記揺れ「やぁ」</a><ul>
+<li>お茶目にすることでストレスを軽減する試み</li>
+</ul>
+</li>
+<li><a href="知的生産の最中にScrapboxで寄り道するのが楽しい.md">知的生産の最中にScrapboxで寄り道するのが楽しい</a></li>
+<li>exportしたjsonファイルからわかること、の案<ul>
+<li>指定タグを持っているが、指定キーワードを含まないページ</li>
+</ul>
+</li>
+<li>クオリティ考えずに貯めることが大事だ、的な<ul>
+<li>ブログやTwitterみたいにクオリティを考え出すと書きづらくなる</li>
+<li>備忘録書くつもりでゴリゴリ書けばいい、テキトーに書けばいい</li>
+<li>もちろん<a href="公開コスト.md">公開コスト</a>は必要だが</li>
+<li>分量も気にしなくていい</li>
+<li>何を残したいか、あるいは「貯まったら何か起こりそうなことは何か」を考える</li>
+<li>千里の道も一歩から<ul>
+<li>1000pageも1pageから</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ログアウトも遅いし、なんか失敗する<ul>
+<li>console.log みても serviceworker さんがなんかして処理終わってる<ul>
+<li>ネットワークタブ見ても通信は起きてない</li>
+</ul>
+</li>
+<li><a href="https://gyazo.com/e95b1b2abae7aae7c372bb9c7fef2bae" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/e95b1b2abae7aae7c372bb9c7fef2bae/raw" /></a></li>
+<li>自分の win10 firefox のみだが</li>
+<li>ログインも遅くて30秒以上待たされることがある<ul>
+<li>googleアカウントにもログインしていない状態のとき</li>
+<li>googleアカウントログイン済で、scrapboxにログインするアカウントを選ぶとき ← こっちは問題ない</li>
+</ul>
+</li>
+<li>ログアウトはstaの場合に遅い<ul>
+<li>page数が絡んでいる？</li>
+<li>としたら6000+pageの西尾さんとか超時間かかりそう</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="アイコンによる一人称.md">アイコンによる一人称</a></li>
+<li><a href="Scrapbox%E3%81%AE%E5%90%8C%E6%99%82%E7%B7%A8%E9%9B%86%E3%81%AF%E3%81%93%E3%81%86%E8%A6%8B%E3%81%88%E3%82%8B.html">Scrapboxの同時編集はこう見える</a></li>
+<li><a href="Scrapbox%E3%81%A7%E4%BC%91%E6%86%A9%E3%81%99%E3%82%8B.html">Scrapboxで休憩する</a></li>
+<li>Scrapboxのタグの使いみち一つ見つけた<ul>
+<li>マウスだけで関連を辿れるようにするため</li>
+<li>キーボでキーワード入れるのさえ面倒くさい場合</li>
+<li>inspired by 旅行ページ見てた</li>
+</ul>
+</li>
+<li>プログラミング用途でも使い始めた<ul>
+<li>例<ul>
+<li><a href="Pythonでdatetime.datetime.today()をoverwriteする.md">Pythonでdatetime.datetime.today()をoverwriteする</a></li>
+<li><a href="WindowsでローカルでIFTTTする.md">WindowsでローカルでIFTTTする</a></li>
+</ul>
+</li>
+<li>専門的なネタなので混ぜるのに抵抗がある<ul>
+<li>今まで：知的生産やらタスク管理 + 一般人でもわかるネタ</li>
+<li>プログラミングはどちらでもない<ul>
+<li>前者のクラスタの人が読んでもわからない</li>
+<li>後者ももちろん</li>
+</ul>
+</li>
+<li>読者に不親切ではないか？<ul>
+<li>:sta:いやチラ裏備忘録だしいいのでは</li>
+<li><a href="圧倒的な自己満足.md">圧倒的な自己満足</a></li>
+<li>僕の承認欲求が透けてみえる<ul>
+<li>読者が離れないために何を書くか、という視点</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>いいや</li>
+<li>何でもかんでも書いてみるん</li>
+</ul>
+</li>
+<li><a href="1000page突破.md">1000page突破</a></li>
+<li>情報収集を「他人のScprapboxを見る＆自分のプロジェクトに書きなぐる」にするのはどうか<ul>
+<li>満足感が高い気がする</li>
+<li>量よりも質を取りたい僕には適しているかも<ul>
+<li>浴びるように情報浴びてる人いるけど僕には無理<ul>
+<li><a href="デジタルミニマリズム.md">デジタルミニマリズム</a>しないと精神が保たない<ul>
+<li>毎日TwitterTL見まくってる人とかどんな精神してるんだろう</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>書いて自分の中に咀嚼しないと意味がない<ul>
+<li>:sta:物覚えが壊滅的なので、読んだだけでは確実に忘れる<ul>
+<li>後で活用すると見込んで記録する</li>
+<li>覚える、あとで手を付けること前提でまとめる</li>
+</ul>
+</li>
+<li>これまで1000冊は読んでいるが、読んだだけだから全然覚えてない<ul>
+<li>一時期自己啓発書と小説にハマっていたとき</li>
+<li>もったいなさすぎる</li>
+<li>月数冊でもいいから確実に消化していきたい</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Scrapboxだと中間が取れる<ul>
+<li>読むだけ（その場では満足だが続かない）</li>
+<li>＜Scrapboxだとこのへんができる＞</li>
+<li>がっつり咀嚼してノート取る</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="単語の間にスペースを入れなくてもいい.md">単語の間にスペースを入れなくてもいい</a></li>
+<li>冷蔵庫の上にScrapbox立ち上げた<a href="MBA.md">MBA</a>を置いておく<ul>
+<li>思いついたことすぐ書ける</li>
+<li>publicなプロジェクトなので結構頭使う<ul>
+<li><a href="公開コスト.md">公開コスト</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="読んだタグ要らんかも.md">読んだタグ要らんかも</a></li>
+<li><a href="いいかげんにつくる.md">いいかげんにつくる</a></li>
+<li>scrapboxさん、スマホからも使えるってマ?<ul>
+<li><a href="https://prtimes.jp/main/html/rd/p/000000011.000027275.html">Scrapbox、Android版PWAに対応。Android端末から超高速でScrapboxを利用できるように。｜Nota Inc.のプレスリリース</a></li>
+<li><a href="http://kaji-raku.net/lifehack/scrapbox/5140">Scrapboxをiphoneで使うにはPorterが便利 - らくたのぶろぐ</a><ul>
+<li>そうか、safariあるから普通にいけるのか</li>
+<li>porter使えばもうちょい便利になる</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>知らない言葉もページ化し始めた<ul>
+<li>主に読書ノート書いてる途中で</li>
+<li><a href="知的生産の技術.md">知的生産の技術</a></li>
+<li>とりあえず<a href="アナロジー.md">アナロジー</a>と<a href="失読症.md">失読症</a></li>
+</ul>
+</li>
+<li><strong>でかい文字 [sta.icon</strong>]<ul>
+<li>入れたアイコンもでかくなる</li>
+<li><strong>[sta.icon</strong>]<ul>
+<li><code>**[sta.icon**]</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>あまりリンクが繋がってない感じがする</strong><ul>
+<li>どこからのリンクされず埋もれていく<a href="死んだ文章.md">死んだ文章</a>が増える……<ul>
+<li>そういうもの？<ul>
+<li>:sta:そういうものです<ul>
+<li>そもそも全体の把握は諦めよ</li>
+<li>全体の整合性を合わせようとするな</li>
+<li>自由に書きまくって、リンクで繋げて、それで表に見えてきたものがすべてだ</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>僕は身体みたいにあらゆるページ（細胞）が程度の差はあれ活性化するのが理想と思っている<ul>
+<li>違う？</li>
+</ul>
+</li>
+<li>名詞を積極的にもっとリンク化する<ul>
+<li>よく参照されてる名詞、がわかるようになる<ul>
+<li>これの可視化が重要な気がしないでもない</li>
+<li>無視していいかな</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>わからん</li>
+<li>まあ色々と実験してみればいいさ（2ヶ月経った）</li>
+</ul>
+</li>
+<li>Scrapboxではtodoタグを使わない方がいい<ul>
+<li>自由に書いていくという自由さが削られているというか</li>
+<li>todoタグで調べながら処理するという「管理」になってる</li>
+<li>Scrapboxでやりたいのは管理じゃない</li>
+<li><code>#やってる</code> とか <code>#読んでる</code> とか消した</li>
+</ul>
+</li>
+<li><a href="そういうScrapoxプロジェクト、たぶんあるで.md">そういうScrapoxプロジェクト、たぶんあるで</a></li>
+<li>ちょっとrashitaさんと同時編集して学んだこと<ul>
+<li>名詞はリンクすべし</li>
+<li>あとで消すことも念頭にすればその場で会話するのもあり</li>
+</ul>
+</li>
+<li><a href="本人が教えてくれる.md">本人が教えてくれる</a><ul>
+<li>カーソルはメンバーじゃなくても見えるらしい</li>
+<li><blockquote>ほかの人がここに直接書き込んでくれて、知識の交換（交流）が行われる。</blockquote><ul>
+<li>体験してみてえなこれ</li>
+<li>書いているところに突如人がやってくる ← これ</li>
+<li>個人的な知的生産スペースに他人を入れるわけにはいかないので、みんなゴリゴリ書けるなにかが必要</li>
+<li>自発的にゴリゴリ書きたくなるレベルの何かが必要<ul>
+<li>みんな忙しいし、個人的な知的スペースで書きたいのがメインな気がする</li>
+<li><a href="知的生産のScrapbox.md">知的生産のScrapbox</a></li>
+<li><a href="セルフパブリッシングのScrapbox.md">セルフパブリッシングのScrapbox</a></li>
+</ul>
+</li>
+<li>普通に体験したいなら「仕事で使う」一択なんだろうけど</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>だよなぁ、Scrapboxの活用は珍しいことじゃない<ul>
+<li><a href="https://scrapbox.io/shiology/04923-171019_shio%E3%82%BC%E3%83%9F%E3%81%AE%E9%81%8B%E5%96%B6%E6%96%B9%E6%B3%95">04923-171019 shioゼミの運営方法 - shiology.org</a></li>
+<li><blockquote>ゼミで典型的な「発表」の時にスクリーンに表紙するのもScrapboxのページそのまま。発表中、聞いている学生たちも手元のMacで同じページを開いているから、みんながその場で内容を編集していきます。相互貢献。効率的。</blockquote></li>
+<li>僕はScrapboxを少し使ってみて、それができるくらいの想像はできた<ul>
+<li>会社の新規事業でも文句なしに使うべきだろう</li>
+<li>でも通じない</li>
+</ul>
+</li>
+<li>通じないのが歯がゆい<ul>
+<li>今僕がいるクラスタのメンバーがしょぼいから</li>
+<li>とするとやはり居場所を変えるしかないのか</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>羨ましすぎる<ul>
+<li><a href="https://medium.com/@scrapbox/goodpatch-anywhere-scrapbox-704e26d6321c">60名のデザインチーム「Goodpatch Anywhere」から学ぶ、フルリモートワークにおけるScrapbox活用</a></li>
+<li>ナレッジベース</li>
+<li>そう、日常会話やノウハウ共有もできるんだよね</li>
+<li>この例ではルンバ</li>
+<li><a href="Slack.md">Slack</a>じゃダメなの？<ul>
+<li>流れるからダメ</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="11].md">Scrapbox Drinkup <a href="Scrapbox_Drinkup_[#11.md">#11</a></a></li>
+<li><a href="GTD.md">GTD</a>の<a href="資料.md">資料</a>に置いてる<a href="ネタリスト.md">ネタリスト</a>がゴミと化している<ul>
+<li>全部scrapboxで扱っている<ul>
+<li>基本的に公開できないネタはない（ネタ≒知的生産して公開したいもの）</li>
+</ul>
+</li>
+<li>その場で扱うのがしんどいのは<a href="Tritask.md">Tritask</a>で <code>L ネタ名</code>というタスクつくってる<ul>
+<li>デイリータスクとして置いとく</li>
+<li>しんどそうなら明日にスキップする</li>
+</ul>
+</li>
+<li>消化はまとまった単位で行うことが多い<ul>
+<li>書き始めてるとエンジンが温まってくる感覚</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="よくタグ付けを忘れるんですけどどうすればいいですかね.md">よくタグ付けを忘れるんですけどどうすればいいですかね</a></li>
+<li><a href="貧弱なネット回線だとScrapboxは少し辛い.md">貧弱なネット回線だとScrapboxは少し辛い</a></li>
+<li>割とよく起こる編集エラー <ul>
+<li><a href="https://gyazo.com/1125c1c90be61c706076b7437536d9e0" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/1125c1c90be61c706076b7437536d9e0/raw" /></a></li>
+<li>行にまたがるcrudしてるとたまに起きる印象</li>
+<li>データ著しく消えるわけじゃないし仕様だと思ってスルーしとく<ul>
+<li>同期やら自動保存やらしてて本質的にエラー出やすいってのはなんとなくわかる</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>userscript load が毎回出るのなぜ？<ul>
+<li><a href="https://gyazo.com/9bc41914a23480c96eee91db4a10f079" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/9bc41914a23480c96eee91db4a10f079/raw" /></a></li>
+<li>cookie保存してないからかな？</li>
+</ul>
+</li>
+<li><a href="https://scrapbox.io/help-jp/ショートカットキー">/help-jp/ショートカットキー</a><ul>
+<li>文字を選択して <code>[</code> キーでリンク囲み<ul>
+<li><code>*</code> で太字 etc</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Scrapboxはネットサーフィンよりはマシな怠け方ができる<ul>
+<li>自分のプロジェクトをダラダラ眺める</li>
+<li>微修正する</li>
+<li>別に作品ではないから<a href="コンテキスト.md">コンテキスト</a>とか考えずに書き殴ればいい</li>
+</ul>
+</li>
+<li><a href="Markdown.md">Markdown</a>全然書かなくなった<ul>
+<li>日々のアイデアメモ、掘り下げ、<a href="https://scrapbox.io/sta-book15">/sta-book15</a>小説検討だけの話だが</li>
+<li>手元の<a href="GTD.md">GTD</a>の資料の一つである<a href="ネタリスト.md">ネタリスト</a>が死んでる<ul>
+<li>全部ここにぶちこんでる or ネクストアクションリストの<a href="Tritask.md">Tritask</a>にタスクとして残してる</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>タイトル変えたらリンク先も変えられる<ul>
+<li>これscrapboxの中核の一つじゃなかろうか</li>
+<li><a href="名前の修正はしんどい.md">名前の修正はしんどい</a></li>
+<li>名前は後で変えることがよくある</li>
+<li>でもscrapboxなら割と簡単に変えられる<ul>
+<li>生産性を損なわない</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="Scrapbox%E3%81%B8%E3%81%AE%E8%A6%81%E6%9C%9B.html">Scrapboxへの要望</a></li>
+<li><a href="https://scrapbox.io/rakusai/すべてのWikiは書きかけ">/rakusai/すべてのWikiは書きかけ</a><ul>
+<li><a href="常に未完成.md">常に未完成</a>というやつだ<ul>
+<li>完成しておわりではなく、いつでも誰でも自由にいじれる</li>
+<li>従来の手段だと難しかったけど、scrapboxなら比較的簡単にできる</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>開発陣のネタはここだ<ul>
+<li><a href="https://scrapbox.io/daiiz/Notaインターンに参加してScrapboxを作ってきました">/daiiz/Notaインターンに参加してScrapboxを作ってきました</a><ul>
+<li>こんな新人体験したいな</li>
+</ul>
+</li>
+<li><a href="https://scrapbox.io/remote/%E3%82%B3%E3%83%9F%E3%83%A5%E3%83%8B%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E6%B8%9B%E3%82%89%E3%81%9D%E3%81%86">コミュニケーションを減らそう - remote</a><ul>
+<li>shokaiさんの生活がある</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="Scrapbox%E3%81%A7Emoji_Reaction%E3%82%92%E3%81%99%E3%82%8B.html">ScrapboxでEmoji Reactionをする</a></li>
+<li>scrapboxに<a href="ブレスト.md">ブレスト</a>した結果を残すかどうか<ul>
+<li><a href="セルフパブリッシング.md">セルフパブリッシング</a>とか</li>
+<li>ごちゃごちゃしてて微妙感</li>
+<li>わかった<ul>
+<li><a href="どうするページ.md">どうするページ</a>でまとめればいいんだ</li>
+<li><a href="ガラパゴスタどうする.md">ガラパゴスタどうする</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>:[sta:]</code> 二つで大きくなるらしい<ul>
+<li>一つ<ul>
+<li>:sta:</li>
+</ul>
+</li>
+<li>二つ<ul>
+<li>:[sta:]</li>
+<li>:[[sta:]] ３つはだめ</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>同意の仕方<ul>
+<li>わかる:sta:</li>
+<li>emojiにあたる部分を書く + アイコンつける</li>
+</ul>
+</li>
+<li>要望ページに一件書いてみた<ul>
+<li>他の人もアイコンで同意示せるの素敵<ul>
+<li>参加型ってやつか</li>
+</ul>
+</li>
+<li>オープンだと落ち着く</li>
+</ul>
+</li>
+<li><blockquote> <a href="Scrapbox.html">#Scrapbox</a> さん、引用の中でもタグかけるの素敵</blockquote><ul>
+<li>はんぱなシステムだとこういう痒いところに手が届かない</li>
+<li>すごいなぁ</li>
+</ul>
+</li>
+<li><a href="自然に書けることだけを書く.md">自然に書けることだけを書く</a><ul>
+<li>直感だが無理やり出したものはゴミになりやすい気がする<ul>
+<li><a href="大企業病.md">大企業病</a> ここでひねりだそうとしてたけど、あかん<ul>
+<li>自然に書きたくなったらまた書けばいい</li>
+</ul>
+</li>
+<li>記述が増えないからダメなんてことはない</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Scrapbox の <a href="タスク管理.md">#タスク管理</a> 方法、考え直した<ul>
+<li>before: <code>L ワーキングメモリ</code> みたいにネタごとにタスクつくっていた</li>
+<li>after: <code>scrapbox やる</code> ← これだけ。ネタで縛らない</li>
+<li>経験上、ネタAを書いててネタBやCに発散することがままある</li>
+<li>タスク管理で縛っては scrapbox の良さが損なわれる</li>
+</ul>
+</li>
+<li>自分のPC複数使ってここにアクセスすると同時編集体験できる<ul>
+<li><a href="https://gyazo.com/03c5a389e25e934edbca0724688c6ce2" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/03c5a389e25e934edbca0724688c6ce2/raw" /></a></li>
+<li>↑ こう見える<ul>
+<li>sta さんのカーソル位置</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>PC複数台つかって、全部で Scrapbox 開いてゴリゴリ書く<ul>
+<li>脱線したいときに PC ごと切り替えるイメージ</li>
+<li>一つの PC でタブ切り替えるより早い</li>
+<li>デュアルモニタみたいなもん<ul>
+<li>普通にデュアルしてるだけでは無理だもんな（ブラウザのセッションは一つしか張れない）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>テーブルつくるのが快適すぎて良い</li>
+<li><a href="ミニマリズムの教科書.md">ミニマリズムの教科書</a> 書いた後、何やればいいか迷ってる<ul>
+<li>ちょっと休止ということで怠ける</li>
+<li>scrapbox で遊ぶわ</li>
+</ul>
+</li>
+<li>先頭一致インクリメンタルサーチでリンク貼れるの快適</li>
+<li>ページ名変えたらリンク元表記も変えられるのが凄い<ul>
+<li>一生ついていきます！ってくらいきめ細やか</li>
+<li>すごい</li>
+<li>いや本当にすごい</li>
+<li>shokai神</li>
+</ul>
+</li>
+<li>mac から使うのも使いやすい<ul>
+<li>ポータブルに自席以外からでも使える</li>
+<li>自宅メイン windows と github でデータ共有してるので GTD 資料とかにもアクセスできるし</li>
+<li><a href="MBA.md">MBA</a>で書いてても快適だ<ul>
+<li>ドラム式洗濯乾燥機の上で書いてる</li>
+<li>立ちテーブルがわり<ul>
+<li><a href="死んだ頭.md">死んだ頭</a>でもエンジンが入りやすい気がする</li>
+<li>座ることで来る腰痛が来ないのも評価できる</li>
+</ul>
+</li>
+<li>リビングにおいたwimax2の電波も届く</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="Scrapbox%E3%81%A7%E3%82%A2%E3%83%80%E3%83%AB%E3%83%88%E3%83%8D%E3%82%BF%E3%81%AF%E6%9B%B8%E3%81%91%E3%82%8B%E3%81%8B.html">Scrapboxでアダルトネタは書けるか</a></li>
+<li>タグどこまで付けるかわからん<ul>
+<li>たとえば <a href="分報.md">分報</a> 内に書いた <a href="Slack.md">#Slack</a> という名詞にもタグはつけるべき？</li>
+<li>今の僕ではつけないのが自然</li>
+<li>だが、付けといた方があとあと化学反応起きやすそうな気がする</li>
+<li>ある程度目を引く名詞の初登場時は、とりあえずつけておくか？</li>
+</ul>
+</li>
+<li>たまに接続遅くて（Save遅くて）イラっとする<ul>
+<li>待つのがもどかしい</li>
+</ul>
+</li>
+<li>まだ化学反応は起きてない<ul>
+<li>が、<strong>「あ、これ前に書いたやつだ」でリンク張るってのは簡単になった</strong><ul>
+<li>もう 5-6 回は経験してる</li>
+<li>気持ちいい</li>
+</ul>
+</li>
+<li>:sta:だいぶ起きてる<ul>
+<li>「あ、これ前書いた」と記憶のフックにひっかかって、オートコンプリートさせるとあっさり繋がる</li>
+<li>逆に思い出せないものもある<ul>
+<li>それは無理やりページにしたもの</li>
+<li>定着していないしできそうにないもの</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>scrapbox でこうして遊んでる時のタスクどうすればいいだろ<ul>
+<li><a href="https://gyazo.com/89e8a0bd0a9baac84a7a778717915eea" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/89e8a0bd0a9baac84a7a778717915eea/raw" /></a></li>
+<li>とりあえず <code>scrap</code> で start した後、なんかページ書いたら後付けする、でしてみる</li>
+</ul>
+</li>
+<li>この余白背景強調がちょっと気持ち悪い<ul>
+<li>改善出しても良いかしら（本文はモザイクかけないとｗ</li>
+<li><a href="https://gyazo.com/db84deea1b080ac0d6c6c37944160417" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/db84deea1b080ac0d6c6c37944160417/raw" /></a></li>
+</ul>
+</li>
+<li>創作ネタを書くのが楽しい、筆が進む</li>
+<li>顔アイコンで激しく主張ってのいいな<ul>
+<li><a href="https://scrapbox.io/shokai/GitHub Issueを捨てる">/shokai/GitHub Issueを捨てる</a></li>
+<li>:sta: これは面白いｗ</li>
+<li>やっぱり複数人で編集してーなー</li>
+<li>仕事で使いたい……</li>
+</ul>
+</li>
+<li><a href="ステルスウイルス.md">ステルスウイルス</a> と <a href="ステルスウイルス.md">#ステルスウイルス</a> の違いってなんだろ<ul>
+<li><a href="Scrapbox%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E3%83%AA%E3%83%B3%E3%82%AF%E3%81%A8%E3%82%BF%E3%82%B0%E3%81%AE%E9%81%95%E3%81%84.html">Scrapboxにおけるリンクとタグの違い</a></li>
+</ul>
+</li>
+<li>やっぱり Scrapbox 楽しい、時間溶けるｗｗ<ul>
+<li>一日中張り付いてゴリゴリ書けるレベルの魔力あるんですが……</li>
+</ul>
+</li>
+<li>後から付け足す時にどっちに書けばいいかわからん<ul>
+<li>上？</li>
+<li>下？</li>
+<li>行の permalink 変えたくないって意味では下だが<ul>
+<li>でも行自体書き換えないなんてアホな話も嫌だし、このこだわりは意味ないか</li>
+</ul>
+</li>
+<li>好きでいいか</li>
+<li>僕がよくあるのは、「ここまでの状況を一言で行頭に書いておく」<ul>
+<li><code>2020/03/15 19:50:35 ブレストしたけどダメ</code> ← こんな感じで</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>過去書いたツイートやメモをわざわざコピペして書いていくの、なんか違う気がする</strong><ul>
+<li>きりないし……</li>
+<li>今日から新しく思いついたことだけ扱う！と割り切った方が良さそう</li>
+</ul>
+</li>
+<li><a href="フッターをつける.md">フッターをつける</a></li>
+<li>日記を書くかどうか迷う<ul>
+<li>別プロジェクトつくって話だが、個人的にあまり分けたくない</li>
+<li>日記書いたらノイズになりそうという直感がある<ul>
+<li>たぶん「アイデア醸成したい」のに「記録」が割り込むからだと思う</li>
+</ul>
+</li>
+<li>nishio さんは <a href="https://scrapbox.io/nishio/2020年2月の日記">/nishio/2020年2月の日記</a> コロナ日記とか親指シフト練習とか程度</li>
+<li>hashrock さんは <a href="https://scrapbox.io/sushitecture/2020まとめ">/sushitecture/2020まとめ</a> 月単位で何したかまとめ程度</li>
+</ul>
+</li>
+<li>Scrapbox さん、ログインするときに Firefox がしばらく固まるのなんで<ul>
+<li>/login/google ← このページ</li>
+<li><strong>Firefoxのキャッシュ消したらいけた</strong> どゆこと</li>
+<li>:sta:結局わからん。回線が遅いと時間がかかるって感じ？<ul>
+<li>夜にログインしようとすると20秒くらい待たされることも</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>これは Tab キーで選択できる<ul>
+<li><a href="https://gyazo.com/2055d4df2945ab5b2a0d48c3a02cec5b" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/2055d4df2945ab5b2a0d48c3a02cec5b/raw" /></a></li>
+</ul>
+</li>
+<li><a href="Scrapbox%E3%81%AE%E5%93%B2%E5%AD%A6.html">Scrapboxの哲学</a></li>
+<li>数十分ほど書いてみて<ul>
+<li>圧倒的に快適だが</li>
+<li>markdown で箇条書きするより何倍も快適だが :sta:</li>
+</ul>
+</li>
+<li>ちょっと練習<ul>
+<li><code>literal</code> いけるのか、ありがたい</li>
+<li>画像 D&amp;D もいけた</li>
+<li>文字装飾は <code>[</code> に続けてって感じか<ul>
+<li><a href="https://scrapbox.io/ 斜体">/ 斜体</a></li>
+<li><strong>太字</strong></li>
+<li>~~打ち消し線~~</li>
+<li>↑ ちょっとそらったが覚えやすい</li>
+</ul>
+</li>
+<li>リンク<ul>
+<li>url はok</li>
+<li>altext は <code>[url altext](url_altext.md)</code> で順不同</li>
+<li><a href="https://stakiran.github.io/stakiran/">ぼくのほーむぺーじ</a> <a href="https://stakiran.github.io/stakiran/">おれのほーむぺーじ</a></li>
+</ul>
+</li>
+<li>アイコン :sta: ctrl+i</li>
+</ul>
+</li>
+<li><strong>縛り</strong><ul>
+<li>2020/03/14 20:25:56 ← こういう日付時刻文字列メモはしない</li>
+<li>手元の til に scrapbox.md とかつくらない</li>
+<li>動機とか<ul>
+<li>Markdown 史上だったけどアイデアの化学反応という面でやっぱり弱い</li>
+<li>知的生産が趣味のつもりだけど、化学反応できないのは結構痛いのでは？</li>
+<li>レスポンス重視と手元で保持したい病でローカルで自力で markdown で頑張るマンしている（が正直しんどい）</li>
+<li>そろそろ新しい情報ストックプラットフォームのパラダイムシフトを体験したい</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="links">Links</h2>
+<ul>
+<li>← <a href="rmaruon.md">rmaruon</a></li>
+<li>← <a href="Sandbox.md">Sandbox</a></li>
+<li>← <a href="Scrapbox%E3%81%AE%E3%83%94%E3%83%B3%E7%95%99%E3%82%81%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%92%E5%86%8D%E8%80%83%E3%81%99%E3%82%8B.html">Scrapboxのピン留めページを再考する</a></li>
+</ul>
+<h2 id="2hop-links">2hop Links</h2>
+<ul>
+<li>→ <a href="ブラウズ履歴が量産される.md">ブラウズ履歴が量産される</a><ul>
+<li>← <a href="週次レビューでブラウザ履歴を振り返る.md">週次レビューでブラウザ履歴を振り返る</a></li>
+</ul>
+</li>
+<li>→ <a href="Scrapbox%E3%81%A7%E3%81%A9%E3%81%AE%E7%A8%8B%E5%BA%A6%E3%81%8A%E7%A4%BC%E3%82%92%E6%9B%B8%E3%81%91%E3%81%B0%E3%81%84%E3%81%84%E3%81%8B%E3%81%8C%E3%82%8F%E3%81%8B%E3%82%89%E3%81%AA%E3%81%84.html">Scrapboxでどの程度お礼を書けばいいかがわからない</a><ul>
+<li>← <a href="感謝行.md">感謝行</a></li>
+</ul>
+</li>
+<li>→ <a href="Slack.md">Slack</a><ul>
+<li>← <a href="脱Slack.md">脱Slack</a></li>
+<li>← <a href="不要なチャンネルからの退室さえしない人が結構いる.md">不要なチャンネルからの退室さえしない人が結構いる</a></li>
+<li>← <a href="チャンネルに雑談と用事が混ざる.md">チャンネルに雑談と用事が混ざる</a></li>
+</ul>
+</li>
+<li>→ <a href="Scrapbox%E3%81%A7%E3%83%A9%E3%83%96%E3%82%B3%E3%83%A1%E3%83%A9%E3%83%8E%E3%83%99.html">Scrapboxでラブコメラノベ</a><ul>
+<li>← <a href="ScribbleBox.md">ScribbleBox</a></li>
+<li>← <a href="Scrapbox%E3%82%92%E9%A1%8C%E6%9D%90%E3%81%A8%E3%81%97%E3%81%9F%E3%83%A9%E3%83%8E%E3%83%99%E5%89%B5%E4%BD%9C%E3%83%8D%E3%82%BF.html">Scrapboxを題材としたラノベ創作ネタ</a></li>
+</ul>
+</li>
+<li>→ <a href="公開コスト.md">公開コスト</a><ul>
+<li>← <a href="公開する理由.md">公開する理由</a></li>
+<li>← <a href="brarea.md">brarea</a></li>
+<li>← <a href="公開コストは日頃から鍛える.md">公開コストは日頃から鍛える</a></li>
+</ul>
+</li>
+<li>→ <a href="MBA.md">MBA</a><ul>
+<li>← <a href="リズムラダーなるものを検討する.md">リズムラダーなるものを検討する</a></li>
+<li>← <a href="ひとりビジネスホテル_2020_11_14.md">ひとりビジネスホテル 2020/11/14</a></li>
+<li>← <a href="指がヒリヒリする.md">指がヒリヒリする</a></li>
+</ul>
+</li>
+<li>→ <a href="失読症.md">失読症</a><ul>
+<li>← <a href="失文症.md">失文症</a></li>
+</ul>
+</li>
+<li>→ <a href="ブレスト.md">ブレスト</a><ul>
+<li>← <a href="Scrapbox_As_A_Brarea.html">Scrapbox As A Brarea</a></li>
+<li>← <a href="brarea.md">brarea</a></li>
+<li>← <a href="cyblog.md">cyblog</a></li>
+</ul>
+</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js" defer></script>
+        <script src="search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

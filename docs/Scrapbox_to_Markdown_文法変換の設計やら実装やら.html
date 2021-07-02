@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>Scrapbox to Markdown 文法変換の設計やら実装やら - MkDocsでmany markdown filesの変換テスト</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <link href="stylesheet.css" rel="stylesheet">
+
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href=".">MkDocsでmany markdown filesの変換テスト</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#scrapbox-to-markdown" class="nav-link">Scrapbox to Markdown 文法変換の設計やら実装やら</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#links" class="nav-link">Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#2hop-links" class="nav-link">2hop Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="scrapbox-to-markdown">Scrapbox to Markdown 文法変換の設計やら実装やら</h2>
+<p><a href="PythonでinlineのScrapbox記法をMarkdown記法に変換する正規表現.md">PythonでinlineのScrapbox記法をMarkdown記法に変換する正規表現</a></p>
+<p><br></p>
+<p>impl4</p>
+<ul>
+<li>各行の文法変換 with たぶん正規表現ゲー<ul>
+<li>どうしよう<ul>
+<li>答えは既に先人がたくさんつくってるけど</li>
+<li>あえて自分で書いてみるか</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-py">def scb_to_markdown_in_line(line):
+    return line
+</code></pre>
+<ul>
+<li>...<ul>
+<li>ここまではつくった<ul>
+<li>あとはこの中を増やしていくだけ</li>
+</ul>
+</li>
+<li>やっぱ正規表現しかないよなぁ<ul>
+<li>n回の出現を全部replaceしたいもの</li>
+<li>import reの使い方いっつも迷ってる</li>
+<li><a href="tfl.md">tfl</a>で使ってた</li>
+<li><a href="Repl.it.md">Repl.it</a>で試~~そうとしてるんだけど、ログイン必須になってない？~~<ul>
+<li>~~jsからアクセスしてPython選んだらいけるようになった~~</li>
+<li>~~意味不明~~直った</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="PythonでinlineのScrapbox記法をMarkdown記法に変換する正規表現.md">PythonでinlineのScrapbox記法をMarkdown記法に変換する正規表現</a><ul>
+<li>こっちでやりまふ</li>
+<li>ok</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>最後に<code>&lt;br&gt;</code>が入る問題は？<ul>
+<li>last blank lineの違いだった</li>
+<li><a href="https://gyazo.com/e45eff19dd2ffe18da9d1ac219ca3293" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/e45eff19dd2ffe18da9d1ac219ca3293/raw" /></a></li>
+<li>152行目</li>
+<li>これがあると入る</li>
+<li>ないと完全一致することを確認した</li>
+<li>今はテストデータに入れてるので、expect側もbr入れるべきか</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p>impl3</p>
+<ul>
+<li>行指向の変換アルゴリズム、大体掴んだので次こそ実装していくよー</li>
+<li>:train:[Markdownの挙動調べてると1日30commitすぐに超える]</li>
+<li>行判定部分つくりこんでる<ul>
+<li>デバッグで辿り着ける自信がないので足元から固めていく作戦</li>
+<li><a href="https://github.com/stakiran/scbjson2ghpages/blob/25c404a422f859a8ec4cb6ff7b4d672a07816592/lib_scblines2markdown.py">impl</a></li>
+<li><a href="https://github.com/stakiran/scbjson2ghpages/blob/25c404a422f859a8ec4cb6ff7b4d672a07816592/test_lib_scblines2markdown.py">testcode</a></li>
+<li>:sta:この後が重いなー</li>
+</ul>
+</li>
+<li>がー、状態ちゃんと設計しないとダメそう<ul>
+<li>オートマトン書いた方がいいかな</li>
+<li>状態<ul>
+<li>s: start</li>
+<li>in-P: in paragraph</li>
+<li>in-L: in list</li>
+<li>in-B: in block</li>
+</ul>
+</li>
+<li>遷移（矢印）<ul>
+<li>b: blankline 現在行は空行です</li>
+<li>p: 段落です</li>
+<li>l: リストです（深さ変わってません）</li>
+<li>l+: リストです（深さ増えました）</li>
+<li>l-: リストです（深さ減りました）</li>
+<li>c: codeの始まりです（リストかもしれないし段落かもしれない）</li>
+<li>t: tableの始まりです（リストかもしれないし段落かもしれない）</li>
+</ul>
+</li>
+<li>せっかくだからDrawingで書いてみるか<ul>
+<li><a href="https://gyazo.com/d5d2c6327e5075bce45c1822b6056976" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/d5d2c6327e5075bce45c1822b6056976/raw" /></a></li>
+<li>とりあえず状態が足らん（<code>l-</code>遷移を二箇所書くという二歩みたいなことしてるｗ<ul>
+<li>in-L に in-L(1) と in-L(2+) が要る</li>
+<li>in-B に in-B(1) と in-B(2+) が要る</li>
+<li>EOFに来た時（次行がない）も考慮要</li>
+</ul>
+</li>
+<li>:train:くそしんどい<ul>
+<li>今回は上手く入ったけど、レイアウト的に入らない場合に書き直しになってしまう</li>
+<li>そして俺には頭の中でレイアウトのあたりをつける能力はない</li>
+<li>ので実質運ゲー</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>オートマトンをどうやってコードに落とせばいいかもわからん<ul>
+<li><a href="デザインパターン.md">デザインパターン</a>使えばいいんだっけ？<ul>
+<li>Stateパターンとか？</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>愚直に実装すればいいよな</li>
+<li>実装するからにはちゃんと図つくってそのとおりに実装しないと後で死ぬ<ul>
+<li>整合性が取れないとコード愚直に読んでデバッグするゲーになってしまう</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>待った<ul>
+<li>これ、状態なんか導入しなくても「インデントの深さ」一つだけ持っておけば済まない？</li>
+<li>要するにインデントの変化を見ればいい（N&gt;=2とする）<ul>
+<li>0 to 1</li>
+<li>~~0 to N~~ややこしいのでいったん考えない</li>
+<li>1 to 0</li>
+<li>N to 0</li>
+<li>1 to N</li>
+<li>N to 1</li>
+<li>N to N+1</li>
+<li>N to N-1</li>
+</ul>
+</li>
+<li>いや、「インデントの深さ」と「空行」の二つだな（N&gt;=1とする）<ul>
+<li>0 to N</li>
+<li>N to 0</li>
+<li>N to N+1</li>
+<li>N to N-1</li>
+</ul>
+</li>
+<li>再載<ul>
+<li>scbの段落行の前後には  <code>\n</code> を入れる<ul>
+<li>scbの段落行と段落行の間には <code>\n</code> が必要</li>
+<li>scbの段落行とリスト行の間にも <code>\n</code> が必要</li>
+</ul>
+</li>
+<li>空行は<code>&lt;br&gt;\n</code>に置換する</li>
+<li>リスト行が終わった場合は <code>\n</code> が必要<ul>
+<li>（リスト行の次が空行だった場合は実質<code>\n&lt;br&gt;\n</code>となる）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>:sta:んー、スマートに全体像掴む見方が浮かばん<ul>
+<li>最悪てきとーにつくりながら手探りで潰していく、だけど突貫的になるのでできればやめたい</li>
+</ul>
+</li>
+<li>空行解釈とインデント解釈を分けた方が良い気がする<ul>
+<li>input: <code>scblines[]</code></li>
+<li>output: <code>markdownlines[]</code></li>
+<li>まずは空行解釈する<ul>
+<li>空行は <code>&lt;br&gt;\n</code> にする（ <code>['&lt;br&gt;', '']('_br_',_''.md)</code>）</li>
+</ul>
+</li>
+<li>インデント解釈では<ul>
+<li>追加挿入のバリエーションだけ洗い出しておく</li>
+</ul>
+<hr />
+<ul>
+<li>追加しない</li>
+<li>ブロックの終わりを挿入する（<code>['｀｀｀']('｀｀｀'.md)</code>）</li>
+<li><code>\n</code>を挿入する（<code>['\n']('_n'.md)</code>）</li>
+</ul>
+</li>
+<li>↑ うん、だいぶシンプルになった<ul>
+<li>追加挿入が計4パターン（1+3）しかない</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>書いていきやしょ<ul>
+<li>step1: 空行の処理<ul>
+<li>input: scblines[]</li>
+<li>output: outlines[]<ul>
+<li>scblineのうち、空行部分を<code>['&lt;br&gt;', '']('_br_',_''.md)</code>に置換したもの</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>step2: インデントの深さ変更に伴う挿入処理<ul>
+<li>input: lines[]</li>
+<li>output: outlines[]<ul>
+<li>以下が余分に挿入されている<ul>
+<li><code>\n</code></li>
+<li>ブロックの終わり</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>こいつはprevを必要とする</li>
+</ul>
+</li>
+<li>step3: 各行の置換<ul>
+<li>input: lines[]</li>
+<li>output: markdownlines[]<ul>
+<li>文字装飾系（これは正規表現が良い）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>書いてく<ul>
+<li><code>python scbjson2ghpages.py -i testdata-for-to-markdown.json &gt; actual_page.md</code></li>
+<li>これでexpect_page.mdと見比べながら泥臭く直していく</li>
+</ul>
+</li>
+<li><code>def judge_extra_insertion(cls, mode_of_prevline, mode_of_curline):</code><ul>
+<li>モードじゃなくて「インデントの深さ」が良さそう（昨日の考察）</li>
+<li>ただし<code>&lt;br&gt;</code>はすでに入ってるので無視してねー</li>
+<li>★1<ul>
+<li>リストやテーブルの場合、add \n で良い</li>
+<li>コードブロックの場合、add <code>｀｀｀</code></li>
+</ul>
+</li>
+<li>★2<ul>
+<li>リストの場合、ingnore</li>
+<li>ブロックの場合、かつ start line のインデントより深い場合、ignore</li>
+<li>ブロックの場合、かつ start line のインデント以下の場合、:sta:このへんちょっと短期記憶追いつかん。。。</li>
+</ul>
+</li>
+<li>table:patterns</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>curlineのインデント数</th>
+<th>prevlineのインデント数</th>
+<th>どう解釈すべき？</th>
+<th>備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>ignore</td>
+<td>空行または段落が続いている</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>★1</td>
+<td>リスト or ブロックがおわた</td>
+</tr>
+<tr>
+<td>0</td>
+<td>2+</td>
+<td>★1</td>
+<td>リスト or ブロックがおわた</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>add \n</td>
+<td>リスト or ブロックがはじまた</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>ignore</td>
+<td>リスト or ブロックが続いてる</td>
+</tr>
+<tr>
+<td>1</td>
+<td>2+</td>
+<td>ignore</td>
+<td>リストが深くなった or ブロックが続いている</td>
+</tr>
+<tr>
+<td>2+</td>
+<td>0</td>
+<td>★1</td>
+<td>リスト or ブロックがおわた</td>
+</tr>
+<tr>
+<td>2+</td>
+<td>1</td>
+<td>★2</td>
+<td>リストが浅くなった or ブロックが続いてる or ブロックがおわた</td>
+</tr>
+<tr>
+<td>2+</td>
+<td>2+</td>
+<td>ignore</td>
+<td>リスト or ブロックが続いている or 深くなった</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>...<ul>
+<li>★1にせよ★2にせよ<ul>
+<li>以下がいる
+        - 現在特定のブロックに入っているかどうか
+        - 入っている場合、何のブロックか（code or table）
+        - 入っている場合、そのスタート時点のインデントの深さ</li>
+</ul>
+</li>
+<li>以上を踏まえると、<ul>
+<li>bf: <code>def judge_extra_insertion(cls, mode_of_prevline, mode_of_curline):</code></li>
+<li>af: <code>def judge_extra_insertion(cls, prev_indentdepth, cur_indentdepth, inblock_state):</code></li>
+<li>class InBlockState<ul>
+<li>is_in_block</li>
+<li>mode</li>
+<li>indentdepth_of_start</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>あとは上記テーブル分の条件分岐をひたすら並べるだけだー<ul>
+<li>綺麗に書きたい誘惑があるが、いったんあとで</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>step2の一部まで実装してみた<ul>
+<li><a href="https://gyazo.com/aefc3348957090544542361011f34781" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/aefc3348957090544542361011f34781/raw" /></a><ul>
+<li>条件分岐の羅列！</li>
+<li><a href="ガード節.md">ガード節</a>でせめてリーダブルにするくらいしか思いつかなかった</li>
+</ul>
+</li>
+<li>けど、全然expectに一致しない:sta:</li>
+<li>根気強くデバッグしていくフェーズ突入。。。</li>
+<li>step1時点のoutも欲しいかもな:sta:</li>
+<li><a href="https://gyazo.com/65e0042988469344565099857807c22a" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/65e0042988469344565099857807c22a/raw" /></a><ul>
+<li>step1で <code>[''](''.md)</code> を <code>['&lt;br&gt;', '']('_br_',_''.md)</code>にしている（下方向にだけ空行入れてる）</li>
+<li>っつーことは、全過程において「下方向に挿入する」で統一性持たせないといけない<ul>
+<li>たぶんどっかで統一ずれてる</li>
+</ul>
+</li>
+<li>or step1 で<code>['', '&lt;br&gt;', '']('',_'_br_',_''.md)</code>みたいに前後に空行入れてしまうか</li>
+</ul>
+</li>
+<li>修正ok</li>
+</ul>
+</li>
+<li>が、新たな問題が<ul>
+<li>prev indent depth と current indent depthだけで状態遷移網羅できる設計だが、そんなことはなかった</li>
+<li>空行かどうか、の prev と current も要る</li>
+<li>step1, 2に分けたの間違いだったかしら……</li>
+<li>メタで処理することで回避<ul>
+<li><a href="https://gyazo.com/3f0b41d9e911d776a1316e818d814063" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/3f0b41d9e911d776a1316e818d814063/raw" /></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>★1の実装<ul>
+<li>inblockstate使います</li>
+<li>inblockstateだけだときついのでwrapperつくった<ul>
+<li><a href="https://gyazo.com/fdc04a0eb426149dcbcccf4e580488ee" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/fdc04a0eb426149dcbcccf4e580488ee/raw" /></a></li>
+<li>あー、これ<a href="未来の自分という他人.md">未来の自分という他人</a>もわからなくなるにほひ<ul>
+<li>テストコードはあるからホワイトボックス的な挙動確認はできる</li>
+<li>ただ中身を理解しようとすると苦労しそうな気がする</li>
+<li>:sta:<strong>「未来の僕へ。たぶんコードだけで理解するのきついんで、このscrapboxページ読んで設計思い出してちょ」</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ok、だいぶ一致してきた<ul>
+<li><a href="https://gyazo.com/767b63b3c2d1d253a73b3735b82c016d" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/767b63b3c2d1d253a73b3735b82c016d/raw" /></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>★2の実装<ul>
+<li>テストデータまだだから確認できてないけど、実装はおわた</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p>impl2</p>
+<ul>
+<li>実装していくよー</li>
+<li>境界という概念がある<ul>
+<li>インデントが一段上がった → 記法のおわり<ul>
+<li>コードブロック</li>
+<li>テーブル</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>空行の意味<ul>
+<li>露骨な例</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-scb">段落
+
+ リスト
+ リスト
+
+ リスト
+</code></pre>
+<ul>
+<li>...<ul>
+<li>...</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-対応するmarkdown">段落
+
+&lt;br&gt;
+
+- リスト
+- リスト
+
+&lt;br&gt;
+
+- リスト
+</code></pre>
+<ul>
+<li>...<ul>
+<li>塊</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-scb">段落
+ リスト
+
+ リスト
+段落
+</code></pre>
+<ul>
+<li>...<ul>
+<li>...</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-md">段落
+
+- リスト
+
+&lt;br&gt;
+
+- リスト
+
+段落
+</code></pre>
+<ul>
+<li>...<ul>
+<li>段落のバリエーション</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-scb">段落1
+段落2
+
+段落3
+
+段落4
+段落5
+</code></pre>
+<ul>
+<li>...<ul>
+<li>...</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-md">段落1
+
+段落2
+
+&lt;br&gt;
+
+段落3
+
+段落4
+
+段落5
+</code></pre>
+<ul>
+<li>...<ul>
+<li>リストのバリエーション</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-scb"> リスト
+ リスト
+
+ リスト
+  リスト
+
+ リスト
+</code></pre>
+<ul>
+<li>...<ul>
+<li>...</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-md">- リスト
+- リスト
+
+&lt;br&gt;
+
+- リスト
+    - リスト
+
+&lt;br&gt;
+
+- リスト
+</code></pre>
+<ul>
+<li>...<ul>
+<li>空行のバリエーション<ul>
+<li><a href="Markdownでn行分の空行を表現する.md">Markdownでn行分の空行を表現する</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-scb">段落
+
+段落 差1
+
+
+段落 差2
+
+
+
+段落 差3
+</code></pre>
+<ul>
+<li>...<ul>
+<li>...</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-md">段落
+
+&lt;br&gt;
+
+段落 差1
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+段落 差2
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+段落 差3
+</code></pre>
+<ul>
+<li>...<ul>
+<li>つまり？<ul>
+<li>scbの段落行の前後には  <code>\n</code> を入れる<ul>
+<li>scbの段落行と段落行の間には <code>\n</code> が必要</li>
+<li>scbの段落行とリスト行の間にも <code>\n</code> が必要</li>
+</ul>
+</li>
+<li>空行は<code>&lt;br&gt;\n</code>に置換する</li>
+<li>リスト行が終わった場合は <code>\n</code> が必要<ul>
+<li>（リスト行の次が空行だった場合は実質<code>\n&lt;br&gt;\n</code>となる）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>変換時には状態という概念がある<ul>
+<li>つまりn行目の変換はn行目の内容だけで完結する<strong>とは限らない</strong><ul>
+<li>n-1行目、n+1行目の内容が必要（なことがある）</li>
+</ul>
+</li>
+<li>もっというと<ul>
+<li>ここまでのパース時の状態を保持しておく必要がある<ul>
+<li>たとえば「今はリストをパース中でーす」とか</li>
+</ul>
+</li>
+<li>次行が何の行かを見に行かねばならないかもしれない<ul>
+<li>例浮かばないけど</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>モード<ul>
+<li>ある行が何を表すか</li>
+<li>例: 空行、段落、リスト(indent=1)、リスト(indent=2)、codeblock開始、table開始 etc</li>
+</ul>
+</li>
+<li>状態<ul>
+<li>prev mode …… 前行のモード</li>
+<li>current mode …… 現在行のモード</li>
+<li>prevとcurrentを使えば、変換後に挿入する追加処理も決まる</li>
+</ul>
+</li>
+<li>表でまとめてみる<ul>
+<li>空行、段落、リスト1、リスト2、codeblockの5つでいいか</li>
+<li>table:状態遷移？</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>prev</th>
+<th>current</th>
+<th>行の間に何が必要か（何も必要ない、は - で示す）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>段落</td>
+<td>段落</td>
+<td>\n</td>
+</tr>
+<tr>
+<td>段落</td>
+<td>空行</td>
+<td>\n</td>
+</tr>
+<tr>
+<td>段落</td>
+<td>リストn</td>
+<td>\n</td>
+</tr>
+<tr>
+<td>段落</td>
+<td>codeblock</td>
+<td>\n</td>
+</tr>
+<tr>
+<td>空行</td>
+<td>段落</td>
+<td>\n</td>
+</tr>
+<tr>
+<td>空行</td>
+<td>空行</td>
+<td>\n</td>
+</tr>
+<tr>
+<td>……</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>リスト</td>
+<td>空行</td>
+<td>\n</td>
+</tr>
+<tr>
+<td>リスト</td>
+<td>段落</td>
+<td>\n</td>
+</tr>
+<tr>
+<td>リスト1</td>
+<td>リスト2</td>
+<td>-</td>
+</tr>
+<tr>
+<td>リスト2</td>
+<td>リスト1</td>
+<td>-</td>
+</tr>
+<tr>
+<td>リストi</td>
+<td>リストi</td>
+<td>-</td>
+</tr>
+<tr>
+<td>リスト</td>
+<td>codeblock</td>
+<td>-</td>
+</tr>
+<tr>
+<td>codeblock</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>...<ul>
+<li>あれ、これほぼ<code>\n</code>じゃね？</li>
+</ul>
+</li>
+<li>むしろ<code>\n</code>じゃないのってなに？<ul>
+<li>連結してる文法<ul>
+<li>リスト</li>
+<li>codeblock内</li>
+<li>table内</li>
+</ul>
+</li>
+<li>上に追加する</li>
+</ul>
+</li>
+<li>あー、codeblockやtableの中に、さらにリストがあるんだ<ul>
+<li>「リスト in the block」みたいなモードがある</li>
+<li>indent=3でスタートすると、リスト in the blockモードは「indent=3以下」の行にぶち当たるまで続く</li>
+<li>:sta:ぶちあたった時に何挿入するかで分岐があるな<ul>
+<li>スタート時点でリストに入ってた場合、何も挿入しなくていい</li>
+<li>が、markdownではそもそもリスト中のブロックなんて概念がないから、これはできない</li>
+</ul>
+</li>
+<li>Q: リスト中のブロックという表現を見かけたら、どう変換するの？<ul>
+<li>インデント殺してゼロインデントで表現するしかないかー</li>
+</ul>
+</li>
+<li><a href="Markdownではリスト中のコードハイライト_とテーブル_を表現できない.md">Markdownではリスト中のコードハイライト（とテーブル）を表現できない</a><ul>
+<li>把握した</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p>impl1</p>
+<ul>
+<li>sbq直した<ul>
+<li><a href="https://gyazo.com/452a2ccd6cea13bf7f82171a167ae2d7" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/452a2ccd6cea13bf7f82171a167ae2d7/raw" /></a></li>
+<li>既にsbqでProjectやPageといったクラスがある</li>
+<li>to markdownは、Page.to_markdown() みたいに実装してやればよい</li>
+</ul>
+</li>
+<li><a href="https://scrapbox.io/testdata-for-to-markdown/page">/testdata-for-to-markdown/page</a>を正しく変換しきる</li>
+<li>変換処理どうしようかな<ul>
+<li>正規表現がベターなんだろうけど</li>
+<li>既にsbq parserが行指向になってしまっている……</li>
+<li>~~直感だけど、空行の有無による微調整必要そうだから、行指向で泥臭くしないといけない気がしないでもない~~ これはyes → <a href="Markdownの「リストと段落の塊」の表現力が弱い件.md">Markdownの「リストと段落の塊」の表現力が弱い件</a>のカバーが必要<ul>
+<li><a href="https://gyazo.com/777cf34172725fb255eaf37c28ed2752" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/777cf34172725fb255eaf37c28ed2752/raw" /></a></li>
+<li><a href="https://gyazo.com/c826bdb27383e5f11feae60d116cb1bc" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/c826bdb27383e5f11feae60d116cb1bc/raw" /></a></li>
+<li>この違いを Markdown にどう反映させるか、とか</li>
+</ul>
+</li>
+<li>あと正規表現読みづらいから嫌い感ある<ul>
+<li>でも使っていかないと慣れないよなぁ</li>
+<li><a href="strike-multiple-lines.md">strike-multiple-lines</a>のコードリーディングも投げてしまった（めっちゃ気合入れないと読めない）し……</li>
+<li>プログラマ名乗りたいならサクサク読めなきゃいけない</li>
+<li>折衷案だな<ul>
+<li>コードリーディングはあとでちゃんとやって、勉強ノートもメモして正規表現鍛える</li>
+<li>こっちでは行指向で実行しましょ<ul>
+<li>ただし行指向つらそうだったら正規表現も考える</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>先にページpageのexpect dataつくってみる<ul>
+<li><a href="そろそろペインでもタブでもない新しいUIが欲しい.md">そろそろペインでもタブでもない新しいUIが欲しい</a>の2ウィンドウ試してみる<ul>
+<li>左にmarkdownエディタ、右にScrapbox</li>
+<li>:sta:悪くないし、普通に便利ですね</li>
+</ul>
+</li>
+<li><a href="https___github.com_stakiran_scbjson2ghpages_blob_e5911daf1ccee649aa06ae4aa3a41b8f135ca3e9_expect_page.md">1</a></li>
+<li><a href="https___github.com_stakiran_scbjson2ghpages_blob_09e4a8824f3f486e697be53da7295511aa55c694_expect_page.md">2</a></li>
+</ul>
+</li>
+<li>足りない<ul>
+<li>空行をはさんだリスト-リスト<ul>
+<li>expect<ul>
+<li><a href="https://gyazo.com/c047910247e279883a8173ae1ddf5998" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/c047910247e279883a8173ae1ddf5998/raw" /></a></li>
+</ul>
+</li>
+<li>actual<ul>
+<li><a href="https://gyazo.com/6c8b24f984905e3fd756e7e7529c78ea" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/6c8b24f984905e3fd756e7e7529c78ea/raw" /></a></li>
+</ul>
+</li>
+<li>連結されてしまう。。。</li>
+</ul>
+</li>
+<li>リスト-段落の空行ありなしの差がわからない<ul>
+<li><a href="https://gyazo.com/5b3a5bf745af7ecb1f04ef1d6eac2669" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/5b3a5bf745af7ecb1f04ef1d6eac2669/raw" /></a></li>
+<li>そもそもMarkdownは<code>&lt;p&gt;</code>で区切るゲー（段落ゲー）なので、Scrapboxみたいな<code>行&lt;br&gt;- リスト</code>みたいな表現を持っていない</li>
+</ul>
+</li>
+<li>~~よくわからんバグ~~ done from 2<ul>
+<li>~~<a href="GitHubのMarkdownでネストしたリストが正しくレンダリングされない.md">GitHubのMarkdownでネストしたリストが正しくレンダリングされない</a>~~</li>
+<li>~~<a href="https://gyazo.com/b17b882daab1861caa9720960939fd00" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/b17b882daab1861caa9720960939fd00/raw" /></a>~~</li>
+<li>~~ちゃんと書いてますけど~~<ul>
+<li>~~<a href="https://gyazo.com/3aa0a2060d1bb83d1a5695ffc7d5062c" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/3aa0a2060d1bb83d1a5695ffc7d5062c/raw" /></a>~~</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="GitHubのMarkdownのリストのネストは10まで.md">GitHubのMarkdownのリストのネストは10まで</a><ul>
+<li>これはいいか（10以上ネストするケースはScrapboxでもそうはない（合ったとしてもそれは切り出しなどするべきって話</li>
+</ul>
+</li>
+<li>ファイル名として使えない文字を含んだタイトルへのリンク<ul>
+<li><code>+page+</code>とか（<code>+page+.md</code>なんてファイルはつくれない（Windowsでは<code>+</code>は使えない</li>
+</ul>
+</li>
+<li><a href="リンクの種類.md">リンクの種類</a>がわからない<ul>
+<li><a href="どこにもリンクされていない赤リンクなのか.md">どこにもリンクされていない赤リンクなのか</a> ← つまり<a href="スケルトンリンク.md">スケルトンリンク</a>なのか</li>
+<li><a href="test.md">test</a> ← 既に存在する青色リンクなのか</li>
+<li><a href="https://www.google.co.jp/">google</a> or <a href="https://www.google.co.jp/">https://www.google.co.jp/</a> ← underlineされる外部リンクなのか</li>
+</ul>
+<hr />
+<ul>
+<li>絵文字で対処するか？<ul>
+<li><a href="リンクの種類を視覚的に区別する.md">リンクの種類を視覚的に区別する</a>でやる</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="Markdownの「リストと段落の塊」の表現力が弱い件.md">Markdownの「リストと段落の塊」の表現力が弱い件</a><ul>
+<li>最大の懸念だったここを潰せたのでokかな</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<h2 id="links">Links</h2>
+<ul>
+<li>← <a href="Scrapbox_to_Markdown.html">Scrapbox to Markdown</a></li>
+<li>← <a href="Scrapbox_to_Markdown_%E3%82%B3%E3%83%BC%E3%83%89%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF.html">Scrapbox to Markdown コードブロック</a></li>
+</ul>
+<h2 id="2hop-links">2hop Links</h2>
+<ul>
+<li>→ <a href="リンクの種類.md">リンクの種類</a><ul>
+<li>← <a href="Scrapbox%E3%81%AE%E8%AA%AD%E3%81%BF%E6%96%B9.html">Scrapboxの読み方</a></li>
+<li>← <a href="リンクの種類を視覚的に区別する.md">リンクの種類を視覚的に区別する</a></li>
+<li>← <a href="✅画像にリンク貼ってる場合に表記がおかしい件の修正.md">✅画像にリンク貼ってる場合に表記がおかしい件の修正</a></li>
+</ul>
+</li>
+<li>→ <a href="tfl.md">tfl</a><ul>
+<li>← <a href="Terraformソースからビューをつくりたい.md">Terraformソースからビューをつくりたい</a></li>
+</ul>
+</li>
+<li>→ <a href="そろそろペインでもタブでもない新しいUIが欲しい.md">そろそろペインでもタブでもない新しいUIが欲しい</a><ul>
+<li>← <a href="開発中に使えるmarkdownメモツール.md">開発中に使えるmarkdownメモツール</a></li>
+</ul>
+</li>
+<li>→ <a href="strike-multiple-lines.md">strike-multiple-lines</a><ul>
+<li>← <a href="複数行に一気に打ち消し線を引けるようにしたいです.md">複数行に一気に打ち消し線を引けるようにしたいです</a></li>
+</ul>
+</li>
+<li>→ <a href="未来の自分という他人.md">未来の自分という他人</a><ul>
+<li>← <a href="実行するスクリプトは_0_xxx.bat、1_yyy.batのように番号順にするとわかりやすい.md">実行するスクリプトは 0 xxx.bat、1 yyy.batのように番号順にするとわかりやすい</a></li>
+<li>← <a href="知的生産の5つのフェーズ.md">知的生産の5つのフェーズ</a></li>
+<li>← <a href="Scrapbox%E5%9B%9B%E5%A4%A9%E7%8E%8B%E3%81%AE%E3%81%86%E3%81%A1%E8%AA%B0%E3%81%AB%E3%81%AA%E3%82%8A%E3%81%9F%E3%81%84%E3%81%8B.html">Scrapbox四天王のうち誰になりたいか</a></li>
+</ul>
+</li>
+<li>→ <a href="Repl.it.md">Repl.it</a><ul>
+<li>← <a href="Python入門.md">Python入門</a></li>
+<li>← <a href="PythonでinlineのScrapbox記法をMarkdown記法に変換する正規表現.md">PythonでinlineのScrapbox記法をMarkdown記法に変換する正規表現</a></li>
+<li>← <a href="Pythonでinline_grammer_replaceを正規表現で試すサンプル.md">Pythonでinline grammer replaceを正規表現で試すサンプル</a></li>
+</ul>
+</li>
+<li>→ <a href="リンクの種類を視覚的に区別する.md">リンクの種類を視覚的に区別する</a><ul>
+<li>← <a href="Scrapbox_to_Markdown.html">Scrapbox to Markdown</a></li>
+</ul>
+</li>
+<li>→ <a href="スケルトンリンク.md">スケルトンリンク</a><ul>
+<li>← <a href="空リンク.md">空リンク</a></li>
+<li>← <a href="読んだラノベ.md">読んだラノベ</a></li>
+<li>← <a href="いいかげんにつくる.md">いいかげんにつくる</a></li>
+</ul>
+</li>
+<li>→ <a href="PythonでinlineのScrapbox記法をMarkdown記法に変換する正規表現.md">PythonでinlineのScrapbox記法をMarkdown記法に変換する正規表現</a><ul>
+<li>← <a href="Scrapbox_to_Markdown_%E3%82%B3%E3%83%BC%E3%83%89%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF.html">Scrapbox to Markdown コードブロック</a></li>
+<li>← <a href="Scrapbox_to_Markdown_%E7%94%BB%E5%83%8F%E3%81%A8icon%E8%A8%98%E6%B3%95%E3%81%AE%E5%AE%9F%E8%A3%85.html">Scrapbox to Markdown 画像とicon記法の実装</a></li>
+</ul>
+</li>
+<li>→ <a href="Markdownではリスト中のコードハイライト_とテーブル_を表現できない.md">Markdownではリスト中のコードハイライト（とテーブル）を表現できない</a><ul>
+<li>← <a href="Scrapbox_to_Markdown_%E3%83%AA%E3%82%B9%E3%83%88%E4%B8%AD%E3%81%AE%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%82%84%E3%82%89%E3%82%B3%E3%83%BC%E3%83%89%E3%82%84%E3%82%89%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF.html">Scrapbox to Markdown リスト中のテーブルやらコードやらブロック</a></li>
+<li>← <a href="Scrapbox_to_Markdown_%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB.html">Scrapbox to Markdown テーブル</a></li>
+<li>← <a href="ダミーリスト.md">ダミーリスト</a></li>
+</ul>
+</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js" defer></script>
+        <script src="search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

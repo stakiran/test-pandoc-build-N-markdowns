@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>Scrapbox As A Diagram - MkDocsでmany markdown filesの変換テスト</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <link href="stylesheet.css" rel="stylesheet">
+
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href=".">MkDocsでmany markdown filesの変換テスト</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#scrapbox-as-a-diagram" class="nav-link">Scrapbox As A Diagram</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#links" class="nav-link">Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#2hop-links" class="nav-link">2hop Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="scrapbox-as-a-diagram">Scrapbox As A Diagram</h2>
+<p>構成図として</p>
+<p><br></p>
+<ul>
+<li><a href="AWSの構成図つくるのマジでしんどい.md">AWSの構成図つくるのマジでしんどい</a></li>
+<li>Scrapbox、というかWikiでつくればいいんじゃね？<ul>
+<li>構成図も階層構造とリンクと表現しきれるから、Wikiで表現しきれる</li>
+<li>別に図である必要性はないでしょ</li>
+</ul>
+</li>
+<li>そう、図を描くのはしんどいから、構造を書くんだよ<ul>
+<li>Drawじゃねえんだよ</li>
+<li>Writeするんだ</li>
+<li><a href="描くな、書け.md">描くな、書け</a></li>
+</ul>
+</li>
+<li>1リソース1ページ、@containsで子を列挙、@useで依存</li>
+</ul>
+<pre><code class="language-scb">vpc_main
+
+@contains
+ private_subnet_1
+ private_subnet_2
+ public_subnet_1
+ public_subnet_2
+
+@contains
+ ig_1
+
+@contains
+ nat_gateway_1
+ nat_gateway_2
+</code></pre>
+<ul>
+<li>気が向いたら書いてみるわ</li>
+</ul>
+<p><br></p>
+<p>書いてみた</p>
+<ul>
+<li><a href="https://scrapbox.io/test-scbo-as-a-diagram">/test-scbo-as-a-diagram</a></li>
+<li>AWS限定だが</li>
+<li>記法<ul>
+<li><code>@contains</code>で「私は～～というAWSリソースを含んでます」をぶら下げる<ul>
+<li><code>@contains_dynamically</code>は「動的に含まれたり含まれなかったりするもの」、インスタンス系やコンテナ系等</li>
+</ul>
+</li>
+<li><code>@boundary-from</code>で「私は～～という ingress firewall を持っています」をぶら下げる</li>
+<li><code>config</code>で「私は～～という設定値を持っています」をぶら下げる<ul>
+<li>端的に書く</li>
+<li>Q: configと@containsの違いは？<ul>
+<li>@containsは<strong>AWSリソースを</strong>含むの意</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>context</code>で「私の設定値の根拠や背景は～～です」をぶら下げる<ul>
+<li>端的に書く</li>
+<li>なぜそうなっているかはちゃんと書いておく</li>
+<li>コードコメントと同じ</li>
+</ul>
+</li>
+<li>n個冗長化する場合は<code>(i)</code>をつける<ul>
+<li><code>[i]</code>だとscrapboxではリンクになってしまう。。。</li>
+</ul>
+</li>
+<li>ページ名ではリソースの種類を先に持ってくる<ul>
+<li>x <code>nat-gateway-1</code></li>
+<li>x <code>natgateway-1</code></li>
+<li>o <code>gateway-nat-1</code></li>
+<li>これは俺の好みかもなー:sta:</li>
+</ul>
+</li>
+<li><code>@contains</code>は種類ごとに分けて書く</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-ダメな例">@contains
+ [subnet-private(i)]
+ [subnet-public(i)]
+ [gateway-internet-1]
+</code></pre>
+<ul>
+<li>...<ul>
+<li>...</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-良い例">@contains
+ [subnet-private(i)]
+ [subnet-public(i)]
+
+@contains
+ [gateway-internet-1]
+</code></pre>
+<ul>
+<li>...<ul>
+<li><code>@contains</code>はリンクしない<ul>
+<li><a href="でかすぎるリンク.md">でかすぎるリンク</a>になって意味を成さない</li>
+<li>一方で、<code>@boundary-from</code>は「ingress firewallを持つもの」を俯瞰できるし、でかすぎることもないので（<code>[@boundary-from](@boundary-from.md)</code>とリンクして）良い</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>感想<ul>
+<li>o<ul>
+<li>Scrapboxのリッチな機能でガシガシつくれるの快適<ul>
+<li>補完が強いのでリンクですぐ繋げられる</li>
+</ul>
+</li>
+<li>今見ているページ（リソース）とその直近の関係だけにフォーカスできるので、読みやすい</li>
+</ul>
+</li>
+<li>x<ul>
+<li>一目で俯瞰できない<ul>
+<li>が、俯瞰は正直（構成図においても）諦めていいと思う</li>
+<li>俯瞰は脳内でつくればいい</li>
+<li>あるいはビューとしてスクリプト等で変換してつくればいい</li>
+<li>少なくとも「常時メンテする必要のある設計図として」つくるのは違う気がする<ul>
+<li>メンテコスト高いんだよ</li>
+<li>Q: それじゃ「IaCコード見ろ」にならない？<ul>
+<li>ならない</li>
+<li>優れたプログラマーならそれでいいんだけど</li>
+<li>コードだけだとさすがに理解に時間かかる</li>
+<li>かといって常時メンテ必要な俯瞰設計図はやりすぎ</li>
+<li>ちょうど良い塩梅が「俯瞰はできないけどWikiライクに書ける・見れる設計図」ではないかってことでこれを試しているのです:sta:</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>contains書くのに迷うことがある<ul>
+<li>ALBとか</li>
+<li>今回はsubnetの下にぶら下げた<ul>
+<li><a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb">aws_lb - Resources - hashicorp/aws - Terraform Registry</a>にsubnetsというargumentがあったので</li>
+</ul>
+</li>
+<li>人によってどこにぶら下げるか変わりそう。。。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>総評<ul>
+<li>少なくとも俺一人では有意義</li>
+<li>皆で設計したりレビューしたりするときもこれでいいんじゃねえかなって思えた<ul>
+<li><code>@contains</code>など記法はつくりながら決めていけばいい</li>
+</ul>
+</li>
+<li>Q: 会社（OneNoteしか使えない）でやるとしたら？<ul>
+<li>厳しいかなぁ</li>
+<li>理由1: 機能面UI面でScrapboxよりはるかにダメダメなので、スムーズにつくれない</li>
+<li>理由2: こういう「自分たちで新しいやり方やフォーマットつくってやっていく」スタイルに、他のチームメンバーがついてこれない<ul>
+<li><a href="ソフトウェアエンジニア.md">ソフトウェアエンジニア</a>やプログラマーじゃないとなかなか厳しい印象:sta:</li>
+<li>（そもそも俺のこのやり方が有意義かどうかという問題もあるがそれはまた別の話）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<h2 id="links">Links</h2>
+<ul>
+<li>← <a href="My_Wtta.md">My Wtta</a></li>
+<li>← <a href="AWSの構成図つくるのマジでしんどい.md">AWSの構成図つくるのマジでしんどい</a></li>
+<li>← <a href="Scrapbox_As_A_XXXX.html">Scrapbox As A XXXX</a></li>
+</ul>
+<h2 id="2hop-links">2hop Links</h2>
+<ul>
+<li>→ <a href="描くな、書け.md">描くな、書け</a><ul>
+<li>← <a href="書くな、描け.md">書くな、描け</a></li>
+</ul>
+</li>
+<li>→ <a href="でかすぎるリンク.md">でかすぎるリンク</a><ul>
+<li>← <a href="Scrapbox%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E3%83%AA%E3%83%B3%E3%82%AF%E3%81%AE%E6%84%8F%E5%91%B3.html">Scrapboxにおけるリンクの意味</a></li>
+<li>← <a href="毛玉問題.md">毛玉問題</a></li>
+</ul>
+</li>
+<li>→ <a href="AWSの構成図つくるのマジでしんどい.md">AWSの構成図つくるのマジでしんどい</a><ul>
+<li>← <a href="負けず嫌いで仕事中にイライラする.md">負けず嫌いで仕事中にイライラする</a></li>
+<li>← <a href="図や絵は描き込めるよりも埋め込める方が良い.md">図や絵は描き込めるよりも埋め込める方が良い</a></li>
+</ul>
+</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js" defer></script>
+        <script src="search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

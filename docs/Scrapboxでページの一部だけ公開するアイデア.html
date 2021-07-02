@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>Scrapboxでページの一部だけ公開するアイデア - MkDocsでmany markdown filesの変換テスト</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <link href="stylesheet.css" rel="stylesheet">
+
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href=".">MkDocsでmany markdown filesの変換テスト</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#scrapbox" class="nav-link">Scrapboxでページの一部だけ公開するアイデア</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#links" class="nav-link">Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#2hop-links" class="nav-link">2hop Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="scrapbox">Scrapboxでページの一部だけ公開するアイデア</h2>
+<ul>
+<li><a href="https://scrapbox.io/villagepump/scrapbox projectのpageに公開状態を導入するという妄想">/villagepump/scrapbox projectのpageに公開状態を導入するという妄想</a>で書いてたけど、あまりここで暴れるのもアレなので、こっちで暴れ<a href="るん.md">るん</a></li>
+</ul>
+<p><br></p>
+<p>まとめ</p>
+<ul>
+<li>:sta:やっぱり難しいなー</li>
+<li>page単位でprivate or publicを導入する<ul>
+<li>pageがvisibilityを持っている</li>
+</ul>
+</li>
+<li>projectが全部で3種類になる<ul>
+<li>public project</li>
+<li>private project</li>
+<li>mix project</li>
+</ul>
+</li>
+<li>mix project<ul>
+<li>デフォルトはprivate</li>
+<li>ページ単位でpublicにすることができる</li>
+<li>ただしpublicにするためには<strong>メンバー全員の</strong>承認が必要<ul>
+<li>:sta:ここ井戸端にはないアイデア（今日ひらめいた）</li>
+<li>個人projectなら自分の裁量で公開できる</li>
+<li>複数人projectなら意図しない公開を防げる</li>
+</ul>
+</li>
+<li>承認状況は残り続ける<ul>
+<li>ので、極端な話、一年間くらいゆるく議論して公開に至った、なんてケースもありえる</li>
+<li><a href="生きたテキスト.md">生きたテキスト</a>ならぬ生きた公開状態<ul>
+<li>その名もlive visibility！</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p>詰めたい点</p>
+<ul>
+<li>publicにしたpageの編集権限<ul>
+<li>愚直に考えればlockですけど……</li>
+<li>public fix（公開するとlockされる）みたいな追加概念があった方が案外うまくいく気はしている<ul>
+<li>公開を特別視する</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>publicにした後に再度privateにしたい場合<ul>
+<li>:sta:ここが鬼門</li>
+</ul>
+</li>
+<li>Aさんがいなくなった後の、Aさん分の公開承認データの取り扱い<ul>
+<li>A: ng</li>
+<li>B: ok</li>
+<li>C: ok</li>
+<li>このとき、Aがいなくなったら、もう公開にしちゃってok？<ul>
+<li>総意的にはokだけど</li>
+<li>でも挙動としては「Aさんがいなくなったことで公開状態になった」なので直感的じゃない</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>mix projectの有効化UI</li>
+<li>:sta:「なぜこれがほしい」がたぶん甘い<ul>
+<li>分散嫌だ、はprivateでやれよって話だし</li>
+<li>一部だけ公開したい、は同期するくらいの労力は追えよって話でもある</li>
+<li>個人projectと複数人projectで話分けた方がいいか<ul>
+<li>複数人の場合、公開したいpageがあるなら誰かが公開作業（渉外含む）を負えばいいだけの話</li>
+<li>個人の場合、承認欲求捨ててprivateでゴリゴリすればいいだけの話<ul>
+<li>「僕の思考過程を見せたいんだ」「だって僕の過程、すごいもん」<ul>
+<li>他の人はどうか知らないが、僕はこれが<strong>かなり</strong>ある</li>
+<li>別にコメントやviewは反映されてなくてもいい（<a href="疑似承認.md">疑似承認</a>してるから）</li>
+</ul>
+</li>
+<li>この欲望を捨てよって話なんだよな</li>
+<li>知的生産に承認や他者の目は要らない</li>
+<li>本当に？<ul>
+<li>誰かが僕のを読んで書いてくれるってこと、あるやん</li>
+<li><a href="知的生産者はシャイ.md">知的生産者はシャイ</a>なので、こうでもしないと交流できないってのもある。ある？</li>
+<li>そもそも交流してなくても影響しあっている<ul>
+<li><a href="https://scrapbox.io/nishio">/nishio</a>や<a href="https://scrapbox.io/rashitamemo">/rashitamemo</a>に影響されてる人はいるだろう</li>
+<li>:sta:もそう</li>
+<li>西尾さんや倉下さんと直接交流しているわけでもない</li>
+<li>でも彼らが公開してくれているからこそ、影響を受けることができている</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>誰かの役に立つために広く公開する<ul>
+<li>こっちか</li>
+<li>これ重要</li>
+<li>インターネットもそうじゃん</li>
+<li>privateでゴリればいい、はこれに背く</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>そう考えると、やっぱり労してでもmix projectの価値ありそうだなあと思えてくる<ul>
+<li>publicを諦めない</li>
+<li>でも別projectにするという断絶や手間も嫌だ<ul>
+<li>:sta:あとはここ</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>:sta:複数人の場合は？</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p>なぜこれがほしい？</p>
+<ul>
+<li>privateとpublicに分散するのが嫌だから<ul>
+<li>Q: privateのうち、公開したページをpublicに複製すればよいのでは？<ul>
+<li>private側を更新した後の同期が面倒くさいです</li>
+</ul>
+</li>
+<li>Q: <a href="https://scrapbox.io/villagepump/複数のprojectを透過的に扱う">/villagepump/複数のprojectを透過的に扱う</a>すればいいのでは？<ul>
+<li>UserScript必須なのがちょっと</li>
+<li>シームレスも少々損なわれている</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>基本privateだが、一部だけ公開したいって場合に不便だから</li>
+</ul>
+<p><br></p>
+<p>Q&amp;A</p>
+<ul>
+<li>Q: Scrapboxの実装がエグそうじゃない？<ul>
+<li>知らないです</li>
+<li>ただのアイデアなので……</li>
+</ul>
+</li>
+<li>Q: public/privateを考えるのが思考をブロックする要素にならないか?<ul>
+<li>ならないやり方もあります<ul>
+<li>まずはprivate前提でゴリゴリする</li>
+<li>その後で公開を考える<ul>
+<li>たとえばAさんが公開したいと思ったら公開操作すればいい</li>
+<li>残りの人は、賛同するなら承認すればいいし、しないならしなければいい<ul>
+<li>:sta:あ、とするとreject操作もあった方がいい？</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Q: 全員の承認ってだるくない？<ul>
+<li>そういうものです</li>
+<li>公開とは重たい行為なのです</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<h2 id="links">Links</h2>
+<ul>
+<li>← <a href="Notaが次に出すサービスを予想する.md">Notaが次に出すサービスを予想する</a></li>
+</ul>
+<h2 id="2hop-links">2hop Links</h2>
+<ul>
+<li>→ <a href="るん.md">るん</a><ul>
+<li>← <a href="Scrapbox%E3%81%AB%E3%82%B3%E3%83%A1%E3%83%B3%E3%83%88%E3%82%92%E3%81%A4%E3%81%91%E3%82%8B.html">Scrapboxにコメントをつける</a></li>
+</ul>
+</li>
+<li>→ <a href="疑似承認.md">疑似承認</a><ul>
+<li>← <a href="ウェイターブースト.md">ウェイターブースト</a></li>
+</ul>
+</li>
+<li>→ <a href="生きたテキスト.md">生きたテキスト</a><ul>
+<li>← <a href="Scrapbox%E3%81%A7%E3%81%AF%E3%81%A9%E3%81%93%E3%81%AB%E4%BD%95%E3%82%92%E6%9B%B8%E3%81%8F%E3%81%8B%E3%82%92%E6%8E%A2%E3%81%99%E3%81%93%E3%81%A8%E8%87%AA%E4%BD%93%E3%81%8C%E3%81%8A%E3%81%8B%E3%81%97%E3%81%84%E8%AA%AC.html">Scrapboxではどこに何を書くかを探すこと自体がおかしい説</a></li>
+<li>← <a href="興奮を記録する.md">興奮を記録する</a></li>
+<li>← <a href="生きたテキストの別表現.md">生きたテキストの別表現</a></li>
+</ul>
+</li>
+<li>→ <a href="知的生産者はシャイ.md">知的生産者はシャイ</a><ul>
+<li>← <a href="知的生産者間のコミュニケーション.md">知的生産者間のコミュニケーション</a></li>
+</ul>
+</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js" defer></script>
+        <script src="search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

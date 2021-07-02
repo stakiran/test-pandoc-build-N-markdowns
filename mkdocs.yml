@@ -1,0 +1,8 @@
+site_name: MkDocsでmany markdown filesの変換テスト
+use_directory_urls: false
+site_dir: 'docs'
+docs_dir: 'files'
+nav:
+  - Main: index.md
+extra_css:
+  - stylesheet.css

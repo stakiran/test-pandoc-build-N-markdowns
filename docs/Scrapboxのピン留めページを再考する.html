@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>Scrapboxのピン留めページを再考する - MkDocsでmany markdown filesの変換テスト</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <link href="stylesheet.css" rel="stylesheet">
+
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href=".">MkDocsでmany markdown filesの変換テスト</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#scrapbox" class="nav-link">Scrapboxのピン留めページを再考する</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#links" class="nav-link">Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#2hop-links" class="nav-link">2hop Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="scrapbox">Scrapboxのピン留めページを再考する</h2>
+<ul>
+<li>今<ul>
+<li><a href="https://gyazo.com/59b5591e9c672c15d19ce31e314a9c0c" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/59b5591e9c672c15d19ce31e314a9c0c/raw" /></a></li>
+<li><a href="watchしたいScrapboxプロジェクト.md">watchしたいScrapboxプロジェクト</a></li>
+<li><a href="Scrapbox%E6%97%A5%E8%A8%98.html">Scrapbox日記</a></li>
+<li><a href="日記.md">日記</a></li>
+<li><a href="https://scrapbox.io/sta/inbox">/sta/inbox</a></li>
+<li><a href="僕が考える働き方改革エバンジェリスト.md">僕が考える働き方改革エバンジェリスト</a></li>
+<li><a href="ランニングマン日記.md">ランニングマン日記</a></li>
+<li><a href="about_blank.md">about:blank</a></li>
+<li><a href="会社で今日学んだこと.md">会社で今日学んだこと</a></li>
+<li><a href="今日整理したこと.md">今日整理したこと</a></li>
+<li><a href="会社で今日話したこと.md">会社で今日話したこと</a></li>
+<li><a href="Terraform学習.md">Terraform学習</a></li>
+</ul>
+</li>
+<li>何がダメか<ul>
+<li>このScrapboxは対外向けアピールでもあるのに、個人用途ばかり</li>
+<li>並び順に一貫性がなく気持ち悪い、読者にもわかりにくい</li>
+<li>ようこそがわからん<ul>
+<li>Scrapbox慣れた人なら先頭のstaを見ればいいな、とわかるけど</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Inspired by <a href="https://scrapbox.io/masui">/masui</a><ul>
+<li>端的なアピールかつ訪問者に優しい<ul>
+<li>今まで見たScrapboxで一番わかりやすいと感じて「おっ」となった</li>
+</ul>
+</li>
+<li>pinned pages をポートフォリオにしている</li>
+<li>そういえば西尾さんはScraoboxの使い方含めて解説してたな<ul>
+<li><a href="https://scrapbox.io/nishio/「西尾泰和のScrapbox」って何？">/nishio/「西尾泰和のScrapbox」って何？</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="brast.md">brast</a><ul>
+<li>自分がよく使うページはこうするべきだろう<ul>
+<li>workspace的なページをつくって、そっちに並べる</li>
+<li>workspaceページへのアクセスはブラウザブクマやショートカットキーなど手元でなんとかする<ul>
+<li>Firefoxならタブつくって<code>work</code>とでも打てば良い（慣れたら1.5秒</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>pinned pages の数は必要最小限にする</li>
+<li>pinned pages のタイトルは妥協しない<ul>
+<li>staじゃなくて増井さんの「概要」のようなわかりやすいもの</li>
+</ul>
+</li>
+<li>pinned pages の画像も妥協しない<ul>
+<li>いわゆるアイキャッチ画像的なインパクトを与える</li>
+</ul>
+</li>
+<li>自分の名前のページは unpin できる？<ul>
+<li>できた</li>
+</ul>
+</li>
+<li>案1:このサイトについて、だけにする</li>
+<li>案2:案1+プロフィール</li>
+<li>案3:案2+別の何か<ul>
+<li>示したいもの<ul>
+<li>著作</li>
+<li>主要製品</li>
+</ul>
+</li>
+<li>Q:ポートフォリオ見せた方が早くない？<ul>
+<li>ポートフォリオというページをつくるか</li>
+<li>つくらずに「このサイトについて」や「プロフィール」に押し込むか</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>pinned pages<ul>
+<li>このサイトについて</li>
+<li>このサイトの読み方</li>
+<li>管理人プロフィール</li>
+<li>ポートフォリオ</li>
+<li>連絡先</li>
+</ul>
+</li>
+<li>ウェブサイトの意義は？<ul>
+<li><a href="https://stakiran.github.io/stakiran/">https://stakiran.github.io/stakiran/</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<ul>
+<li>できた<ul>
+<li><a href="https://gyazo.com/4db353fa67230fd095a04ef4540ada55" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/4db353fa67230fd095a04ef4540ada55/raw" /></a></li>
+<li><a href="このサイトについて.md">このサイトについて</a></li>
+<li><a href="プロフィール.md">プロフィール</a></li>
+<li><a href="作業机.md">作業机</a></li>
+<li>:sta:あとはよしなに</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<h2 id="links">Links</h2>
+<ul>
+<li>← <a href="Scrapbox%E6%97%A5%E8%A8%98.html">Scrapbox日記</a></li>
+<li>← <a href="2020年末年始.md">2020年末年始</a></li>
+<li>← <a href="Scrapbox%E3%81%AEsort_by_%E7%89%B9%E3%81%ABlast_visited_%E3%82%92%E9%9D%9E%E8%A1%A8%E7%A4%BA%E3%81%AB%E3%81%99%E3%82%8B.html">Scrapboxのsort by(特にlast visited)を非表示にする</a></li>
+</ul>
+<h2 id="2hop-links">2hop Links</h2>
+<ul>
+<li>→ <a href="brast.md">brast</a><ul>
+<li>← <a href="brarea.md">brarea</a></li>
+<li>← <a href="bra.md">bra</a></li>
+<li>← <a href="飲食店でチャット.md">飲食店でチャット</a></li>
+</ul>
+</li>
+<li>→ <a href="ランニングマン日記.md">ランニングマン日記</a><ul>
+<li>← <a href="ダンスラ日記.md">ダンスラ日記</a></li>
+<li>← <a href="じぶんリリースノート_0.31.8.md">じぶんリリースノート 0.31.8</a></li>
+<li>← <a href="幼女がわーって近寄ってきた.md">幼女がわーって近寄ってきた</a></li>
+</ul>
+</li>
+<li>→ <a href="プロフィール.md">プロフィール</a><ul>
+<li>← <a href="このサイトについて.md">このサイトについて</a></li>
+<li>← <a href="sta.md">sta</a></li>
+<li>← <a href="index.mdに書く「projectごとに固有の部分」を自由にいじれるようにする.md">index.mdに書く「projectごとに固有の部分」を自由にいじれるようにする</a></li>
+</ul>
+</li>
+<li>→ <a href="今日整理したこと.md">今日整理したこと</a><ul>
+<li>← <a href="作業机.md">作業机</a></li>
+<li>← <a href="全部入りScrapboxでもAs_A_Reflectionしたい.md">全部入りScrapboxでもAs A Reflectionしたい</a></li>
+<li>← <a href="noteネタ.md">noteネタ</a></li>
+</ul>
+</li>
+<li>→ <a href="このサイトについて.md">このサイトについて</a><ul>
+<li>← <a href="index.mdに書く「projectごとに固有の部分」を自由にいじれるようにする.md">index.mdに書く「projectごとに固有の部分」を自由にいじれるようにする</a></li>
+<li>← <a href="✅index.mdを自動生成する.md">✅index.mdを自動生成する</a></li>
+<li>← <a href="Sandbox.md">Sandbox</a></li>
+</ul>
+</li>
+<li>→ <a href="会社で今日話したこと.md">会社で今日話したこと</a><ul>
+<li>← <a href="仕事のスタンスを変える.md">仕事のスタンスを変える</a></li>
+</ul>
+</li>
+<li>→ <a href="Terraform学習.md">Terraform学習</a><ul>
+<li>← <a href="Time_slot_driven.md">Time slot driven</a></li>
+<li>← <a href="隣人の音がうっとうしい_part2.md">隣人の音がうっとうしい part2</a></li>
+<li>← <a href="DeepLさんに頼りたい.md">DeepLさんに頼りたい</a></li>
+</ul>
+</li>
+<li>→ <a href="僕が考える働き方改革エバンジェリスト.md">僕が考える働き方改革エバンジェリスト</a><ul>
+<li>← <a href="働き方改革エバンジェリスト.md">働き方改革エバンジェリスト</a></li>
+</ul>
+</li>
+<li>→ <a href="作業机.md">作業机</a><ul>
+<li>← <a href="じぶんリリースノート.md">じぶんリリースノート</a></li>
+<li>← <a href="デジタルガレージ.md">デジタルガレージ</a></li>
+<li>← <a href="Scrapbox%E9%96%8B%E3%81%84%E3%81%A6%E6%9C%80%E5%88%9D%E3%81%AB%E7%B7%A8%E9%9B%86%E3%81%99%E3%82%8B%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%92%E3%81%A9%E3%81%86%E3%82%84%E3%81%A3%E3%81%A6%E9%81%B8%E3%81%B6%E3%81%8B.html">Scrapbox開いて最初に編集するページをどうやって選ぶか</a></li>
+</ul>
+</li>
+<li>→ <a href="日記.md">日記</a><ul>
+<li>← <a href="このサイトについて.md">このサイトについて</a></li>
+<li>← <a href="作業机.md">作業机</a></li>
+<li>← <a href="じぶんリリースノート.md">じぶんリリースノート</a></li>
+</ul>
+</li>
+<li>→ <a href="Scrapbox%E6%97%A5%E8%A8%98.html">Scrapbox日記</a><ul>
+<li>← <a href="rmaruon.md">rmaruon</a></li>
+<li>← <a href="Sandbox.md">Sandbox</a></li>
+</ul>
+</li>
+<li>→ <a href="watchしたいScrapboxプロジェクト.md">watchしたいScrapboxプロジェクト</a><ul>
+<li>← <a href="Scrapbox%E3%81%AE%E5%85%A5%E9%96%80%E3%82%92Boox%E3%81%A7%E6%9B%B8%E3%81%8F.html">Scrapboxの入門をBooxで書く</a></li>
+<li>← <a href="平日の時間が足りない.md">平日の時間が足りない</a></li>
+<li>← <a href="人生相談できない.md">人生相談できない</a></li>
+</ul>
+</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js" defer></script>
+        <script src="search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

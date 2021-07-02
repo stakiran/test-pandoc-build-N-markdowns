@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>Scrapboxに画像をコピペするとYou are not logged in to Gyazoエラーが出る - MkDocsでmany markdown filesの変換テスト</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <link href="stylesheet.css" rel="stylesheet">
+
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href=".">MkDocsでmany markdown filesの変換テスト</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#scrapboxyou-are-not-logged-in-to-gyazo" class="nav-link">Scrapboxに画像をコピペするとYou are not logged in to Gyazoエラーが出る</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#2hop-links" class="nav-link">2hop Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="scrapboxyou-are-not-logged-in-to-gyazo">Scrapboxに画像をコピペするとYou are not logged in to Gyazoエラーが出る</h2>
+<p><a href="https://gyazo.com/809b07eb2b66b2b5719a7c9461bd01c8" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/809b07eb2b66b2b5719a7c9461bd01c8/raw" /></a></p>
+<p>You are not logged in to <a href="https://gyazo.com">https://gyazo.com</a></p>
+<p>↑ この一文が出る</p>
+<p><br></p>
+<p>コピペとは？</p>
+<ul>
+<li>snippingtoolで画面の一部をコピーして、scrapbox上でペーストする on Windows</li>
+<li>つまり画像のD&amp;Dではなく「クリップボードにある画像データをペーストする」</li>
+</ul>
+<p><br></p>
+<p>考察</p>
+<ul>
+<li>どういうことだ？</li>
+<li>可能性1<ul>
+<li>元々「Gyazoログインしてないけどアップはできる状態」だった</li>
+<li>今回、新たにgyazoログインしてないぜメッセージを出すことにした？<ul>
+<li>gyazo宣伝するために？</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>可能性2<ul>
+<li>scrapboxとgyazoの連携まわりでバグが出ている</li>
+<li>（本来はscrapboxからは自動でgyazoにログインできるようになっていた）</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p>時系列</p>
+<ul>
+<li>2021/03/31 20:27 そういう仕様になったとのこと<ul>
+<li>thk <a href="https://gyazo.com#6062eae379d3a9000064f92f">/villagepump/You are not logged in to</a>(https://scrapbox.io/villagepump/You are not logged in to <a href="https://gyazo.com#6062eae379d3a9000064f92f)">https://gyazo.com#6062eae379d3a9000064f92f)</a></li>
+<li>なんでそうしたのかはまだピンと来てない</li>
+</ul>
+</li>
+<li>2021/03/30 17:50 起きた<ul>
+<li>ログインし直しても起きます</li>
+<li>ブラウザのキャッシュとcookie消して再ログインしても起きます</li>
+<li>とりあえずgyazoにアクセスしてログインしてみた<ul>
+<li>でなくなった</li>
+</ul>
+</li>
+<li>調べてる<ul>
+<li><a href="Scrapbox%E3%81%AE%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%83%8E%E3%83%BC%E3%83%88.html">Scrapboxのリリースノート</a>は特になし</li>
+<li><a href="Scrapbox%E3%81%AESystem_Status.html">ScrapboxのSystem Status</a>も問題なし</li>
+<li>GyazoはリリースノートもSystem Statusもない<ul>
+<li>Twitterでも特に問題報告はなかった</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>2021/03/30 10:50 <a href="コンビニ人間.md">コンビニ人間</a>書いててコピペしたときは起きてなかった</li>
+<li>with Firefox</li>
+</ul>
+<p><br></p>
+<h2 id="2hop-links">2hop Links</h2>
+<ul>
+<li>→ <a href="Scrapbox%E3%81%AE%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%83%8E%E3%83%BC%E3%83%88.html">Scrapboxのリリースノート</a><ul>
+<li>← <a href="Scrapbox%E3%81%8C%E3%81%8A%E3%81%8B%E3%81%97%E3%81%84%E3%81%A8%E3%81%8D%E3%81%AB%E8%A6%8B%E3%82%8B%E3%83%9A%E3%83%BC%E3%82%B8.html">Scrapboxがおかしいときに見るページ</a></li>
+<li>← <a href="しれっと改善が入っているのが面白い.md">しれっと改善が入っているのが面白い</a></li>
+<li>← <a href="Scrapbox%E3%81%AE%E3%83%96%E3%83%A9%E3%82%B1%E3%83%83%E3%83%88%E5%85%A5%E5%8A%9B%E6%99%82%E3%81%AE%E3%83%9A%E3%83%BC%E3%82%B8%E8%A3%9C%E5%AE%8C%E3%81%AE%E4%BB%95%E6%A7%98%E3%81%8C%E5%A4%89%E3%82%8F%E3%81%A3%E3%81%9F_.html">Scrapboxのブラケット入力時のページ補完の仕様が変わった？</a></li>
+</ul>
+</li>
+<li>→ <a href="コンビニ人間.md">コンビニ人間</a><ul>
+<li>← <a href="働きやすさのOPQRS.md">働きやすさのOPQRS</a></li>
+<li>← <a href="じぶんリリースノート_0.32.3.md">じぶんリリースノート 0.32.3</a></li>
+<li>← <a href="じぶんリリースノート_0.32.2.md">じぶんリリースノート 0.32.2</a></li>
+</ul>
+</li>
+<li>→ <a href="Scrapbox%E3%81%AESystem_Status.html">ScrapboxのSystem Status</a><ul>
+<li>← <a href="Scrapbox%E3%81%8C%E3%81%8A%E3%81%8B%E3%81%97%E3%81%84%E3%81%A8%E3%81%8D%E3%81%AB%E8%A6%8B%E3%82%8B%E3%83%9A%E3%83%BC%E3%82%B8.html">Scrapboxがおかしいときに見るページ</a></li>
+</ul>
+</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js" defer></script>
+        <script src="search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>Scrapboxにおけるリンクの意味 - MkDocsでmany markdown filesの変換テスト</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <link href="stylesheet.css" rel="stylesheet">
+
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href=".">MkDocsでmany markdown filesの変換テスト</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#scrapbox" class="nav-link">Scrapboxにおけるリンクの意味</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#links" class="nav-link">Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#2hop-links" class="nav-link">2hop Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="scrapbox">Scrapboxにおけるリンクの意味</h2>
+<p><br></p>
+<p>3</p>
+<ul>
+<li>3つくらいにシンプルにしたさある:sta:<ul>
+<li>標識（<a href="標識としてのタグ.md">標識としてのタグ</a>）</li>
+<li>ラベル（いわゆるタギング）</li>
+<li>リンク</li>
+</ul>
+</li>
+<li>4つ<ul>
+<li>標識</li>
+<li>タグ</li>
+<li>~~案内~~参照</li>
+<li>接続</li>
+<li>Q: 案内と接続の違いは？<ul>
+<li>どちらもリンク</li>
+<li>案内は「定義への案内」など、リンク先を知らない人向けにリンク先（に書いてある説明）に案内するもの</li>
+<li>接続は単にお互いがつながっているという意味</li>
+</ul>
+</li>
+<li>Q: 参照と接続は、有向無向ってこと？<ul>
+<li>かもしれない</li>
+<li>が、ちょっとニュアンス違うなぁ:sta:<ul>
+<li>やっぱり有向というよりも「覗く」なんだよな</li>
+<li>そっちに入るほどではない</li>
+<li>一方、接続は実際に行ったり来たり（出たり入ったり）する</li>
+<li>だからAへの有向時、ページAを開く必要はなくて、たとえば<a href="Scrapbox%E3%81%A7%E3%83%AA%E3%83%B3%E3%82%AF%E5%85%88%E3%82%92%E3%83%90%E3%83%AB%E3%83%BC%E3%83%B3%E3%81%A7%E3%81%A9%E3%82%93%E3%81%A9%E3%82%93%E8%BE%BF%E3%81%A3%E3%81%A6%E3%81%84%E3%81%8F.html">Scrapboxでリンク先をバルーンでどんどん辿っていく</a>みたいに「Aの内容を表示する」だけでもいいんだよ</li>
+<li>readonlyともいえるかもしれない</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>:train:うん、このアプローチな気がする<ul>
+<li>根本的には「タグ」と「リンク」がある</li>
+<li>ただ、これ２つだけど使われ方によってはノイジーになるから、ノイジーな使われ方をあらかじめ別概念として切り出しておこうぜってわけ<ul>
+<li>タグから「標識」を切り出してみた。標識とは「このページはこういう性質を持ってまーす」という看板みたいなもの。一目で性質がわかる効果がある。アイキャッチ画像の文字版みたいなもの。なぜかタグが使われる文化が出来上がっているが、たぶんタグじゃなくてもいい。</li>
+<li>リンクからは「案内」を切り出した。案内とは「この言葉の定義はこちらにあります」的なリンクのこと。言い換えるとリンクというよりは「参照」。リンクに価値を見出すシステムにおいては、ただの参照は省くべきだと思うので今回切り出した。</li>
+<li>他にも切り出せる概念があるだろう:sta:</li>
+</ul>
+</li>
+<li>で、切り出した概念には別の記法を使うことで（あるいは追加記法を入れることで）根本２つの邪魔をしない<ul>
+<li>たとえばリンクを<code>[link](link.md)</code>にして、参照を<code>&lt;ref&gt;</code>という表記にすれば、リンクには参照が混ざらなくなる</li>
+<li>リンクの価値はより正確になるだろう</li>
+<li>極論、キーワードリンクみたいに参照を乱用しても、リンクの世界は乱されない<ul>
+<li><a href="でかすぎるリンク.md">でかすぎるリンク</a>が起こりにくい</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Q: 記法使い分けるのしんどくね？<ul>
+<li>それな:sta:</li>
+<li>だが意味がnつあれば、nつ使い分けるのは当然でもある<ul>
+<li>そこはユーザーが歩み寄るべきだ</li>
+<li><a href="単純化本能.md">単純化本能</a>注意</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>:train:もうScrapboxで「名詞リンクは参照とみなす」とかすればいいんじゃね？ｗ<ul>
+<li>自然言語処理的にえぐそうだけど</li>
+<li>あと<a href="https://scrapbox.io/sta/Scrapboxの哲学">/sta/Scrapboxの哲学</a>みたいな「助詞で連結された名詞（？）」どうするか問題もある</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p>2</p>
+<ul>
+<li>定義への案内</li>
+<li>情報への案内<ul>
+<li>定義も情報では？</li>
+<li>こういうニュアンスっす<ul>
+<li>定義はただのキーワードリンク（用語定義へのリンク）（辞書的）</li>
+<li>情報は<a href="Scrapbox%E3%81%AE%E5%93%B2%E5%AD%A6.html">Scrapboxの哲学</a>に則ったリンク接続（情報へのリンク）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>分類の表明</li>
+<li>性質の表明</li>
+<li>このへん<ul>
+<li>ポインター</li>
+<li>ページの切り出し</li>
+<li>細分化</li>
+<li>ショートカット（linksからも辿れるけどより簡単に辿れるようにするためにあえてリンク張る、などのケース）</li>
+</ul>
+</li>
+</ul>
+<hr />
+<ul>
+<li>たぶん包含関係は扱わない方がいい<ul>
+<li>関係じゃなくて「意味」を論じよ</li>
+</ul>
+</li>
+<li>関連の表明<ul>
+<li>「関連」はでかすぎるので使わない方がいいかしら</li>
+</ul>
+</li>
+<li><a href="タグの意味.md">タグの意味</a></li>
+<li>UMLから引っ張ってくれば網羅できそ？<ul>
+<li><a href="クラス図.md">クラス図</a>の場合は<ul>
+<li>リンク</li>
+<li>関連(has-a)</li>
+<li>集約(part-of)</li>
+<li>汎化(is-a)と特化</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>:sta:なんか観点の焦点が合わん<ul>
+<li>「それだ！」な足がかりが欲しい。。。</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p>1</p>
+<ul>
+<li>定義へのアクセス</li>
+<li>関連の表明</li>
+<li>所属の表明(Tagging)</li>
+<li>部品化</li>
+<li>部品へのアクセス</li>
+<li>跡地</li>
+<li>名詞と文章とで違う</li>
+<li>例示</li>
+</ul>
+<p><br></p>
+<p>from <a href="https://scrapbox.io/yosider/リンクの役割が衝突">/yosider/リンクの役割が衝突</a></p>
+<ul>
+<li>辞書的（定義へのアクセス）</li>
+<li>関連付け</li>
+<li>as a entrypoint<ul>
+<li><blockquote>ここを見ればいいというページ、リンク</blockquote></li>
+</ul>
+</li>
+<li>あとで名前変更に追従できるようにする用</li>
+</ul>
+<p><br></p>
+<h2 id="links">Links</h2>
+<ul>
+<li>← <a href="My_Wtta.md">My Wtta</a></li>
+<li>← <a href="でかすぎるリンク.md">でかすぎるリンク</a></li>
+<li>← <a href="yosider.md">yosider</a></li>
+</ul>
+<h2 id="2hop-links">2hop Links</h2>
+<ul>
+<li>→ <a href="でかすぎるリンク.md">でかすぎるリンク</a><ul>
+<li>← <a href="Scrapbox_As_A_Diagram.html">Scrapbox As A Diagram</a></li>
+<li>← <a href="毛玉問題.md">毛玉問題</a></li>
+</ul>
+</li>
+<li>→ <a href="Scrapbox%E3%81%AE%E5%93%B2%E5%AD%A6.html">Scrapboxの哲学</a><ul>
+<li>← <a href="このサイトについて.md">このサイトについて</a></li>
+<li>← <a href="shokai.md">shokai</a></li>
+<li>← <a href="汎用的なツールとして提供する.md">汎用的なツールとして提供する</a></li>
+</ul>
+</li>
+<li>→ <a href="Scrapbox%E3%81%A7%E3%83%AA%E3%83%B3%E3%82%AF%E5%85%88%E3%82%92%E3%83%90%E3%83%AB%E3%83%BC%E3%83%B3%E3%81%A7%E3%81%A9%E3%82%93%E3%81%A9%E3%82%93%E8%BE%BF%E3%81%A3%E3%81%A6%E3%81%84%E3%81%8F.html">Scrapboxでリンク先をバルーンでどんどん辿っていく</a><ul>
+<li>← <a href="ページ一覧とページ内容を二画面で表示するScrapbox.md">ページ一覧とページ内容を二画面で表示するScrapbox</a></li>
+<li>← <a href="Scrapbox%E3%81%AE%E3%83%9A%E3%83%BC%E3%82%B8%E7%A7%BB%E5%8B%95%E3%82%92%E3%82%82%E3%81%A3%E3%81%A8%E6%A5%BD%E3%81%AB%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF.html">Scrapboxのページ移動をもっと楽にするには</a></li>
+<li>← <a href="scrapbox-dictionary.html">scrapbox-dictionary</a></li>
+</ul>
+</li>
+<li>→ <a href="標識としてのタグ.md">標識としてのタグ</a><ul>
+<li>← <a href="今日整理したこと.md">今日整理したこと</a></li>
+<li>← <a href="Neo's_World.md">Neo's World</a></li>
+<li>← <a href="創作ネタ.md">創作ネタ</a></li>
+</ul>
+</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js" defer></script>
+        <script src="search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

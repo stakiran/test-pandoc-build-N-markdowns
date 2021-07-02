@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>Scrapbox dailytasklist specs - MkDocsでmany markdown filesの変換テスト</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <link href="stylesheet.css" rel="stylesheet">
+
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href=".">MkDocsでmany markdown filesの変換テスト</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#scrapbox-dailytasklist-specs" class="nav-link">scrapbox-dailytasklist-specs</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#links" class="nav-link">Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#2hop-links" class="nav-link">2hop Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="scrapbox-dailytasklist-specs">scrapbox-dailytasklist-specs</h2>
+<ul>
+<li>fitとsecの仕様古いので後で更新する</li>
+</ul>
+<p><br></p>
+<p><strong>記法にある程度柔軟性持たせる？（everyでもeverydayでもヒットするなど）</strong></p>
+<ul>
+<li>Ans: もたせません</li>
+<li>実装はシンプルにしたい</li>
+<li>記法は慣れればええんです</li>
+</ul>
+<p><br></p>
+<p><strong>デイリータスクリストはどう表示する？</strong></p>
+<ul>
+<li>まとめ<ul>
+<li>flatにします</li>
+<li>行頭に <code>[</code> を入れて done としているので、いかに速く打てるかが肝心<ul>
+<li><a href="Scrapbox%E3%81%A7%E3%82%BF%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86.html">Scrapboxでタスク管理</a></li>
+</ul>
+</li>
+<li>カーソル位置がずれないのはflatしかない</li>
+<li>加えて、flatだとセクション名が<a href="区切りタスク.md">区切りタスク</a>っぽくて馴染みやすい</li>
+</ul>
+</li>
+<li>仮に朝昼夜セクションとした場合</li>
+<li>nosection<ul>
+<li>
+<ul>
+<li><a href="ここにタスクページ名.md">ここにタスクページ名</a>]</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><a href="ここにタスクページ名.md">ここにタスクページ名</a>]</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><a href="ここにタスクページ名.md">ここにタスクページ名</a>]</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><a href="ここにタスクページ名.md">ここにタスクページ名</a>]</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><a href="ここにタスクページ名.md">ここにタスクページ名</a>]</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>flat<ul>
+<li>朝</li>
+<li>
+<ul>
+<li><a href="ここにタスクページ名.md">ここにタスクページ名</a>]</li>
+</ul>
+</li>
+<li>昼</li>
+<li>
+<ul>
+<li><a href="ここにタスクページ名.md">ここにタスクページ名</a>]</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><a href="ここにタスクページ名.md">ここにタスクページ名</a>]</li>
+</ul>
+</li>
+<li>夜</li>
+<li>
+<ul>
+<li><a href="ここにタスクページ名.md">ここにタスクページ名</a>]</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><a href="ここにタスクページ名.md">ここにタスクページ名</a>]</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>flat and parasite<ul>
+<li>朝 - <a href="ここにタスクページ名.md">ここにタスクページ名</a>]</li>
+<li>昼 - <a href="ここにタスクページ名.md">ここにタスクページ名</a>]</li>
+<li>昼 - <a href="ここにタスクページ名.md">ここにタスクページ名</a>]</li>
+<li>夜 - <a href="ここにタスクページ名.md">ここにタスクページ名</a>]</li>
+<li>夜 - <a href="ここにタスクページ名.md">ここにタスクページ名</a>]</li>
+</ul>
+</li>
+<li>nest<ul>
+<li>朝<ul>
+<li>
+<ul>
+<li><a href="ここにタスクページ名.md">ここにタスクページ名</a>]</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>昼<ul>
+<li>
+<ul>
+<li><a href="ここにタスクページ名.md">ここにタスクページ名</a>]</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><a href="ここにタスクページ名.md">ここにタスクページ名</a>]</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>夜<ul>
+<li>
+<ul>
+<li><a href="ここにタスクページ名.md">ここにタスクページ名</a>]</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><a href="ここにタスクページ名.md">ここにタスクページ名</a>]</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p><strong>テストデータをどうつくるか</strong></p>
+<ul>
+<li>まとめ<ul>
+<li>別プロジェクトつくればいい</li>
+<li>8個かな</li>
+</ul>
+</li>
+<li>欲しいタスク<ul>
+<li>8x8=64！？</li>
+<li>いや、セクションごとに別のルーチンタスク使えばいいです</li>
+<li>セクション8個</li>
+<li>ルーチンタスク8個<ul>
+<li>@1</li>
+<li>@2</li>
+<li>@3</li>
+<li>@7 週一 平日</li>
+<li>@7 週一 休日</li>
+<li>@14</li>
+<li>@21</li>
+<li>@30 月一</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p><strong>柔軟なfitはサポートする？</strong></p>
+<ul>
+<li>fitとして「datetime1 から datetime2 の間だったら」的な条件は指定できるようにする？<ul>
+<li>しない</li>
+<li>煩雑すぎる</li>
+<li><a href="scrapbox-dailytasklist.html">scrapbox-dailytasklist</a>はあくまでも頻出するルーチンタスクを fit と section 程度で浮上させるだけの小さなツール</li>
+<li>頻出しないタスクは別の手段で管理しましょう</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p><strong>属性をタグで記載することの是非</strong></p>
+<ul>
+<li>タグはやめます<ul>
+<li><code>#</code>一文字でも属性表記がリーダブルじゃなくなる</li>
+<li><a href="分類するな、関連付けよ.md">分類するな、関連付けよ</a></li>
+</ul>
+</li>
+<li>最悪タグ付けしなくても動作する</li>
+<li>タグをつけておくと、同じ属性値を持つタスクをたどりやすい<ul>
+<li><code>#s:mr</code></li>
+<li><code>#fit:平</code></li>
+<li><code>#fit:月水土</code></li>
+</ul>
+</li>
+<li>属性の記法が特殊なら検索でもリーチ可能</li>
+</ul>
+<p><br></p>
+<p><strong>Section</strong></p>
+<ul>
+<li><a href="scrapbox-dailytasklist.html">scrapbox-dailytasklist</a>に渡すパラメータ</li>
+<li>Section書式<ul>
+<li><code>sec:(セクション名)</code></li>
+</ul>
+</li>
+<li>dailytasklist pageにどういう順番で並べるか<ul>
+<li><a href="Tritask.md">Tritask</a>では「タスク名の辞書順昇順」<ul>
+<li>タスク名次第</li>
+</ul>
+</li>
+<li>何らかの属性を用いた辞書順昇順<ul>
+<li><a href="セクション.md">セクション</a> + タスク名</li>
+<li><a href="ソート記号.md">ソート記号</a></li>
+</ul>
+</li>
+<li>機械的に順序を決められないか<ul>
+<li>date modified</li>
+<li>あとは「順序に関係しそうなパラメーター」を計算するくらいか<ul>
+<li>行数多い = よく書く = 重要だから前にする、とか</li>
+<li>:sta:安直だし泥沼っぽいのでここは中断</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>タスク名には「並び順に絡む文字列」を入れたくない<ul>
+<li>タスク名とは別の何かでコントロールしたい</li>
+</ul>
+</li>
+<li>~~安直に数字にする~~<ul>
+<li>1 10 100 132 142</li>
+<li>絶対あとで「数字足らん」「全部+10ずつずらす」なんてことになる……</li>
+</ul>
+</li>
+<li>タスク管理界隈の叡智に乗っ取るなら「セクション」一択<ul>
+<li>朝昼晩</li>
+<li>朝休憩、朝、昼休憩、昼、夕休憩、夕、夜休憩、夜、睡眠<ul>
+<li><a href="4Rセクション.md">4Rセクション</a></li>
+</ul>
+</li>
+<li>英語<ul>
+<li>Morning Daytime Evening Night</li>
+</ul>
+</li>
+<li>日本語ローマ字<ul>
+<li>a: Asa、h: Hiru、y: Yuugata、y: Yoru</li>
+<li>あー、惜しい、かぶりやがった</li>
+</ul>
+</li>
+<li>値域<ul>
+<li>mr m dr d er e nr n</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>セクションを愚直に使っても辞書順降順で思い通りにならない、どうする<ul>
+<li>一応「自分以外のセクション体系」も想定したいのでカスタマイズ可にする</li>
+<li>1 <code>order = ['mr', 'm', ...]('mr',_'m',_....md)</code> ← こんな風にセクション名を配列で並べる</li>
+<li>2 セクション名は各自好きなの使えばいい</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p><strong>fit</strong></p>
+<ul>
+<li>fit書式<ul>
+<li><code>fit:[月火水木金土日平休](月火水木金土日平休.md)</code></li>
+<li><code>fit:1</code> 1日</li>
+<li><code>fit:25,26</code> 25日と26日</li>
+<li><code>fit:every</code> 毎日</li>
+<li><code>fit:a/b</code> 今日の日値を a で割った時の余りが b だったら<ul>
+<li><code>fit:2/0</code> @2、日値が2で割り切れるとき(2,4,6,8...)</li>
+<li><code>fit:2/1</code> @2、日値のmod 2が1のとき(1,3,5,7....)</li>
+<li><code>fit:4/2</code> @4、日値のmod 4が2のとき(2,6,10,14...)</li>
+<li>if "今日が13日で、今日から3日ごとに繰り返したいなー"<ul>
+<li><code>fit:3/</code> ここまではすぐ出る</li>
+<li>13 mod 3 = 1</li>
+<li><code>fit:3/1</code> と書けば良い<ul>
+<li>1, 4, 7, 10, 13, 16</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>if "今日がd日で、今日からr日ごとに繰り返したいなー"<ul>
+<li><code>fit:r/(d mod r)</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>repeatは廃止する<ul>
+<li>「このタスクはいつ浮上するか」←このアイデアになる</li>
+<li>浮上条件<ul>
+<li>float cond</li>
+</ul>
+</li>
+<li>使う<ul>
+<li>use</li>
+</ul>
+</li>
+<li>タイミング<ul>
+<li>timing</li>
+</ul>
+</li>
+<li>実行<ul>
+<li>execution cond</li>
+<li>ec</li>
+</ul>
+</li>
+<li>いつ当てはまるか<ul>
+<li>when</li>
+<li>fit<ul>
+<li>これが一番短くていい</li>
+<li>fit:水木金 ← 水、木、金のみ浮上する</li>
+<li>水、木、金のみフィットする</li>
+<li>んー:sta:</li>
+<li>:sta:住めば都というか、もう僕自身は馴染んだ<ul>
+<li><a href="住めば都の名前版.md">住めば都の名前版</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>apply</li>
+<li>match<ul>
+<li>情報屋としてはこれがしっくりくるな</li>
+<li>もうちょっと短くしたい</li>
+<li>「タスク管理」的な用語を使いたい</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>短いのでfitにします</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<h2 id="links">Links</h2>
+<ul>
+<li>← <a href="scrapbox-dailytasklist.html">scrapbox-dailytasklist</a></li>
+</ul>
+<h2 id="2hop-links">2hop Links</h2>
+<ul>
+<li>→ <a href="scrapbox-dailytasklist.html">scrapbox-dailytasklist</a><ul>
+<li>← <a href="UserScriptとの付き合い方を再考する.md">UserScriptとの付き合い方を再考する</a></li>
+<li>← <a href="Scrapbox_As_A_TaskManagement.html">Scrapbox As A TaskManagement</a></li>
+<li>← <a href="プログラミングフットワーク.md">プログラミングフットワーク</a></li>
+</ul>
+</li>
+<li>→ <a href="セクション.md">セクション</a><ul>
+<li>← <a href="4Rセクション.md">4Rセクション</a></li>
+<li>← <a href="Tritask-scrapbox.md">Tritask-scrapbox</a></li>
+</ul>
+</li>
+<li>→ <a href="4Rセクション.md">4Rセクション</a><ul>
+<li>← <a href="概念とは部分集合の捉え方である.md">概念とは部分集合の捉え方である</a></li>
+</ul>
+</li>
+<li>→ <a href="Tritask.md">Tritask</a><ul>
+<li>← <a href="❌Tritaskにログも残せる減点式カウンターを入れたい.md">❌Tritaskにログも残せる減点式カウンターを入れたい</a></li>
+<li>← <a href="❌Tritaskでskip_all_the_rest_tasks.md">❌Tritaskでskip all the rest tasks</a></li>
+<li>← <a href="AddとSmart_Addを賢く判別させたい.md">AddとSmart Addを賢く判別させたい</a></li>
+</ul>
+</li>
+<li>→ <a href="分類するな、関連付けよ.md">分類するな、関連付けよ</a><ul>
+<li>← <a href="DDIDI.md">DDIDI</a></li>
+</ul>
+</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js" defer></script>
+        <script src="search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

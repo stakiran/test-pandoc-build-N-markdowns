@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>Scrapboxに慣れた人がOneNoteでプロジェクトの知識を積み上げていくためのコツ - MkDocsでmany markdown filesの変換テスト</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <link href="stylesheet.css" rel="stylesheet">
+
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href=".">MkDocsでmany markdown filesの変換テスト</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#scrapboxonenote" class="nav-link">Scrapboxに慣れた人がOneNoteでプロジェクトの知識を積み上げていくためのコツ</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#2hop-links" class="nav-link">2hop Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="scrapboxonenote">Scrapboxに慣れた人がOneNoteでプロジェクトの知識を積み上げていくためのコツ</h2>
+<p>前提</p>
+<ul>
+<li>巨大なPJ<ul>
+<li>複数ベンダが参加している</li>
+<li>SlackやGitHubのメンバー数は数千人レベル</li>
+</ul>
+</li>
+<li>僕の所属<ul>
+<li>参画しているベンダAに所属<ul>
+<li>A内でも100人くらいいる</li>
+</ul>
+</li>
+<li>僕はそのうち、10人くらいの部隊Bに所属</li>
+<li>部隊Bは部署Cと部署Dから成っていて、僕は部署D側に属している</li>
+<li>部署Dには7人くらい</li>
+<li>この7人が見れる書けるOneNoteを、共有フォルダに置いて運用している</li>
+</ul>
+</li>
+<li>僕が属する部署D（というより会社）の性質<ul>
+<li><a href="Microsoft_365.md">Microsoft 365</a>を全社導入している<ul>
+<li>Teamsを使っている</li>
+<li>部署D用のプライベートチーム</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p>:hr:</p>
+<p>以下はScrapbox（自称）ヘビーユーザーの:sta:の悟り</p>
+<p><br></p>
+<ul>
+<li>Scrapboxには勝てないが、Markdownよりは快適なノート手段にできる<ul>
+<li>ただしコードの共有がゴミ（ハイライトされない）なので、コードは別手段で共有 + onenoteではURL張る、が良い</li>
+</ul>
+</li>
+<li>食わず嫌いせずゴリゴリ使ってみる、試してみる<ul>
+<li>意外と悪くない</li>
+<li>コード共有がマシならローカルでMarkdownやめようかなと考えてもいいレベル</li>
+</ul>
+</li>
+<li>Scrapboxに慣れたマンは、バリバリ使ってみんなをリードしてあげると良い</li>
+<li>どうせ書かない人は書かないので、以下くらいのスタンスで良い<ul>
+<li>最低限自分だけが便宜を享受できればいい</li>
+<li>「ここ見たら書いてあるよ」状態にしているとなおよい<ul>
+<li><a href="オンボーディング.md">オンボーディング</a>が「このonenote見て」で済む</li>
+<li>PJ離脱時も「ここに書いてあるんで」で済む</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>OneNoteから外に出ると途端に弱くなる<ul>
+<li>OneNoteで外のウン十人、ウン百人と共有するのは無理なので諦める<ul>
+<li>自部署の10人以下の範囲内で共有すればいい、と割り切る</li>
+</ul>
+</li>
+<li>ラフなノートに留める<ul>
+<li>ドキュメントに変換したい、HTMLにしたいなんてことは無理ゲー</li>
+<li>ラフに書いて共有する用途に留める</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p>:hr:</p>
+<p>以下はScrapbox（自称）ヘビーユーザーの:sta:が「こうすれば割と快適」というコツを雑多に述べたもの</p>
+<p><br></p>
+<ul>
+<li>アプリで編集する<ul>
+<li>ブラウザやTeamsから編集するのは良くない<ul>
+<li>使いづらい</li>
+<li>箇条書きのポチも汚い</li>
+<li>一切同期されない（同時編集できないし編集衝突も発生しかねない）<ul>
+<li>開いた時に全部読み込んで、以後再読み込みまで一切更新しないという環境変数的な挙動……</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="Scrapbox%E3%81%AE%E5%93%B2%E5%AD%A6.html">Scrapboxの哲学</a>を踏襲する<ul>
+<li>箇条書きで並べる</li>
+<li>ページは細かい単位でつくる</li>
+<li>ページ名は後でリンク or 検索しやすい、わかりやすいものにする</li>
+<li>内容が長くなってきたページは別ページに切り出す</li>
+<li>リンクは積極的に張る</li>
+<li>etc</li>
+<li>:sta:用語集をつくりながら試してみると良い</li>
+</ul>
+</li>
+<li>セクションはこうする<ul>
+<li>1 社外秘やグループ外秘ネタ</li>
+<li>2 プロジェクトのドメイン知識</li>
+<li>3 用語集<ul>
+<li>ここは1,2,4の用語全部含む</li>
+<li>4については最悪なくてもいいが、「このPJではどう使われているか」があると嬉しい<ul>
+<li>たとえばFluentdはググってもわかるログ収集ソフトウェアなので、最悪要らない</li>
+<li>が、このPJではこういう場面でこう使ってるよー的な記述が（一言でもあると）助かる！</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>4 汎用的な技術</li>
+<li>5 個人ページ（z_XXXX）</li>
+</ul>
+</li>
+<li>各セクションの構造（ページ名の構造）<ul>
+<li>こうする<ul>
+<li>About</li>
+<li>===</li>
+<li>サマリー</li>
+<li>===</li>
+<li>その他ページ</li>
+</ul>
+</li>
+<li>Aboutは1ページで、「このセクションではどういうネタを扱っているか」を端的に</li>
+<li>サマリーはnページで、以下を揃えると良い<ul>
+<li>初学者向けの「理解が捗る」要約</li>
+<li>情報の俯瞰やリンク集</li>
+</ul>
+</li>
+<li>その他のページはnページで、そのセクションに関するネタを書いていく</li>
+</ul>
+</li>
+<li>ページ追加<ul>
+<li>~~下に新しいページを追加~~これはだるいのでやめる<ul>
+<li>いちいちスクロールしなきゃいけない</li>
+</ul>
+</li>
+<li>右クリック &gt; ページを追加、で現在位置に追加するのが良い<ul>
+<li><a href="https://gyazo.com/b7b9a80b123c1f7270a4f72ee5053375" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/b7b9a80b123c1f7270a4f72ee5053375/raw" /></a></li>
+<li>ここで、というかこのへんから右クリ追加する</li>
+<li>「ここから右クリックで追加」というダミーページを置いてもいい</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ページ名<ul>
+<li>ページ名変えてもリンク元は死なないのでゴリゴリ変えていい</li>
+<li>検索でひっかけやすくすると良い<ul>
+<li><code>(title)(keywords)</code></li>
+<li>例: <code>Terraform の ~&gt; とは</code><ul>
+<li><code>Terraform の ~&gt; とは version</code> とするとひっかかりやすい</li>
+<li><code>Terraform の ~&gt; とは version major minor</code> ← 僕一人だったらここまでするかな</li>
+</ul>
+</li>
+<li>自然に思い浮かんだキーワードで良い<ul>
+<li><a href="自然に書けることだけを書く.md">自然に書けることだけを書く</a></li>
+</ul>
+</li>
+<li>:sta:が、好みが強いかも<ul>
+<li>とりあえずz_xxxxの個人ページでは好きにすればいい</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>個人ページとそれ以外の使い分け<ul>
+<li>個人ページは自分のやりたいようにする</li>
+<li>書かなくても仕事できるなら別に書かなくてもいい</li>
+<li>他の人は<ul>
+<li>個人ページを見てもいい</li>
+<li>コメントしてもいい</li>
+</ul>
+</li>
+<li>1,2,3,4に書くべき有益なネタがあれば、そっちに書く<ul>
+<li>最初から書けるなら書いてもいい</li>
+<li>迷うなら、いったん個人ページで書いてみればいい</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ビューのレイアウト<ul>
+<li>好みだろうけど</li>
+<li>:sta:はこう<ul>
+<li><a href="https://gyazo.com/ea585710b7c5e2c8f4ffde675b97fffd" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/ea585710b7c5e2c8f4ffde675b97fffd/raw" /></a></li>
+<li>セクションがタブとして並ぶ</li>
+<li>ページが左ペインに並ぶ</li>
+<li>ノートブックは左上にコンボボックスで</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>操作<ul>
+<li>ショートカットキーはできるだけ使った方が良い<ul>
+<li><a href="https://support.microsoft.com/ja-jp/office/onenote-%E3%81%AE%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89-%E3%82%B7%E3%83%A7%E3%83%BC%E3%83%88%E3%82%AB%E3%83%83%E3%83%88-44b8b3f4-c274-4bcc-a089-e80fdcc87950">OneNote のキーボード ショートカット - OneNote</a></li>
+</ul>
+</li>
+<li>個人的によく使うもの<ul>
+<li>Ctrl + <code>.</code> で箇条書きon/offトグル</li>
+<li>Ctrl + K でリンク挿入<ul>
+<li>実際は<a href="AutoHotkey.md">AutoHotkey</a>でCtrl + Lにしてるけど</li>
+</ul>
+</li>
+<li>Ctrl + <code>-</code> で打ち消し線</li>
+<li>Alt + Ctrl + <code>[</code> <code>](</code>_<code>.md)</code> でページのインデントを下げる</li>
+</ul>
+</li>
+<li>「新しいウィンドウで開く」で2枚表示すると便利なことが多い<ul>
+<li>片方を読みながら、もう片方でメモするとか</li>
+</ul>
+</li>
+<li>コンテンツを他ページに移動させたい場合は、「元の書式を維持して貼り付け」をする<ul>
+<li>これしないと画像や書式がペーストされない</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ローカルへのバックアップ設定はしておく<ul>
+<li><a href="https___github.com_stakiran_til_blob_master_til_microsoft_office_onenote_backup_export.md">til/onenote_backup_export.md at master · stakiran/til</a></li>
+<li>たとえば1日単位、10世代とか</li>
+<li>何かあっても復旧できるので安心</li>
+</ul>
+</li>
+<li>タスク管理<ul>
+<li>番号があるなら <code>(完了フラグ)(番号)_(タスク名)</code> みたいにするといい</li>
+<li>タスクについて言及したい場合、リンクから番号入れるだけで補完されてすぐ繋げられる</li>
+</ul>
+</li>
+<li>画像の挿入<ul>
+<li>snippingtoolで切り取ってコピペする</li>
+</ul>
+</li>
+<li>お絵かきツールが地味に優秀<ul>
+<li><a href="OneNoteはお絵かきツールとしては優秀.md">OneNoteはお絵かきツールとしては優秀</a></li>
+<li>ただし「描いたものを画像として挿入」ではなく、今表示している領域に描く感じ</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<h2 id="2hop-links">2hop Links</h2>
+<ul>
+<li>→ <a href="自然に書けることだけを書く.md">自然に書けることだけを書く</a><ul>
+<li>← <a href="定着していない思いつき.md">定着していない思いつき</a></li>
+<li>← <a href="見かけたら_and_書けたら書く.md">見かけたら and 書けたら書く</a></li>
+<li>← <a href="興奮を記録する.md">興奮を記録する</a></li>
+</ul>
+</li>
+<li>→ <a href="オンボーディング.md">オンボーディング</a><ul>
+<li>← <a href="アクティブオンボーディング.md">アクティブオンボーディング</a></li>
+<li>← <a href="オンボーディングのパラドックス.md">オンボーディングのパラドックス</a></li>
+<li>← <a href="オンボーディング中に放置され続けると病みがち.md">オンボーディング中に放置され続けると病みがち</a></li>
+</ul>
+</li>
+<li>→ <a href="Microsoft_365.md">Microsoft 365</a><ul>
+<li>← <a href="Teams.md">Teams</a></li>
+<li>← <a href="万人従業員のAAAF手段.md">万人従業員のAAAF手段</a></li>
+<li>← <a href="SPO.md">SPO</a></li>
+</ul>
+</li>
+<li>→ <a href="OneNoteはお絵かきツールとしては優秀.md">OneNoteはお絵かきツールとしては優秀</a><ul>
+<li>← <a href="OneNote.md">OneNote</a></li>
+<li>← <a href="teetingが行えるツール.md">teetingが行えるツール</a></li>
+</ul>
+</li>
+<li>→ <a href="Scrapbox%E3%81%AE%E5%93%B2%E5%AD%A6.html">Scrapboxの哲学</a><ul>
+<li>← <a href="このサイトについて.md">このサイトについて</a></li>
+<li>← <a href="shokai.md">shokai</a></li>
+<li>← <a href="汎用的なツールとして提供する.md">汎用的なツールとして提供する</a></li>
+</ul>
+</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js" defer></script>
+        <script src="search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

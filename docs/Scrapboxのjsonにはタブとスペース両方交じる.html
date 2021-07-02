@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>Scrapboxのjsonにはタブとスペース両方交じる - MkDocsでmany markdown filesの変換テスト</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <link href="stylesheet.css" rel="stylesheet">
+
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href=".">MkDocsでmany markdown filesの変換テスト</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#scrapboxjson" class="nav-link">Scrapboxのjsonにはタブとスペース両方交じる</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#links" class="nav-link">Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="scrapboxjson">Scrapboxのjsonにはタブとスペース両方交じる</h2>
+<ul>
+<li>そのまま挿入されてる<ul>
+<li>タブキーでインデントするとタブ</li>
+<li>スペースキーでインデントするとスペース</li>
+</ul>
+</li>
+<li>ある行から改行して自動インデントした場合、その行のが踏襲される</li>
+</ul>
+<p><br></p>
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;sta-export-test&quot;,
+  &quot;displayName&quot;: &quot;sta-export-test&quot;,
+  &quot;exported&quot;: 1609646173,
+  &quot;pages&quot;: [
+    {
+      &quot;title&quot;: &quot;space-based indent&quot;,
+      &quot;created&quot;: 1609646137,
+      &quot;updated&quot;: 1609646164,
+      &quot;id&quot;: &quot;5ff14037f71d51001c00f314&quot;,
+      &quot;lines&quot;: [
+        &quot;space-based indent&quot;,
+        &quot; この箇条書きは&quot;,
+        &quot; スペースキーでつくっています&quot;,
+        &quot; サブネスト&quot;,
+        &quot;  サブ&quot;,
+        &quot;   サブ&quot;,
+        &quot;   サブ&quot;,
+        &quot;   \tサブ&quot;, //★これはたぶんタブでつくっちまった
+        &quot;&quot;
+      ]
+    },
+    {
+      &quot;title&quot;: &quot;tab-based indent&quot;,
+      &quot;created&quot;: 1609646109,
+      &quot;updated&quot;: 1609646132,
+      &quot;id&quot;: &quot;5ff1401a106d63002251b708&quot;,
+      &quot;lines&quot;: [
+        &quot;tab-based indent&quot;,
+        &quot;\tこの箇条書きは&quot;,
+        &quot;\tタブキーでつくっています&quot;,
+        &quot;\tサブネスト&quot;,
+        &quot;\t\tサブ&quot;,
+        &quot;\t\t\tサブ&quot;,
+        &quot;\t\t\tサブ&quot;,
+        &quot;\t\t\t\tサブ&quot;,
+        &quot;&quot;
+      ]
+    }
+  ]
+}
+</code></pre>
+<p><br></p>
+<h2 id="links">Links</h2>
+<ul>
+<li>← <a href="Scrapbox_to_Markdown_%E3%82%B3%E3%83%BC%E3%83%89%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF.html">Scrapbox to Markdown コードブロック</a></li>
+<li>← <a href="Scrapbox_to_Markdown_%E3%83%86%E3%82%B9%E3%83%88%E3%82%B3%E3%83%BC%E3%83%89%E8%A8%AD%E8%A8%88.html">Scrapbox to Markdown テストコード設計</a></li>
+<li>← <a href="GitHubのMarkdownでネストしたリストが正しくレンダリングされない.md">GitHubのMarkdownでネストしたリストが正しくレンダリングされない</a></li>
+<li>← <a href="別に切に欲しくないけどなんか面白そうだからつくる.md">別に切に欲しくないけどなんか面白そうだからつくる</a></li>
+<li>← <a href="sbq.md">sbq</a></li>
+<li>← <a href="Scrapbox%E3%82%92%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%88%E3%81%97%E3%81%9F%E3%81%A8%E3%81%8D%E3%81%AEjson%E3%83%95%E3%82%A9%E3%83%BC%E3%83%9E%E3%83%83%E3%83%88.html">Scrapboxをエクスポートしたときのjsonフォーマット</a></li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js" defer></script>
+        <script src="search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

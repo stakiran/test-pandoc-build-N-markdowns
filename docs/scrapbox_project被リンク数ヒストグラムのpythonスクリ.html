@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>Scrapbox project被リンク数ヒストグラムのpythonスクリ - MkDocsでmany markdown filesの変換テスト</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <link href="stylesheet.css" rel="stylesheet">
+
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href=".">MkDocsでmany markdown filesの変換テスト</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#scrapbox-projectpython" class="nav-link">scrapbox project被リンク数ヒストグラムのpythonスクリ</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#links" class="nav-link">Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#2hop-links" class="nav-link">2hop Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="scrapbox-projectpython">scrapbox project被リンク数ヒストグラムのpythonスクリ</h2>
+<p><a href="https://gyazo.com/6ecaeca7aa367172599a66d3a688b545" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/6ecaeca7aa367172599a66d3a688b545/raw" /></a></p>
+<p><br></p>
+<ul>
+<li>学び<ul>
+<li>Python requestsでAPI使えば、ローカルとPython libsの力でゴリゴリし放題</li>
+<li>matplotlib 使えばかんたんにグラフ描けそう<ul>
+<li>でも色々概念あるのでちゃんと学ばないとつまづきそう</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<ul>
+<li>:sta:処理すぐに終わったのがマジで意味わからん<ul>
+<li>3000pageあるのに</li>
+<li>並列化？</li>
+<li>ソース読んでみたい<ul>
+<li>GET <code>https://scrapbox.io/api/pages/{project}/search/titles</code></li>
+<li><code>response.headers.get('X-Following-Id')</code> これがポイントみたいだ</li>
+</ul>
+</li>
+<li>単純だった<ul>
+<li><a href="https://scrapbox.io/scrapboxlab/api/pages/:projectname/search/titles">/scrapboxlab/api/pages/:projectname/search/titles</a></li>
+<li>1000件単位でゲットできる</li>
+<li>'X-Following-Idはただのpagination</li>
+<li><strong>responseにページ内リンクの入ったlinksがある</strong></li>
+</ul>
+</li>
+<li><a href="collections.Counter().md">collections.Counter()</a></li>
+<li>ヒストグラムつくってるところはよーわからん<ul>
+<li><a href="https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.hist.html">matplotlib.pyplot.hist — Matplotlib 3.3.3 documentation</a></li>
+</ul>
+</li>
+<li>グラフ描画使ったことないけど、思っているよりかんたんに描けるんだな<ul>
+<li><a href="https://qiita.com/ceptree/items/5fb5e9e6f29d214153c9">matplotlibの階層構造を知ると幸せになれる(かもしれない) - Qiita</a></li>
+<li><a href="https://qiita.com/skotaro/items/08dc0b8c5704c94eafb9">早く知っておきたかったmatplotlibの基礎知識、あるいは見た目の調整が捗るArtistの話 - Qiita</a></li>
+<li>用語いっぱいあるのでちゃんと勉強した方がよさげ<ul>
+<li><a href="Terraform.md">Terraform</a>読んだときみたいに、<a href="DeepL翻訳.md">DeepL翻訳</a>さんとか</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>（こういうの全然知らんところ）<a href="大学の卒業研究時代はほぼ遊んでた.md">大学の卒業研究時代はほぼ遊んでた</a>のが効いてる気がしないでもない</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<ul>
+<li><a href="https://scrapbox.io/villagepump/各projectの被リンク数histogram">/villagepump/各projectの被リンク数histogram</a></li>
+<li>use<ul>
+<li>コピペしてインデント整えて</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-terminal">$ pip install requests
+$ pip install matplotlib
+$ python main.py sta
+</code></pre>
+<ul>
+<li>文字化けしてるな<ul>
+<li>たぶんcicaフォントがpcにない</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<h2 id="links">Links</h2>
+<ul>
+<li>← <a href="LinksとPagesの比.md">LinksとPagesの比</a></li>
+</ul>
+<h2 id="2hop-links">2hop Links</h2>
+<ul>
+<li>→ <a href="Terraform.md">Terraform</a><ul>
+<li>← <a href="真の意味でものづくりがしたいんだよ.md">真の意味でものづくりがしたいんだよ</a></li>
+<li>← <a href="じぶんリリースノート_0.32.5.md">じぶんリリースノート 0.32.5</a></li>
+<li>← <a href="抽象化されて提供されているものの中身を把握する.md">抽象化されて提供されているものの中身を把握する</a></li>
+</ul>
+</li>
+<li>→ <a href="DeepL翻訳.md">DeepL翻訳</a><ul>
+<li>← <a href="Obsidian.md">Obsidian</a></li>
+<li>← <a href="このScrapbox固有の表記.md">このScrapbox固有の表記</a></li>
+<li>← <a href="DeepLさんに頼りたい.md">DeepLさんに頼りたい</a></li>
+</ul>
+</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js" defer></script>
+        <script src="search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

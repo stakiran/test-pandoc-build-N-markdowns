@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>Scrapboxのsort by 特にlast visited を非表示にする - MkDocsでmany markdown filesの変換テスト</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <link href="stylesheet.css" rel="stylesheet">
+
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href=".">MkDocsでmany markdown filesの変換テスト</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#scrapboxsort-bylast-visited" class="nav-link">Scrapboxのsort by(特にlast visited)を非表示にする</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#links" class="nav-link">Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#2hop-links" class="nav-link">2hop Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="scrapboxsort-bylast-visited">Scrapboxのsort by(特にlast visited)を非表示にする</h2>
+<p><a href="https://gyazo.com/a798cc504bea75ae62559695c19b90e7" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/a798cc504bea75ae62559695c19b90e7/raw" /></a></p>
+<p><br></p>
+<ul>
+<li><a href="last_visited.md">last visited</a>で<a href="承認欲求.md">承認欲求</a>満たしてる感がある<ul>
+<li><a href="圧倒的な自己満足.md">圧倒的な自己満足</a>がしたいのに人の反応を気にしているのが良くない<ul>
+<li>~~<a href="マゾが使うScrapbox.md">マゾが使うScrapbox</a>のきらいもあるし……~~</li>
+</ul>
+</li>
+<li>:sta:消しちゃおうか</li>
+</ul>
+</li>
+<li>ってことで消す</li>
+</ul>
+<p><br></p>
+<p><strong>日記</strong></p>
+<ul>
+<li>2020/11/08 気にしなくなって編集に集中できる（というより気が散らない）のでよろしいです</li>
+<li>2020/12/03 気になってちょっと覗いた<ul>
+<li><a href="sta.md">sta</a>が369view</li>
+<li>most viewでも100viewいかないくらい</li>
+<li>last visited見てもほとんどくられた形跡がない<ul>
+<li>たぶんSEOで稀に検索からやってきたくらい</li>
+</ul>
+</li>
+<li><a href="Open_Secret.md">Open Secret</a>じゃないが、良い感じに<a href="圧倒的な自己満足.md">圧倒的な自己満足</a>できてるな</li>
+</ul>
+</li>
+<li>2020/12/30 人に読んでもらうこと前提で構築し直したので再開（消してたの再表示した）<ul>
+<li><a href="Scrapbox%E3%81%AE%E3%83%94%E3%83%B3%E7%95%99%E3%82%81%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%92%E5%86%8D%E8%80%83%E3%81%99%E3%82%8B.html">Scrapboxのピン留めページを再考する</a></li>
+<li>staが417</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p><strong>一番シンプルな実装</strong></p>
+<ul>
+<li>sort by をまるごと消す（他のソートも使えなくなるデメリット）<ul>
+<li>:sta:普段からろくに使ったことないし、これで試してみるか</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-css"> /* hidden sort menu especially last visited */
+ .page-sort-menu {
+  display: none;
+ }
+</code></pre>
+<p><br></p>
+<p><strong>last visited項目だけ消すには？</strong></p>
+<ul>
+<li>イベントで menuitem 表示がトグルになってるのでだめっすね</li>
+<li>CSSで言えば以下のような感じになるが</li>
+</ul>
+<pre><code class="language-css">/* 同上, last visited item だけ消す */
+.page-sort-menu &gt; .dropdown &gt; .dropdown-menu-right &gt; li:nth-child(4) &gt; a:nth-child(1) : {
+  display: none;
+}
+</code></pre>
+<p><br></p>
+<h2 id="links">Links</h2>
+<ul>
+<li>← <a href="rmaruon.md">rmaruon</a></li>
+<li>← <a href="scrapbox-shuffler.html">scrapbox-shuffler</a></li>
+<li>← <a href="Scrapbox%E6%97%A5%E8%A8%98.html">Scrapbox日記</a></li>
+</ul>
+<h2 id="2hop-links">2hop Links</h2>
+<ul>
+<li>→ <a href="Open_Secret.md">Open Secret</a><ul>
+<li>← <a href="Spaces.md">Spaces</a></li>
+<li>← <a href="OO主義.md">OO主義</a></li>
+<li>← <a href="他人のScrapboxなんて誰も見ない.md">他人のScrapboxなんて誰も見ない</a></li>
+</ul>
+</li>
+<li>→ <a href="圧倒的な自己満足.md">圧倒的な自己満足</a><ul>
+<li>← <a href="ランニングマン縛り.md">ランニングマン縛り</a></li>
+<li>← <a href="Scrapbox%E3%81%AE%E5%93%B2%E5%AD%A6.html">Scrapboxの哲学</a></li>
+<li>← <a href="自分の作品でうっとりする.md">自分の作品でうっとりする</a></li>
+</ul>
+</li>
+<li>→ <a href="承認欲求.md">承認欲求</a><ul>
+<li>← <a href="気持ち悪がられたいという性癖.md">気持ち悪がられたいという性癖</a></li>
+<li>← <a href="Scrapbox_to_Markdown.html">Scrapbox to Markdown</a></li>
+<li>← <a href="虚無.md">虚無</a></li>
+</ul>
+</li>
+<li>→ <a href="sta.md">sta</a><ul>
+<li>← <a href="作業机.md">作業机</a></li>
+<li>← <a href="吉良野すた.md">吉良野すた</a></li>
+<li>← <a href="BBSとしてのScrapbox.md">BBSとしてのScrapbox</a></li>
+</ul>
+</li>
+<li>→ <a href="Scrapbox%E3%81%AE%E3%83%94%E3%83%B3%E7%95%99%E3%82%81%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%92%E5%86%8D%E8%80%83%E3%81%99%E3%82%8B.html">Scrapboxのピン留めページを再考する</a><ul>
+<li>← <a href="Scrapbox%E6%97%A5%E8%A8%98.html">Scrapbox日記</a></li>
+<li>← <a href="2020年末年始.md">2020年末年始</a></li>
+</ul>
+</li>
+<li>→ <a href="last_visited.md">last visited</a><ul>
+<li>← <a href="Scrapbox%E3%81%A8%E6%89%BF%E8%AA%8D%E6%AC%B2%E6%B1%82%E3%82%92%E5%88%87%E3%82%8A%E9%9B%A2%E3%81%99.html">Scrapboxと承認欲求を切り離す</a></li>
+<li>← <a href="Scrapbox%E3%82%92%E3%81%8F%E3%82%8B.html">Scrapboxをくる</a></li>
+<li>← <a href="Last_visited_as_a_Serendipity.md">Last visited as a Serendipity</a></li>
+</ul>
+</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js" defer></script>
+        <script src="search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

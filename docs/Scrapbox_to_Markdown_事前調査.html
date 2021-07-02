@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>Scrapbox to Markdown 事前調査 - MkDocsでmany markdown filesの変換テスト</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <link href="stylesheet.css" rel="stylesheet">
+
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href=".">MkDocsでmany markdown filesの変換テスト</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#scrapbox-to-markdown" class="nav-link">Scrapbox to Markdown 事前調査</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#links" class="nav-link">Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#2hop-links" class="nav-link">2hop Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="scrapbox-to-markdown">Scrapbox to Markdown 事前調査</h2>
+<ul>
+<li>ブックマークレットで単体ページ行うのは<a href="https://scrapbox.io/daiiz">/daiiz</a>さんのがある<ul>
+<li><a href="https://github.com/daiiz/sb2md">daiiz/sb2md: Scrapbox contents -&gt; Markdown</a></li>
+<li>主にScrapboxで書いたものを、公開用にMarkdownにしたい場合に重宝</li>
+<li>これも<ul>
+<li><a href="https://hashrock.github.io/md2sb-online/">https://hashrock.github.io/md2sb-online/</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>:sta:僕が欲しいの<ul>
+<li>エクスポートしたjsonから、たとえばgithub wikiで公開できるmarkdownのファイル郡に変換する</li>
+<li>jsonから変換するやつ<ul>
+<li><a href="https://github.com/kondoumh/sb2md">https://github.com/kondoumh/sb2md</a><ul>
+<li><a href="https://github.com/mamezou-tech/sbgraph">https://github.com/mamezou-tech/sbgraph</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<ul>
+<li>手段<ul>
+<li>GitHubで公開することを念頭に</li>
+<li>GitHub Actionsで自動ビルド試したりもしたい</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-file">wiki/
+b.bat
+data.json
+convert.py
+</code></pre>
+<p><br></p>
+<ul>
+<li>エクスポートしたjson使ってつくってみるか<ul>
+<li>例</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-json">    {
+      &quot;title&quot;: &quot;workspace&quot;,
+      &quot;created&quot;: 1588146516,
+      &quot;updated&quot;: 1593231788,
+      &quot;id&quot;: &quot;5ea93151287376001e3ef378&quot;,
+      &quot;lines&quot;: [
+        &quot;workspace&quot;,
+        &quot; [- 各概念の用語をページ化していくかどうか] いったん無し。仮説含めてまとめきる&quot;,
+        &quot;  [- マニャーナ]&quot;,
+        &quot;  [- GTD]&quot;,
+        &quot; [- 文献の強化？] いったんここまでで。&quot;,
+        &quot; [仮説]を潰していく&quot;,
+        &quot; [タスク管理概論]ページを拡充して「これなら本書けそう」レベルまで&quot;,
+        &quot; 電子書籍執筆開始&quot;,
+        &quot;&quot;
+      ]
+    },
+</code></pre>
+<ul>
+<li>...<ul>
+<li>...</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-md">workspace
+
+- ~~各概念の用語をページ化していくかどうか~~ いったん無し。仮説含めてまとめきる
+    - ~~マナーニャ~~
+    - ~~GTD~~
+- ~~文献の強化~~ いったんここまでで
+- [仮説](仮説)を潰していく
+- [タスク管理概論](タスク管理概論)ページを拡充して……
+- 電子書籍執筆開始
+
+</code></pre>
+<ul>
+<li>...<ul>
+<li>github wiki を想定しているのでリンクは <code>[ページ名](ページ名)</code><ul>
+<li>.md はなし</li>
+</ul>
+</li>
+<li>段落の間には空行を</li>
+<li><strong>\tとスペースの違いがわからん</strong><ul>
+<li><a href="https://gyazo.com/72755ae324d326f0a9f9ed9e6c2af565" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/72755ae324d326f0a9f9ed9e6c2af565/raw" /></a></li>
+<li><a href="https://gyazo.com/62c4d95e8e6fd26398d6a7a775fce4d7" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/62c4d95e8e6fd26398d6a7a775fce4d7/raw" /></a></li>
+<li>どっちもただのリストなんですが</li>
+<li>tableの区切りは<code>\t</code>なんだが</li>
+<li>行頭はスペースも\tも両方許す、感じが良いのかしら？</li>
+</ul>
+</li>
+<li>tableやcodeの終端は？<ul>
+<li>インデントが一段戻ったとき</li>
+</ul>
+</li>
+<li>画像<ul>
+<li>gyazo.com含むものを<code>![]()</code>でいけるはず</li>
+<li><a href="https://github.com/stakiran/test_githubwiki/wiki/gyazoのリンクでも画像表示できる？">https://github.com/stakiran/test_githubwiki/wiki/gyazoのリンクでも画像表示できる？</a><ul>
+<li>~~ダメです。会員登録後、一括でメタデータ公開的な操作が必要~~ いや普通に <code>i.</code> と <code>.png</code> つけていけるね<ul>
+<li><code>.jpg</code> の場合もあります<ul>
+<li>判定が必要というわけか……</li>
+<li>二つ並べれば確実ｗ</li>
+</ul>
+</li>
+<li>まあurl分かれば見えるんだから当然か</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="gyazo.md">gyazo</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<h2 id="links">Links</h2>
+<ul>
+<li>← <a href="Scrapbox_to_Markdown.html">Scrapbox to Markdown</a></li>
+</ul>
+<h2 id="2hop-links">2hop Links</h2>
+<ul>
+<li>→ <a href="仮説.md">仮説</a><ul>
+<li>← <a href="オッカムの剃刀.md">オッカムの剃刀</a></li>
+<li>← <a href="企業や製品の例.md">企業や製品の例</a></li>
+<li>← <a href="価値仮説.md">価値仮説</a></li>
+</ul>
+</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js" defer></script>
+        <script src="search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

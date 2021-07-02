@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>Scrapbox dailytasklist impls - MkDocsでmany markdown filesの変換テスト</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <link href="stylesheet.css" rel="stylesheet">
+
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href=".">MkDocsでmany markdown filesの変換テスト</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#scrapbox-dailytasklist-impls" class="nav-link">scrapbox-dailytasklist-impls</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#links" class="nav-link">Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#2hop-links" class="nav-link">2hop Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="scrapbox-dailytasklist-impls">scrapbox-dailytasklist-impls</h2>
+<ul>
+<li>x <a href="Scrapbox%E3%81%A7%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%921%E4%BB%B6%E3%81%9A%E3%81%A4%E8%A8%88n%E4%BB%B6%E5%88%86%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B%E5%AE%9F%E9%A8%93.html">Scrapboxでページを1件ずつ計n件分取得する実験</a></li>
+<li>x <a href="isTaskPageの残骸.md">isTaskPageの残骸</a></li>
+<li>x <a href="JavascriptでJSTの現在日や曜日を取得する.md">JavascriptでJSTの現在日や曜日を取得する</a></li>
+</ul>
+<p><br></p>
+<p>console.logへの出力を貼り付けてみます</p>
+<ul>
+<li>リンクで汚したくないのでこっちでやる<ul>
+<li><a href="https://scrapbox.io/sta-routinetask-sample/scrapbox-dailytasklistの動作確認エリア">/sta-routinetask-sample/scrapbox-dailytasklistの動作確認エリア</a></li>
+</ul>
+</li>
+<li>朝休 index.js:49:293048<ul>
+<li>index.js部分が邪魔すぎる……</li>
+<li>手元で置換した<ul>
+<li><a href="https://gyazo.com/be570d046441fc9f88e7cc963bcc061a" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/be570d046441fc9f88e7cc963bcc061a/raw" /></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>連続してdoneするのがだるい<ul>
+<li><code>[</code>つける</li>
+<li>up or down</li>
+<li>left<ul>
+<li>ここがだるい:sta:</li>
+</ul>
+</li>
+<li><code>[</code>つける</li>
+</ul>
+</li>
+<li>が、頭に描いてたのがようやく形になってテンションあがってる<ul>
+<li>ひゃっふー</li>
+</ul>
+</li>
+<li>後ろに<code>]</code>つけてdoneにするのは？<ul>
+<li>ダメです</li>
+<li><code>~~[task~~(task.md)</code> ← この時点で打ち消し線が入ってしまう</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p>sectionによる並び替えはどう実装しようか？</p>
+<ul>
+<li>二重ループで愚直に</li>
+</ul>
+<p><br></p>
+<p>importしてくる側から設定値を指定してもらうにはどうすればいい？</p>
+<ul>
+<li>ans: 普通にクラスとか関数とかexportすればいいです</li>
+<li><a href="ダックタイピング.md">ダックタイピング</a>しかない？</li>
+<li>つまり xxx という変数名に～～な値が入っているとみなす</li>
+</ul>
+<p><br></p>
+<p><a href="https://gyazo.com/9b38a032c370b2b0ef8a29accf374e6e" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/9b38a032c370b2b0ef8a29accf374e6e/raw" /></a></p>
+<ul>
+<li>あと3つ<ul>
+<li><a href="https://gyazo.com/04606af86dabf156bbf23ce1d5597f00" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/04606af86dabf156bbf23ce1d5597f00/raw" /></a></li>
+<li><a href="Congratulation.md">Congratulation</a>!</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p><a href="https://gyazo.com/f3f2a61648678a73f20cc0933b93ced3" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/f3f2a61648678a73f20cc0933b93ced3/raw" /></a></p>
+<ul>
+<li>0 なのに無限ループ出てくれない</li>
+<li>lengthをlenghtと書いていた……</li>
+</ul>
+<p><br></p>
+<blockquote>Uncaught SyntaxError: missing ) after argument list</blockquote>
+
+<ul>
+<li>もう10回は遭遇している</li>
+<li>thenの閉じ括弧</li>
+</ul>
+<p><br></p>
+<blockquote>GEThttps://scrapbox.io/assets/img/logo-cut.svg 404</blockquote>
+
+<ul>
+<li>全部ダメ<ul>
+<li><a href="https://scrapbox.io/assets/img/logo-cut.svg">https://scrapbox.io/assets/img/logo-cut.svg</a></li>
+<li>/assets/img/logo-cut.svg</li>
+<li>/assets/img/logo.svg</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<blockquote>Uncaught ReferenceError: can't access lexical declaration 'getDailyTaskList' before initialization</blockquote>
+
+<p>参照するオブジェクトは事前に定義が必要</p>
+<p>つまり script.js 並べるなら、先に定義を上から並べることになる</p>
+<p><br></p>
+<p><a href="https://gyazo.com/d0841351105ea40231ae14037ae6e18d" target="_blank" rel="noopener noreferrer"><img alt="" src="https://gyazo.com/d0841351105ea40231ae14037ae6e18d/raw" /></a></p>
+<p>末尾のセミコロン抜け</p>
+<p><br></p>
+<h2 id="links">Links</h2>
+<ul>
+<li>← <a href="scrapbox-dailytasklist.html">scrapbox-dailytasklist</a></li>
+</ul>
+<h2 id="2hop-links">2hop Links</h2>
+<ul>
+<li>→ <a href="Congratulation.md">Congratulation</a><ul>
+<li>← <a href="英語のsとt、lとrを迷う問題.md">英語のsとt、lとrを迷う問題</a></li>
+<li>← <a href="tada.md">tada</a></li>
+</ul>
+</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js" defer></script>
+        <script src="search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

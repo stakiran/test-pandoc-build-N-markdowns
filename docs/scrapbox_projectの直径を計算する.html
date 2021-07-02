@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>Scrapbox projectの直径を計算する - MkDocsでmany markdown filesの変換テスト</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <link href="stylesheet.css" rel="stylesheet">
+
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href=".">MkDocsでmany markdown filesの変換テスト</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#scrapbox-project" class="nav-link">scrapbox projectの直径を計算する</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#2hop-links" class="nav-link">2hop Links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="scrapbox-project">scrapbox projectの直径を計算する</h2>
+<p><a href="https://scrapbox.io/villagepump/井戸端の直径">/villagepump/井戸端の直径</a></p>
+<ul>
+<li>コードリーディングしたい</li>
+</ul>
+<p><br></p>
+<ul>
+<li>links</li>
+</ul>
+<pre><code class="language-js">links = {
+    &quot;title1&quot;: links1,
+    &quot;title2&quot;: links2,
+}
+</code></pre>
+<ul>
+<li>...<ul>
+<li>たぶんこうなってる<ul>
+<li>fromEntriesは <code>[key,value](key,value.md)</code> を <code>{ key:value}</code> に変換している</li>
+<li><a href="https://zenn.dev/terrierscript/articles/2021-04-02-java-script-object-entities">JavaScriptでObject.entries/fromEntriesでreduceの利用頻度を減らす</a></li>
+</ul>
+</li>
+<li>links？<ul>
+<li><a href="https://scrapbox.io/scrapboxlab/api/pages/:projectname/search/titles">/scrapboxlab/api/pages/:projectname/search/titles</a></li>
+<li>ページ内のリンク（たぶんリンク先ページ名）</li>
+</ul>
+</li>
+<li>つまり links_per_title </li>
+</ul>
+</li>
+<li><code>for (const p in links)</code><ul>
+<li>for in ってなんだっけ<ul>
+<li>p に key が入る</li>
+<li>つまり<code>for (const title in links_per_title)</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>links[p].forEach(l =&gt; {</code> の部分<ul>
+<li><code>links[p]</code> は、<code>links = links_per_title[title](p]</code>_は、<code>links_=_links_per_title[title.md)</code> のことだな</li>
+<li><code>l</code> には、今見てる title の links の各値（つまりページtitleのリンク先ページ名）が来る</li>
+<li><code>links[l]</code><ul>
+<li>これは <code>links_per_title[l]</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>うー、コード書き換えながら見ていくべきだな</li>
+</ul>
+<p><br></p>
+<p>2021/05/15 時点の元コードから<a href="机上リファクタリング.md">机上リファクタリング</a>している</p>
+<pre><code class="language-js">self.addEventListener('message', async ({data: project}) =&gt; {
+ let diameter = 0;
+ let diameterList;
+
+    const links_per_titles = await getLinkInfo(project);
+    for (const title in links_per_titles) {
+  // p: 距離を測る元ページのタイトル
+  let visited = new Set();
+  let distList = [[[], title]];  // 辿ったページリストと現在のページのペア（=経路）のリスト
+  let depth = 0;
+
+  while (true) {
+   const nextList = [];  // titleから1歩進んだ経路のリスト
+   distList.forEach(([pred, title]) =&gt; {
+    links_per_titles[title].forEach(linkto_title_of_this =&gt; {
+     // pのリンク先の各ページを見る
+     const this_linkto_exists = (links_per_titles[linkto_title_of_this] === undefined
+     if (not this_linkto_exists) {
+      return;
+     }
+
+     already_visited = visited.has(linkto_title_of_this)
+     if(already_visited){
+      continue; // forEachの中でcontinueってできるんだっけ？（できるとみなす）
+     }
+     // 未訪問なら1歩進んだ経路を追加する
+     visited.add(linkto_title_of_this);
+     // ★predって何の略？
+     // ...ってなんだっけ？ → pythonでいう *args や
+     // とりあえず pred は最初は [] だから、newpred も [] やな
+     const newPred = [...pred]; // copy
+     newPred.push(title);
+     nextList.push([newPred, linkto_title_of_this]);
+
+     // ★次読むなら、この二周目以降から
+    });
+   });
+   if (nextList.length == 0) {
+    // 行き止まり
+    break;
+   }
+   // 現在の経路リストを更新して繰り返す
+   distList = nextList;
+   depth++;
+  }
+
+  // 今までで最長の経路なら、経路長と経路の中身の記録を更新
+  const newDist = depth - 1;
+  if (newDist &gt; diameter) {
+   diameter = newDist;
+   diameterList = [...distList[0][0], distList[0][1]];
+  }
+ }
+    self.postMessage(diameterList);
+});
+
+// 全ページのリンク情報を取得
+async function getLinkInfo(project = scrapbox.Project.name) {
+   const rawPages = [];
+   let followingId = null;
+   do {
+    const param = followingId === null ? '' : `?followingId=${followingId}`;
+    const res = await fetch(
+     `https://scrapbox.io/api/pages/${project}/search/titles${param}`
+    );
+    followingId = res.headers.get('X-Following-Id');
+    rawPages.push(...(await res.json()));
+   } while (followingId);
+
+    return Object.fromEntries(rawPages.map(p =&gt; [p.title, p.links]));
+}
+</code></pre>
+<p><br></p>
+<ul>
+<li>うー、軽く見たけど、頭追いつかん感じ<ul>
+<li>アルゴリズム系は大体こうなる<ul>
+<li>というか久々すぎてｗ</li>
+<li>だいぶ鈍ってるな<ul>
+<li>まあ<a href="SIer.md">SIer</a>だもんね……</li>
+<li>コード書く場合も一人でつくっておしまいのパターンばかりやもん</li>
+</ul>
+</li>
+<li>これでも全盛期の頃は脳内でどんどん構造を再現してシミュレートできてたんや……</li>
+</ul>
+</li>
+<li>が、いけないことはない:sta:<ul>
+<li>俺もエンジニア名乗るならこれくらいサクッと読めなきゃダメンゴよ</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>次やるときの戦略<ul>
+<li>ガチで机上トレースして書きながら見ていくか、デバッグ実行で変数の値見ながらするかしないとダメそう</li>
+<li>あとローカルでVSCodeとか使って置換使いながら<a href="机上リファクタリング.md">机上リファクタリング</a>した方がいい<ul>
+<li>Scrapbox上でコード書くのはきっちい</li>
+</ul>
+</li>
+<li>先にデータ構造全部洗い出して、名前付け直す<ul>
+<li>predは、わからんならテキトーに名前つけなおす</li>
+<li>捕食する、的な意味っぽい？<ul>
+<li><a href="https://eow.alc.co.jp/search?q=pred&amp;ref=sa">https://eow.alc.co.jp/search?q=pred&amp;ref=sa</a></li>
+<li>経路たどることを「捕食する」とたとえているのだろう</li>
+</ul>
+</li>
+<li>prevのtypoっぽい？</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<h2 id="2hop-links">2hop Links</h2>
+<ul>
+<li>→ <a href="1.md">1</a><ul>
+<li>← <a href="PythonでinlineのScrapbox記法をMarkdown記法に変換する正規表現.md">PythonでinlineのScrapbox記法をMarkdown記法に変換する正規表現</a></li>
+<li>← <a href="isTaskPageの残骸.md">isTaskPageの残骸</a></li>
+<li>← <a href="カクヨムに書いた小説を_KDP_で出版する.md">カクヨムに書いた小説を KDP で出版する</a></li>
+</ul>
+</li>
+<li>→ <a href="SIer.md">SIer</a><ul>
+<li>← <a href="プロフィール.md">プロフィール</a></li>
+<li>← <a href="「部下のメンタル不調」を見抜く3つのサイン.md">「部下のメンタル不調」を見抜く3つのサイン</a></li>
+<li>← <a href="知的生産で食べていきたい.md">知的生産で食べていきたい</a></li>
+</ul>
+</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js" defer></script>
+        <script src="search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
