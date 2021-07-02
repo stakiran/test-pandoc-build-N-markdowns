@@ -37,3 +37,14 @@ popd
         - jekyll よりは早いか
     - リンクが `.md` のまま
     - `.md.html` じゃなくて `.html` にしたいんだが、バッチファイルどう書く？
+        - `%%~nf.html`
+
+## Q: Pandoc は multiple input files できないの？
+無理そう。
+
+- [Markdown and including multiple files - Stack Overflow https://stackoverflow.com/questions/4779582/markdown-and-including-multiple-files]
+    - `*.md` を 1-html にはできるが、N-html はできない
+- [Pandoc - Pandoc User’s Guide https://pandoc.org/MANUAL.html]
+    - それらしきオプション見当たらん
+
+ので、N-file あったら pandoc も N 回呼ぶことになる……
