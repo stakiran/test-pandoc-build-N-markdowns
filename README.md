@@ -58,5 +58,4 @@ WARNING -  Documentation file 'scrapboxで創作.md' contains a link to '知的�
 INFO    -  Documentation built in 3.51 seconds
 ```
 
-え、早い、いいじゃん
-
+え、早い、良い。
