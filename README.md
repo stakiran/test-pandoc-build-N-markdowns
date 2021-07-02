@@ -1,8 +1,16 @@
 # test-pandoc-build-N-markdowns
-n個のmdファイルをn個のhtmlファイルに変換する実験
+n個のmdファイルをn個のhtmlファイルに変換する実験 from [レンダリングエンジンをPandocに変える - stakiran研究所](https://scrapbox.io/sta/%E3%83%AC%E3%83%B3%E3%83%80%E3%83%AA%E3%83%B3%E3%82%B0%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%B3%E3%82%92Pandoc%E3%81%AB%E5%A4%89%E3%81%88%E3%82%8B)
 
-## files/
-- 250個くらい
+## info
+- files/
+    - 250個くらい
+
+```
+$ pandoc --version
+pandoc 2.13
+Compiled with pandoc-types 1.22, texmath 0.12.2, skylighting 0.10.5,
+citeproc 0.3.0.9, ipynb 0.1.0.1
+```
 
 ## 1
 
