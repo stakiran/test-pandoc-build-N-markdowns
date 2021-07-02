@@ -1,0 +1,115 @@
+## Scrapboxのピン留めページを再考する
+- 今
+    - <a href="https://gyazo.com/59b5591e9c672c15d19ce31e314a9c0c" target="_blank" rel="noopener noreferrer">![](https://gyazo.com/59b5591e9c672c15d19ce31e314a9c0c/raw)</a>
+    - [watchしたいScrapboxプロジェクト](watchしたいScrapboxプロジェクト.md)
+    - [Scrapbox日記](Scrapbox日記.md)
+    - [日記](日記.md)
+    - [/sta/inbox](https://scrapbox.io/sta/inbox)
+    - [僕が考える働き方改革エバンジェリスト](僕が考える働き方改革エバンジェリスト.md)
+    - [ランニングマン日記](ランニングマン日記.md)
+    - [about:blank](about_blank.md)
+    - [会社で今日学んだこと](会社で今日学んだこと.md)
+    - [今日整理したこと](今日整理したこと.md)
+    - [会社で今日話したこと](会社で今日話したこと.md)
+    - [Terraform学習](Terraform学習.md)
+- 何がダメか
+    - このScrapboxは対外向けアピールでもあるのに、個人用途ばかり
+    - 並び順に一貫性がなく気持ち悪い、読者にもわかりにくい
+    - ようこそがわからん
+        - Scrapbox慣れた人なら先頭のstaを見ればいいな、とわかるけど
+- Inspired by [/masui](https://scrapbox.io/masui)
+    - 端的なアピールかつ訪問者に優しい
+        - 今まで見たScrapboxで一番わかりやすいと感じて「おっ」となった
+    - pinned pages をポートフォリオにしている
+    - そういえば西尾さんはScraoboxの使い方含めて解説してたな
+        - [/nishio/「西尾泰和のScrapbox」って何？](https://scrapbox.io/nishio/「西尾泰和のScrapbox」って何？)
+- [brast](brast.md)
+    - 自分がよく使うページはこうするべきだろう
+        - workspace的なページをつくって、そっちに並べる
+        - workspaceページへのアクセスはブラウザブクマやショートカットキーなど手元でなんとかする
+            - Firefoxならタブつくって`work`とでも打てば良い（慣れたら1.5秒
+    - pinned pages の数は必要最小限にする
+    - pinned pages のタイトルは妥協しない
+        - staじゃなくて増井さんの「概要」のようなわかりやすいもの
+    - pinned pages の画像も妥協しない
+        - いわゆるアイキャッチ画像的なインパクトを与える
+    - 自分の名前のページは unpin できる？
+        - できた
+    - 案1:このサイトについて、だけにする
+    - 案2:案1+プロフィール
+    - 案3:案2+別の何か
+        - 示したいもの
+            - 著作
+            - 主要製品
+        - Q:ポートフォリオ見せた方が早くない？
+            - ポートフォリオというページをつくるか
+            - つくらずに「このサイトについて」や「プロフィール」に押し込むか
+    - pinned pages
+        - このサイトについて
+        - このサイトの読み方
+        - 管理人プロフィール
+        - ポートフォリオ
+        - 連絡先
+    - ウェブサイトの意義は？
+        - <https://stakiran.github.io/stakiran/>
+
+<br>
+
+- できた
+    - <a href="https://gyazo.com/4db353fa67230fd095a04ef4540ada55" target="_blank" rel="noopener noreferrer">![](https://gyazo.com/4db353fa67230fd095a04ef4540ada55/raw)</a>
+    - [このサイトについて](このサイトについて.md)
+    - [プロフィール](プロフィール.md)
+    - [作業机](作業机.md)
+    - :sta:あとはよしなに
+
+<br>
+
+## Links
+- ← [Scrapbox日記](Scrapbox日記.md)
+- ← [2020年末年始](2020年末年始.md)
+- ← [Scrapboxのsort by(特にlast visited)を非表示にする](Scrapboxのsort_by_特にlast_visited_を非表示にする.md)
+
+## 2hop Links
+- → [brast](brast.md)
+    - ← [brarea](brarea.md)
+    - ← [bra](bra.md)
+    - ← [飲食店でチャット](飲食店でチャット.md)
+- → [ランニングマン日記](ランニングマン日記.md)
+    - ← [ダンスラ日記](ダンスラ日記.md)
+    - ← [じぶんリリースノート 0.31.8](じぶんリリースノート_0.31.8.md)
+    - ← [幼女がわーって近寄ってきた](幼女がわーって近寄ってきた.md)
+- → [プロフィール](プロフィール.md)
+    - ← [このサイトについて](このサイトについて.md)
+    - ← [sta](sta.md)
+    - ← [index.mdに書く「projectごとに固有の部分」を自由にいじれるようにする](index.mdに書く「projectごとに固有の部分」を自由にいじれるようにする.md)
+- → [今日整理したこと](今日整理したこと.md)
+    - ← [作業机](作業机.md)
+    - ← [全部入りScrapboxでもAs A Reflectionしたい](全部入りScrapboxでもAs_A_Reflectionしたい.md)
+    - ← [noteネタ](noteネタ.md)
+- → [このサイトについて](このサイトについて.md)
+    - ← [index.mdに書く「projectごとに固有の部分」を自由にいじれるようにする](index.mdに書く「projectごとに固有の部分」を自由にいじれるようにする.md)
+    - ← [✅index.mdを自動生成する](✅index.mdを自動生成する.md)
+    - ← [Sandbox](Sandbox.md)
+- → [会社で今日話したこと](会社で今日話したこと.md)
+    - ← [仕事のスタンスを変える](仕事のスタンスを変える.md)
+- → [Terraform学習](Terraform学習.md)
+    - ← [Time slot driven](Time_slot_driven.md)
+    - ← [隣人の音がうっとうしい part2](隣人の音がうっとうしい_part2.md)
+    - ← [DeepLさんに頼りたい](DeepLさんに頼りたい.md)
+- → [僕が考える働き方改革エバンジェリスト](僕が考える働き方改革エバンジェリスト.md)
+    - ← [働き方改革エバンジェリスト](働き方改革エバンジェリスト.md)
+- → [作業机](作業机.md)
+    - ← [じぶんリリースノート](じぶんリリースノート.md)
+    - ← [デジタルガレージ](デジタルガレージ.md)
+    - ← [Scrapbox開いて最初に編集するページをどうやって選ぶか](Scrapbox開いて最初に編集するページをどうやって選ぶか.md)
+- → [日記](日記.md)
+    - ← [このサイトについて](このサイトについて.md)
+    - ← [作業机](作業机.md)
+    - ← [じぶんリリースノート](じぶんリリースノート.md)
+- → [Scrapbox日記](Scrapbox日記.md)
+    - ← [rmaruon](rmaruon.md)
+    - ← [Sandbox](Sandbox.md)
+- → [watchしたいScrapboxプロジェクト](watchしたいScrapboxプロジェクト.md)
+    - ← [Scrapboxの入門をBooxで書く](Scrapboxの入門をBooxで書く.md)
+    - ← [平日の時間が足りない](平日の時間が足りない.md)
+    - ← [人生相談できない](人生相談できない.md)
