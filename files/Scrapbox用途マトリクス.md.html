@@ -1,0 +1,361 @@
+<h2 id="scrapbox用途マトリクス">Scrapbox用途マトリクス</h2>
+<p>難儀してるのでいったんばいちゃ</p>
+<p><br></p>
+<ul>
+<li>要素
+<ul>
+<li>Visibility 見せる/見せない Public/Private</li>
+<li>Headcount 個人/複数人 Personal/Social</li>
+<li>Liveness 生かす/生かさない Live/Dead</li>
+</ul></li>
+<li>VL
+<ul>
+<li>public live</li>
+<li>public dead</li>
+<li>private live</li>
+<li>private dead</li>
+</ul></li>
+<li>VH
+<ul>
+<li>public personal</li>
+<li>public social</li>
+<li>private personal</li>
+<li>private social</li>
+</ul></li>
+<li>LH
+<ul>
+<li>personal live</li>
+<li>personal dead</li>
+<li>social live</li>
+<li>social dead</li>
+</ul></li>
+</ul>
+<p><br></p>
+<p>倉庫 = 死んだテキスト倉庫</p>
+<p>Wiki = 生きたテキストを扱うシステム</p>
+<p>table:matrix</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>一人？</th>
+<th>見せる？</th>
+<th>生かす？</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>複数人の、秘匿された、倉庫</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>y</td>
+<td></td>
+<td></td>
+<td>個人の、秘匿された、倉庫</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td>y</td>
+<td></td>
+<td>複数人の、公開された、倉庫</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>y</td>
+<td>y</td>
+<td></td>
+<td>個人の、公開された、倉庫</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td>y</td>
+<td>複数人の、秘匿された、Wiki</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>y</td>
+<td></td>
+<td>y</td>
+<td>個人の、秘匿された、Wiki</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td>y</td>
+<td>y</td>
+<td>複数人の、公開された、Wiki</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>y</td>
+<td>y</td>
+<td>y</td>
+<td>個人の、公開された、Wiki</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<ul>
+<li>たいていは複数要素を含むので、複数要素含んでいることを表現できねばならないな</li>
+</ul>
+<p><br></p>
+<ul>
+<li>priN</li>
+<li>pri1</li>
+<li>pubN</li>
+<li>pub1</li>
+</ul>
+<p><br></p>
+<ul>
+<li>純粋なwiki</li>
+<li>純粋な倉庫</li>
+</ul>
+<p><br></p>
+<ul>
+<li>時間制限</li>
+<li>未完成 or not</li>
+</ul>
+<p><br></p>
+<ul>
+<li>個人 or 複数人
+<ul>
+<li>性善説</li>
+</ul></li>
+<li>生かす or 殺す</li>
+</ul>
+<p><br></p>
+<ul>
+<li>死んだテキストとは？生きたテキストとは？
+<ul>
+<li>段階がありませんか
+<ul>
+<li>lv1: display
+<ul>
+<li>名言や引</li>
+</ul></li>
+<li>lv2: log
+<ul>
+<li>日記や記録</li>
+<li>ある時間以降にピタリと更新が止む</li>
+</ul></li>
+<li>lv3: 死んだテキスト、完成という概念を目指すテキスト</li>
+<li>lv4: 生きたテキスト、未完成テキスト</li>
+</ul></li>
+<li>lv1: 時系列縛り（対象とする時間範囲以降は修正されない）
+<ul>
+<li>日記
+<ul>
+<li>ただし後から追記することはできる</li>
+</ul></li>
+<li>事実の引用
+<ul>
+<li>引用箇所を変えることで修正はできる</li>
+</ul></li>
+</ul></li>
+<li>属性？
+<ul>
+<li>期限の有無</li>
+<li>完成という名のゴールの有無</li>
+<li>table:table</li>
+</ul></li>
+</ul></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>期限がある</th>
+<th>期限がない</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ゴールがある</td>
+<td>タスク</td>
+<td>検討</td>
+</tr>
+<tr class="even">
+<td>ゴールがない</td>
+<td>縛りプレイ</td>
+<td>アイデア</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>微妙か（象限の中が浮かばん</li>
+</ul></li>
+<li></li>
+<li><code>AU</code>: 追記できるし、修正もできる</li>
+<li><code>A-</code>: 追記できるが、修正はできない</li>
+<li><code>-U</code>: 追記できないが、修正はできる</li>
+<li><code>--</code>: 追記できないし、修正もできない</li>
+<li></li>
+<li>切り出し</li>
+<li></li>
+<li><code>SS</code>: 自分が書いたものに、自分が手を入れる</li>
+<li><code>SO</code>: 自分が書いたものに、人が手を入れる</li>
+<li><code>OS</code>: 人が手を入れたものに、自分が手を入れる</li>
+<li><code>OO</code>: 人が手を入れたものに、人が手を入れる</li>
+<li></li>
+<li><code>SOO</code>: 自分が書いたものに人が手を入れたものに、人が手を入れる（たたき台）</li>
+<li><code>SOS</code>: 自分が書いたものに人が手を入れたものに、自分が手を入れる（補足を入れる）</li>
+<li><code>OSS</code>: 人が手を入れたものに自分が手を入れたものに、自分が手を入れる（横取り）</li>
+<li><code>OSO</code>: 人が手を入れたものに自分が手を入れたものに、人が手を入れる（補足をもらう）</li>
+</ul></li>
+</ul>
+<p><br></p>
+<p><br></p>
+<p>:hr:</p>
+<p><br></p>
+<p>table:matrix</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>テキストは殺したい</th>
+<th>テキストは殺したくない</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>人に見せたい</td>
+<td>1:Private Dead Text</td>
+<td>2:Private Live Text</td>
+</tr>
+<tr class="even">
+<td>人に見せたくない</td>
+<td>3:Public Dead Text</td>
+<td>4:Public Live Text</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>:sta:あー、ちょっとまって</p>
+<p>「人に見せる見せない」と「個人・複数人」がごっちゃになってる</p>
+<p>8通りかもしれん</p>
+<p><br></p>
+<ul>
+<li>1: privateな死んだテキスト
+<ul>
+<li>:skk:まあ使いたいなら</li>
+<li><a href="Scrapbox_As_A_Aete.md">Scrapbox As A Aete</a>として</li>
+</ul></li>
+<li>2: privateな生きたテキスト
+<ul>
+<li><span class="emoji" data-emoji="o">⭕</span>向いている</li>
+<li>個人の学習や知的生産活動に</li>
+<li>人に見せることは考えない</li>
+</ul></li>
+<li>3: publicな死んだテキスト
+<ul>
+<li><span class="emoji" data-emoji="x">❌</span>向いてない</li>
+<li><a href="Scrapbox_As_A_Aete.md">Scrapbox As A Aete</a>としては割と厳しい印象がある</li>
+<li>メンバーへの啓蒙コストや運用コストがある</li>
+<li>メンバーが賢いなら成立するが、そうじゃない場合は割に合わない</li>
+</ul></li>
+<li>4: publicな生きたテキスト
+<ul>
+<li><span class="emoji" data-emoji="o">⭕</span>向いている</li>
+<li>リテラシーを持つ人が自然と</li>
+</ul></li>
+</ul>
+<p><br></p>
+<p>table:8通り案</p>
+<table>
+<thead>
+<tr class="header">
+<th>一人でやりたい？</th>
+<th>公開したい？</th>
+<th>殺したい?</th>
+<th></th>
+<th>どう?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td>Team Private Live text</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>y</td>
+<td></td>
+<td></td>
+<td>Personal Private Live text</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>y</td>
+<td></td>
+<td>Team Public Live text</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>y</td>
+<td>y</td>
+<td></td>
+<td>Personal Public Live text</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td>y</td>
+<td>Team Private Dead text</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>y</td>
+<td></td>
+<td>y</td>
+<td>Personal Private Dead text</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>y</td>
+<td>y</td>
+<td>Team Public Dead text</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>y</td>
+<td>y</td>
+<td>y</td>
+<td>Personal Public Dead text</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>ちょっと頭こんがらかってきた</p>
+<p><br></p>
+<h2 id="links">Links</h2>
+<ul>
+<li>← <a href="Scrapbox_As_A_XXXX.md">Scrapbox As A XXXX</a></li>
+</ul>
+<h2 id="hop-links">2hop Links</h2>
+<ul>
+<li>→ <a href="Scrapbox_As_A_Aete.md">Scrapbox As A Aete</a>
+<ul>
+<li>← <a href="Scrapbox_As_A_XXXX.md">Scrapbox As A XXXX</a></li>
+<li>← <a href="プライベートな用事にもScrapboxは役立つ.md">プライベートな用事にもScrapboxは役立つ</a></li>
+<li>← <a href="オフィスでの仕事で何が生まれていたか_a.k.a_リモートワーク時代でも取り戻したいもの.md">オフィスでの仕事で何が生まれていたか a.k.a リモートワーク時代でも取り戻したいもの</a></li>
+</ul></li>
+</ul>

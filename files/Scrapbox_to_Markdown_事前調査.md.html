@@ -1,0 +1,127 @@
+<h2 id="scrapbox-to-markdown-事前調査">Scrapbox to Markdown 事前調査</h2>
+<ul>
+<li>ブックマークレットで単体ページ行うのは<a href="https://scrapbox.io/daiiz">/daiiz</a>さんのがある
+<ul>
+<li><a href="https://github.com/daiiz/sb2md">daiiz/sb2md: Scrapbox contents -&gt; Markdown</a></li>
+<li>主にScrapboxで書いたものを、公開用にMarkdownにしたい場合に重宝</li>
+<li>これも
+<ul>
+<li><a href="https://hashrock.github.io/md2sb-online/" class="uri">https://hashrock.github.io/md2sb-online/</a></li>
+</ul></li>
+</ul></li>
+<li>:sta:僕が欲しいの
+<ul>
+<li>エクスポートしたjsonから、たとえばgithub wikiで公開できるmarkdownのファイル郡に変換する</li>
+<li>jsonから変換するやつ
+<ul>
+<li><a href="https://github.com/kondoumh/sb2md" class="uri">https://github.com/kondoumh/sb2md</a>
+<ul>
+<li><a href="https://github.com/mamezou-tech/sbgraph" class="uri">https://github.com/mamezou-tech/sbgraph</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br></p>
+<ul>
+<li>手段
+<ul>
+<li>GitHubで公開することを念頭に</li>
+<li>GitHub Actionsで自動ビルド試したりもしたい</li>
+</ul></li>
+</ul>
+<pre class="file"><code>wiki/
+b.bat
+data.json
+convert.py</code></pre>
+<p><br></p>
+<ul>
+<li>エクスポートしたjson使ってつくってみるか
+<ul>
+<li>例</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;workspace&quot;</span><span class="fu">,</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;created&quot;</span><span class="fu">:</span> <span class="dv">1588146516</span><span class="fu">,</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;updated&quot;</span><span class="fu">:</span> <span class="dv">1593231788</span><span class="fu">,</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;5ea93151287376001e3ef378&quot;</span><span class="fu">,</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;lines&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;workspace&quot;</span><span class="ot">,</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot; [- 各概念の用語をページ化していくかどうか] いったん無し。仮説含めてまとめきる&quot;</span><span class="ot">,</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;  [- マニャーナ]&quot;</span><span class="ot">,</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;  [- GTD]&quot;</span><span class="ot">,</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot; [- 文献の強化？] いったんここまでで。&quot;</span><span class="ot">,</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot; [仮説]を潰していく&quot;</span><span class="ot">,</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot; [タスク管理概論]ページを拡充して「これなら本書けそう」レベルまで&quot;</span><span class="ot">,</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot; 電子書籍執筆開始&quot;</span><span class="ot">,</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;&quot;</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="er">,</span></span></code></pre></div>
+<ul>
+<li>…
+<ul>
+<li>…</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>workspace</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>~~各概念の用語をページ化していくかどうか~~ いったん無し。仮説含めてまとめきる</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>~~マナーニャ~~</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>~~GTD~~</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>~~文献の強化~~ いったんここまでで</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">仮説</span><span class="co">](仮説)</span>を潰していく</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">タスク管理概論</span><span class="co">](タスク管理概論)</span>ページを拡充して……</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>電子書籍執筆開始</span></code></pre></div>
+<ul>
+<li>…
+<ul>
+<li>github wiki を想定しているのでリンクは <code>[ページ名](ページ名)</code>
+<ul>
+<li>.md はなし</li>
+</ul></li>
+<li>段落の間には空行を</li>
+<li>***
+<ul>
+<li><a href="https://gyazo.com/72755ae324d326f0a9f9ed9e6c2af565" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/72755ae324d326f0a9f9ed9e6c2af565/raw" /></a></li>
+<li><a href="https://gyazo.com/62c4d95e8e6fd26398d6a7a775fce4d7" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/62c4d95e8e6fd26398d6a7a775fce4d7/raw" /></a></li>
+<li>どっちもただのリストなんですが</li>
+<li>tableの区切りは<code>\t</code>なんだが</li>
+<li>行頭はスペースも、感じが良いのかしら？</li>
+</ul></li>
+<li>tableやcodeの終端は？
+<ul>
+<li>インデントが一段戻ったとき</li>
+</ul></li>
+<li>画像
+<ul>
+<li>gyazo.com含むものを<code>![]()</code>でいけるはず</li>
+<li><a href="https://github.com/stakiran/test_githubwiki/wiki/gyazoのリンクでも画像表示できる？" class="uri">https://github.com/stakiran/test_githubwiki/wiki/gyazoのリンクでも画像表示できる？</a>
+<ul>
+<li><del>ダメです。会員登録後、一括でメタデータ公開的な操作が必要</del> いや普通に <code>i.</code> と <code>.png</code> つけていけるね
+<ul>
+<li><code>.jpg</code> の場合もあります
+<ul>
+<li>判定が必要というわけか……</li>
+<li>二つ並べれば確実ｗ</li>
+</ul></li>
+<li>まあurl分かれば見えるんだから当然か</li>
+</ul></li>
+</ul></li>
+<li><a href="gyazo.md">gyazo</a></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br></p>
+<h2 id="links">Links</h2>
+<ul>
+<li>← <a href="Scrapbox_to_Markdown.md">Scrapbox to Markdown</a></li>
+</ul>
+<h2 id="hop-links">2hop Links</h2>
+<ul>
+<li>→ <a href="仮説.md">仮説</a>
+<ul>
+<li>← <a href="オッカムの剃刀.md">オッカムの剃刀</a></li>
+<li>← <a href="企業や製品の例.md">企業や製品の例</a></li>
+<li>← <a href="価値仮説.md">価値仮説</a></li>
+</ul></li>
+</ul>

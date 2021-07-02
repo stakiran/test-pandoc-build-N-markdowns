@@ -1,0 +1,975 @@
+<h2 id="scrapbox-to-markdown-テーブル">Scrapbox to Markdown テーブル</h2>
+<p>テーブル</p>
+<ul>
+<li>スペース含む文字はどうなる？
+<ul>
+<li>table:table</li>
+</ul></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>a</th>
+<th>a_b</th>
+<th>a a</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>←スペース含んでます</td>
+<td>a</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>…
+<ul>
+<li>ああ、そうか、start of tableのインデント数から計算できるのか</li>
+</ul></li>
+<li>とりあえずtable終端がコード終端とみなされてる</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>        <span class="co"># コードブロックの時は特別な終端を入れる必要がある.</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>        <span class="kw">def</span> end_of_list_or_block(inblockstate_user):</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> inblockstate_user.is_left_from_codeblock_just_now():</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> END_OF_CODE</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> ADD_LINEFEED</span></code></pre></div>
+<ul>
+<li>…
+<ul>
+<li>見てるけどわからねえなこれ……</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> state.is_in_code_block: <span class="co">#メソッド呼び出ししてねぇ……</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>._is_left_from_codeblock_just_now <span class="op">=</span> <span class="va">True</span></span></code></pre></div>
+<ul>
+<li>…
+<ul>
+<li>直ったけど、今までのテストコードが通ってたのが不思議
+<ul>
+<li>ああ、そうか</li>
+<li>function obecetがreturnされてたから、常にtrueだったのか</li>
+<li>で、_is_left_from_codeblock_just_nowフラグは_is_left_just_nowと一緒に更新してるロジックになってて、かつ_is_left_just_nowはちゃんと実装してるから、（その処理に便乗して初期化されてる）just nowも初期化（False）部分はちゃんと動いてた、と</li>
+<li>今回、tableの終端というパターンを加えたことで、この偶然の動作に入らなくなって露呈した</li>
+</ul></li>
+</ul></li>
+<li>そもそも一度も入ってない問題
+<ul>
+<li><a href="https://gyazo.com/1aba5e468308d576f86ab7bc3d1679e6" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/1aba5e468308d576f86ab7bc3d1679e6/raw" /></a></li>
+<li>いや、こうか
+<ul>
+<li><a href="https://gyazo.com/d9a40f93894642e5d2580e2acb18b182" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/d9a40f93894642e5d2580e2acb18b182/raw" /></a></li>
+<li>テーブルタイトル部分で入ってるけど、そのあと空行入れてるのでinblock状態が死んでinlist状態になってしまっている</li>
+</ul></li>
+<li>ややこいな。契機3つあるぞ
+<ul>
+<li>start of table
+<ul>
+<li>装飾しない or テーブルタイトルを示す書き方にする</li>
+</ul></li>
+<li>start of tableの次行
+<ul>
+<li>空行は入れない（厳密に言えば空行時のモードにしない）</li>
+</ul></li>
+<li>tableの中身
+<ul>
+<li>タブ区切りになってるからよしなに整える</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>start of table は ok</li>
+<li>次行
+<ul>
+<li>これが難しい……</li>
+<li>inblockstate_userいじるしかないよな
+<ul>
+<li>「現在行は空行だけど、前行がテーブルタイトルだったのでそのままin-table-block状態にしまーす」</li>
+</ul></li>
+<li>ぐー、inblockstateクラスがmediator並に煩雑になっていく……:sta:</li>
+<li>空行に入ったときは</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> scbline <span class="kw">in</span> lines:</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>        cur_indentdepth <span class="op">=</span> count_indentdepth(scbline) <span class="co"># ここでindent=0になる</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        inblockstate_user.update(scbline, cur_indentdepth)</span></code></pre></div>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>まだinblockだから、こっち</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> _update_case_of_in_block(<span class="va">self</span>, line, cur_indentdepth):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>        state <span class="op">=</span> <span class="va">self</span>.state</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        is_current_more_deep <span class="op">=</span> cur_indentdepth <span class="op">&gt;</span> state.indentdepth_of_start</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> is_current_more_deep:</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ★cur_indentdepth=0になっちゃってるからこっち来ちゃうね</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> state.is_in_code_block():</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>._is_left_from_codeblock_just_now <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        state.leave()</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>._is_left_just_now <span class="op">=</span> <span class="va">True</span></span></code></pre></div>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>こっち来ちゃいけない</li>
+<li>だからといって愚直に「テーブルのときは」みたいな特化処理を入れると汚い</li>
+<li>汎化すると？
+<ul>
+<li>要するに「indent=0になったときでもモードを維持しなきゃいけないシチュ」ってのがある</li>
+<li>今のところ table だけだけど</li>
+<li>たぶんtableしかないけど</li>
+</ul></li>
+<li>うーん、だったら空行なしでいい？
+<ul>
+<li>codeblockは既に「次行はいきなりはじまるから空行要らない」にしてる
+<ul>
+<li>まあこうだからね</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<pre class="例"><code>```py            ```py  
+ print(&#39;hello&#39;)    print(&#39;hello&#39;)</code></pre>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>テーブルの場合、今はこうしてる</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<pre class="例"><code>table:tableXYZ     table:XYZ
+ a b c             
+                   | a | b | c |</code></pre>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>これだとあかんから、↓ こうするとどうか？（codeblockと同じになるので実装は楽になる）</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<pre class="例"><code>table:tableXYZ     table:XYZ
+ a b c             | a | b | c |</code></pre>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li><a href="GFM.md">GFM</a>が空行なしでもパースできるかよな</li>
+<li><a href="Markdownは段落の次に空行を入れなくてもテーブルを認識できるか.md">Markdownは段落の次に空行を入れなくてもテーブルを認識できるか</a>
+<ul>
+<li>うーん、GFMだけお強くて対応してるって感じ</li>
+<li>GFM issuesは対応してても、ghpagesでは対応してない可能性が微レ存</li>
+</ul></li>
+</ul></li>
+<li>やめます</li>
+</ul></li>
+<li>「indent=0になったときでもモードを維持しなきゃいけないシチュ」を組み込む
+<ul>
+<li>いや、特化が汚い言うても、普通に差し込むしかないか</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>is_in_between_tabletitle_and_tablecontents <span class="op">=</span> cur_indentdepth<span class="op">==</span><span class="dv">0</span> <span class="kw">and</span> state.is_in_table_block()</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> is_in_between_tabletitle_and_tablecontents:</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a> <span class="co"># ★あとでわかるためにここになんかわかりやすいメモを</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span></span></code></pre></div>
+<ul>
+<li>…
+<ul>
+<li>done
+<ul>
+<li><a href="https://gyazo.com/fcce228aedc4764a3c2101740d131f63" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/fcce228aedc4764a3c2101740d131f63/raw" /></a></li>
+<li><a href="https://github.com/stakiran/scbjson2ghpages/commit/799243b7d2ecdfa195d5558d244d6725b09563e6" class="uri">https://github.com/stakiran/scbjson2ghpages/commit/799243b7d2ecdfa195d5558d244d6725b09563e6</a></li>
+</ul></li>
+</ul></li>
+<li>あとは中身
+<ul>
+<li><code>| - | - | - |</code> ← これも必要ですね</li>
+<li>ちょっと乱暴だが別案もある
+<ul>
+<li><a href="Markdownでテーブルタイトルをテーブルに埋め込む.md">Markdownでテーブルタイトルをテーブルに埋め込む</a></li>
+<li>が、どっちにしても汚いし、安直だしでいったんやめ</li>
+<li>（そもそもテーブル記法使ってマトリックス書いてるのがおかしいやんね:sta:）
+<ul>
+<li>そもそもテーブルはヘッダとデータを持つ概念</li>
+<li>言い換えると列ごとにデータを並べる記法</li>
+</ul></li>
+</ul></li>
+<li>これもlineだけだと先頭行かどうかがわからんのでメタか状態が要る。。。
+<ul>
+<li>いまさらすぎるけど、行指向でアプローチするの失敗だったかもしれん</li>
+</ul></li>
+<li>メタでやるとしたら</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> scbline <span class="kw">in</span> lines:</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>        cur_indentdepth <span class="op">=</span> count_indentdepth(scbline)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>        inblockstate_user.update(scbline, cur_indentdepth)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ★ここで「次に渡す line は table contents の一行目だよ」を表す情報を渡す</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        markdown_line <span class="op">=</span> scb_to_markdown_in_line(scbline, cur_indentdepth, inblockstate_user)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        markdown_line_without_icon_grammer <span class="op">=</span> _icon_grammer_to_img_tag(markdown_line)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        outlines.append(markdown_line_without_icon_grammer)</span></code></pre></div>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>scb_to_markdown_in_lineは汎用的にしておきたいんですけど</li>
+<li>が、inblockstate 使ってる時点でいまさらか</li>
+<li>本当に汎用化したいならこの1と2（前後の行を考慮しなくても line 与えられたら一意に変換できる系）を切り出すしかないです
+<ul>
+<li><a href="https://gyazo.com/f5742bffee7487a419bf02d6e570ff78" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/f5742bffee7487a419bf02d6e570ff78/raw" /></a></li>
+<li>が、scb to markdownするためには前後行の考慮は必須（むしろ肝）なので、汎用化に力入れるのは違う</li>
+</ul></li>
+</ul></li>
+<li>ああ、つかinblockstateもメタか</li>
+<li>つまりメタとしてどうするかが違うだけ
+<ul>
+<li>新しく何かつくるか</li>
+<li>inblockstateの中につくるか</li>
+</ul></li>
+<li>Q: 「次に渡す line は table contents の一行目だよ」はどこでわかる？
+<ul>
+<li><a href="https://gyazo.com/3332398b57e71eaadefe0c4ebce4054a" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/3332398b57e71eaadefe0c4ebce4054a/raw" /></a></li>
+</ul></li>
+<li>Q: ここで処理できないの？
+<ul>
+<li>できないです</li>
+<li>この関数内はline（今見てる一行分）のみ処理するもの</li>
+</ul></li>
+<li>つまり、ここで「次に渡す line は table contents の一行目だよ」を誰かに渡すしかない</li>
+<li>inblockstateは違うよな
+<ul>
+<li>いや、tableもin blockだから、inblock stateの一種だとみなすこともできる……</li>
+</ul></li>
+<li><del>安直に名付けるなら</del>ちょっと浮かばん</li>
+<li>逆に汎用的に名付けるなら
+<ul>
+<li>「次行に任意の行を差し込むマン」とか</li>
+<li>「特殊記法のコンテンツ（ここではtable contents）の開始に開始用文法を差し込むマン」とか</li>
+</ul></li>
+<li>あー、だめかも:sta:
+<ul>
+<li>差し込みたい<code>| - | - | - |</code> の列数は、二行目も見ないとわからない</li>
+<li>やっぱり行指向限界あるってｗｗ
+<ul>
+<li>x 行指向（行のリスト）</li>
+<li>o 要素のリスト
+<ul>
+<li>要素として「テーブル」という塊をもたせる</li>
+<li>たぶん普通はこの実装ですよね……</li>
+</ul></li>
+</ul></li>
+<li>……形にするの優先なので、突っ走りまふ</li>
+<li>nextlineみたいな引数追加するしかないよな
+<ul>
+<li>あるいは前後コンテキストみたいな名前にしてprevlineとnextlineを入れる</li>
+<li>というか他にも入れられる構造にしておく</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb10"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>markdown_line <span class="op">=</span> scb_to_markdown_in_line(scbline, cur_indentdepth, inblockstate_user, context)</span></code></pre></div>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>contextだと名前広すぎる</li>
+<li>前後コンテキスト、周辺コンテキスト、prevnext、</li>
+<li>いや、contextでいいか
+<ul>
+<li>context.nextline ← これは確定</li>
+<li>context.prevline ← この辺は必要なら追加すればいい（できる）</li>
+</ul></li>
+</ul></li>
+<li>決まりだな</li>
+<li>まとめ
+<ul>
+<li>contextを追加する
+<ul>
+<li>context.nextline</li>
+<li>context.is_first_of_tablecontent()</li>
+</ul></li>
+</ul></li>
+<li>いや、……</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb11"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> scbline <span class="kw">in</span> lines:</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># この中で scbline の次の行って見れます？</span></span></code></pre></div>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>…</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb12"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> linenumber,scbline <span class="kw">in</span> <span class="bu">enumerate</span>(lines):</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># lines[linenumber+1]とか見ます？（汚い）</span></span></code></pre></div>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>が、他に見る方法ないのでこれしかないぞ</li>
+<li>indexerror防ぐために len(lines) とかも必要になるしなー</li>
+</ul></li>
+<li>contextは何かクラスつくってラップする</li>
+</ul></li>
+<li>context使って実装する
+<ul>
+<li>あー、contextにlines与えといて、update(linenumber)だけ実行して自動で更新させる手もある
+<ul>
+<li>が、ロジックが二重になるのでなしか</li>
+<li>呼び出し元から更新関数呼び出させることにする</li>
+</ul></li>
+<li>ok
+<ul>
+<li><a href="https://github.com/stakiran/scbjson2ghpages/commit/a55155b64ad81a97a90d8046b60e8a1c9483970b" class="uri">https://github.com/stakiran/scbjson2ghpages/commit/a55155b64ad81a97a90d8046b60e8a1c9483970b</a></li>
+</ul></li>
+</ul></li>
+<li>あとはcontextを使うようにすればいけるはず</li>
+<li>組み込んだけど、また遠い……</li>
+</ul></li>
+<li>あと二つ
+<ul>
+<li><a href="https://gyazo.com/7ecb2783257cedbd3586878cc1e0e2b8" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/7ecb2783257cedbd3586878cc1e0e2b8/raw" /></a></li>
+<li><code>| - |</code> は2行分の挿入になるが、n行挿入を今の実装は許さない</li>
+<li><code>['', '&lt;br&gt;', '']('',_'_br_',_''.md)</code>の空行区切り地帯がなぜかin table blockとみなされている</li>
+</ul></li>
+<li>in table block誤認識
+<ul>
+<li><a href="https://gyazo.com/ce53c3b5581c75d618fc79ba5ce64f7b" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/ce53c3b5581c75d618fc79ba5ce64f7b/raw" /></a></li>
+<li>1は正しい</li>
+<li>2は正しい（空行だが、tabletitleとtablecontentsの間であり、in table block とみなさないとテーブル処理できない）
+<ul>
+<li>これを「table top blank」と呼ぶことにする</li>
+</ul></li>
+<li>3が正しくない（テーブルが終わってるので Block:False じゃないといけないし、Table:Falseじゃないといけない）
+<ul>
+<li>これを「table bottom blank」と呼ぶことにする</li>
+</ul></li>
+<li>コードブロック時はちゃんとできてる
+<ul>
+<li><a href="https://gyazo.com/bef77532f6292647127a4fe99e567783" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/bef77532f6292647127a4fe99e567783/raw" /></a></li>
+<li>1の部分はblockもcodeblockもfalse</li>
+</ul></li>
+<li>step2の結果を比較すると</li>
+</ul></li>
+</ul>
+<pre class="table"><code>table:3x3
+
+ a  b   c
+ 1  2   3
+ foo    bar buz
+★ここがend of tableだが、判定できてる？？
+&lt;br&gt;</code></pre>
+<ul>
+<li>…
+<ul>
+<li>…</li>
+</ul></li>
+</ul>
+<pre class="code"><code>```python
+ import os
+ print(&#39;environment variables&#39;)
+ print(os.environ)
+``` ★ここでend of code判定してる</code></pre>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>step2処理時、今はこう
+<ul>
+<li><a href="https://gyazo.com/5b9492426a5720ae41acfcd8da19e8ad" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/5b9492426a5720ae41acfcd8da19e8ad/raw" /></a></li>
+<li>tableのときは空行入れてる</li>
+</ul></li>
+<li>inblock判定してるのはinblockstate
+<ul>
+<li><code>lib_scblines2markdown.py::scb_to_markdown_in_line(line, cur_indentdepth, inblockstate_user, lines_context):()::678</code></li>
+<li>_update_case_of_in_block()</li>
+</ul></li>
+<li>ああ、わかった</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb15"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> _update_case_of_in_block(<span class="va">self</span>, line, cur_indentdepth):</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    state <span class="op">=</span> <span class="va">self</span>.state</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    is_current_more_deep <span class="op">=</span> cur_indentdepth <span class="op">&gt;</span> state.indentdepth_of_start</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> is_current_more_deep:</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ★ここで上述の「2は正しい」を入れてるが、この書き方だと3のケースも入ってしまう。。。</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    is_in_between_tabletitle_and_tablecontents <span class="op">=</span> cur_indentdepth<span class="op">==</span><span class="dv">0</span> <span class="kw">and</span> state.is_in_table_block()</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> is_in_between_tabletitle_and_tablecontents:</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span></span></code></pre></div>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>is_in_between_tabletitle_and_tablecontentsを構成する変数が一つ足りない
+<ul>
+<li>テーブルごとに最初に一回だけ ← こういうのが要る</li>
+<li>lineとcur_indentdepthだけでは無理です</li>
+<li>context渡さないとダメ？</li>
+<li>:sta:めっちゃ煩雑な実装になってくんですけど……
+<ul>
+<li>いわゆるクラス図とか書いとかないと新規メンバーが死ぬレベル</li>
+<li>本質的に煩雑な実装になっている感</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb16"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> linenumber,scbline <span class="kw">in</span> <span class="bu">enumerate</span>(lines):</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    cur_indentdepth <span class="op">=</span> count_indentdepth(scbline)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    inblockstate_user.update(scbline, cur_indentdepth, ★ここでcontext渡す？？)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    context.update(linenumber) <span class="co">#これ前に持ってこなきゃだけど</span></span></code></pre></div>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li><span class="emoji" data-emoji="train">🚋</span>凹むなぁ……
+<ul>
+<li>こうして後から後からクラスや状態導入しなきゃいけないのって俺の設計がゴミだからなんだよな</li>
+<li>もっというと設計時点で網羅する俯瞰能力というか視野というか発想力というか、がない</li>
+</ul></li>
+</ul></li>
+<li>contextとして何を置いておけばいい？
+<ul>
+<li>before: <code>cur_indentdepth==0 and state.is_in_table_block()</code>
+<ul>
+<li>これ違うんだよな</li>
+<li><a href="Markdownではリスト中のコードハイライト_とテーブル_を表現できない.md">Markdownではリスト中のコードハイライト（とテーブル）を表現できない</a>なので、cur_indentdepth==0とは限らない</li>
+</ul></li>
+<li>after: <code>??</code></li>
+<li>contextとして持った何か一つを使う感じにしたい</li>
+<li>用語つくった</li>
+</ul></li>
+<li>整理する
+<ul>
+<li>table top blank
+<ul>
+<li>step2の処理により、空行が保証される</li>
+<li>普通に処理すると in table block 状態が解除されてしまうので、解除させない処理をする</li>
+</ul></li>
+<li>table bottom blank
+<ul>
+<li>blankと名付けてあるが、空行であるとは限らない
+<ul>
+<li><a href="Markdownではリスト中のコードハイライト_とテーブル_を表現できない.md">Markdownではリスト中のコードハイライト（とテーブル）を表現できない</a>なので、cur_indentdepth==0とは限らない</li>
+</ul></li>
+<li>tableの終わりを示すので、in table block 状態は解除しなければならない
+<ul>
+<li>よって table top blank と同じ処理で済ますことはできない（今はここで苦戦している）</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>実装どうするか
+<ul>
+<li><code>_update_case_of_in_block(self, line, cur_indentdepth)</code>関数内の話</li>
+<li>基本的に<code>cur_indentdepth &lt;= state.indentdepth_of_start</code>になった = ブロックを出た、である
+<ul>
+<li>table bottom blank のときはこれでよい</li>
+<li>table top blank のときはこれじゃダメ</li>
+</ul></li>
+<li>今は、table top blank のときに除外する処理を書いたつもりだが、判定が甘くてbottomのときも引っかかってる</li>
+<li>どう直すべきか</li>
+<li>table top blank の判定を強くする</li>
+<li>contextに任せる</li>
+</ul></li>
+<li>context</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb17"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, lines):</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>._lines <span class="op">=</span> lines</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>._nextline <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>._is_first_of_tablecontents <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>._is_table_top_blank <span class="op">=</span> <span class="va">False</span> <span class="co">#★これかな</span></span></code></pre></div>
+<ul>
+<li>…
+<ul>
+<li>done!
+<ul>
+<li><a href="https://gyazo.com/4154024d63c621ebebc1498002cb59e5" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/4154024d63c621ebebc1498002cb59e5/raw" /></a></li>
+</ul></li>
+<li>よし、だいぶ近づいてきたぞ。。。</li>
+</ul></li>
+<li><code>| - |</code> は2行分の挿入になるが、n行挿入を今の実装は許さない件
+<ul>
+<li>これなー……
+<ul>
+<li>lineとして <code>(lineの内容)★</code>みたいな形で目印つけておいてから、メタで★部分を置換するくらいしか思いつかない</li>
+<li>アルゴリズムが for line in lines という行指向で動いてるので、途中で lines の行数を変えることができない</li>
+<li>for i,line in enumerate(lines) からの i 直接操作、みたいなことはしたくない……
+<ul>
+<li>が、するしかなさそうか……？</li>
+</ul></li>
+</ul></li>
+<li>いや、できるわ</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb18"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> linenumber,scbline <span class="kw">in</span> <span class="bu">enumerate</span>(lines):</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    cur_indentdepth <span class="op">=</span> count_indentdepth(scbline)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    context.update(linenumber)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    inblockstate_user.update(scbline, cur_indentdepth, context)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># markdown_line を str じゃなくて [str,] にする</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    markdown_line <span class="op">=</span> scb_to_markdown_in_line(scbline, ……)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    markdown_line_without_icon_grammer <span class="op">=</span> _icon_grammer_to_img_tag(markdown_line)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># そしたらここは outlines.extend() でマージすることになる</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 処理遅そうだが……</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    outlines.append(markdown_line_without_icon_grammer)</span></code></pre></div>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>処理遅そうなのが心配
+<ul>
+<li><a href="https://scrapbox.io/sta">/sta</a>は5000page近くあるわけだからね……</li>
+<li>できれば数秒以内で終わってほしさある
+<ul>
+<li>直感的に「明らかに処理非効率的なところ」を何個も迂回しないと達成できない気がする</li>
+<li>まあ<a href="推測するな、計測せよ.md">推測するな、計測せよ</a>だから現時点では行動はしないけど</li>
+</ul></li>
+</ul></li>
+<li><span class="emoji" data-emoji="train">🚋</span>こういうしょうもない解も一昨日夜はひらめかなかったんだから不思議なものだ</li>
+<li>golangみたいに戻り値二つにする？
+<ul>
+<li><code>markdown_line1, markdownline2 = scb_to_markdown_in_line(scbline, ……)</code></li>
+<li>line2は普段は使わない</li>
+<li>空チェックだけして、もしあればそれもappendする</li>
+<li>line2は table の <code>| - | - | - |</code>など特殊行だろうから、_icon_grammer_to_img_tag()は要らないはず
+<ul>
+<li>そういう意味では line2 よりも「特殊行」的なネーミングにしたいな</li>
+</ul></li>
+</ul></li>
+<li>pythonで return either <code>str</code> or <code>[str, str](str,_str.md)</code>みたいなことできたっけ？
+<ul>
+<li><code>scb_to_markdown_in_line()</code>関数内でreturnの箇所がたくさんあるから、全部で<code>return [str,str](str,str.md)</code>書きたくない</li>
+<li>呼び出し元次第か</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb19"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>either_str_or_list <span class="op">=</span> scb_to_markdown_in_line(scbline, ……)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> either_str_or_listがstr:</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    line1を使おう</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> either_str_or_listがlist:</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    line1とline2を使おう</span></code></pre></div>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>みたいな</li>
+</ul></li>
+<li>寝かせるzzz….</li>
+<li>見てる</li>
+<li>eitherで分けるの煩雑なので、もう<code>[str](str.md)</code>と<code>[str,str](str,str.md)</code>にしますか
+<ul>
+<li>パフォーマンスやばそうならその時また考えればいい（たとえばeitherで実装し直せばいい）</li>
+<li><a href="https://gyazo.com/9277dc4f8c6ed1e324b155b45119b6cd" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/9277dc4f8c6ed1e324b155b45119b6cd/raw" /></a></li>
+<li>（これは書いてる途中やが）</li>
+<li>と思ったけど、やっぱり仰々しいな</li>
+<li>ほぼ1lineが返ってくるのに for enumerate してるのが気持ち悪すぎる</li>
+</ul></li>
+<li>のでeither案でやる</li>
+<li>できた
+<ul>
+<li><a href="https://gyazo.com/fd88dfe70f9603baf98c1f2c4f076a27" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/fd88dfe70f9603baf98c1f2c4f076a27/raw" /></a></li>
+</ul></li>
+<li>コードの見た目
+<ul>
+<li><a href="https://gyazo.com/b69470e917f28268a25d7a1d27c13118" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/b69470e917f28268a25d7a1d27c13118/raw" /></a></li>
+<li>汚いことに代わりはないが、for enumrate よりはまし</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>課題は解決した</li>
+<li>あとは実際の出力に寄せていくだけ
+<ul>
+<li>table:table</li>
+</ul></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>a</th>
+<th>b</th>
+<th>c</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>a</td>
+<td>b</td>
+<td>c</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>a</td>
+<td>b</td>
+<td>c</td>
+</tr>
+<tr class="odd">
+<td>a</td>
+<td>b</td>
+<td>c</td>
+<td>d</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>…</li>
+</ul>
+<pre class="上記をscb記法で書くと？(タブは\tで書くことにする)"><code>table:table
+  a\tb\tc\t
+  a\tb\tc\t
+  \ta\tb\tc
+  a\tb\tc\td</code></pre>
+<ul>
+<li>…
+<ul>
+<li>要するにtab区切り</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb21"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>| a | b | c |  |</span></code></pre></div>
+<ul>
+<li>…
+<ul>
+<li>tab個数+2
+<ul>
+<li>先頭と末尾を囲む</li>
+</ul></li>
+<li>1セルは2space空けよう
+<ul>
+<li><code>| |</code> ← こういう1spaceだとmarkdownパーサによっては解釈されない</li>
+</ul></li>
+<li>tab_delimitor_string_to_markdown_table_line()</li>
+<li>アルゴリズムどうする？
+<ul>
+<li>append-in-loop式
+<ul>
+<li><code>|</code> つけて、</li>
+<li>loop
+<ul>
+<li>要素置いて、</li>
+<li><code>|</code>つける</li>
+</ul></li>
+</ul></li>
+<li><code>a</code> → <code>| a |</code></li>
+<li><code>a\tb</code> → <code>| a | b |</code></li>
+<li><code>a\t\tb</code> → <code>| a |  | b |</code></li>
+<li>いけそうだな</li>
+</ul></li>
+<li>いけそう
+<ul>
+<li><a href="https://gyazo.com/b27cecffd9f46294ce9a116a0aa2f349" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/b27cecffd9f46294ce9a116a0aa2f349/raw" /></a></li>
+</ul></li>
+<li>新たな問題浮上
+<ul>
+<li><a href="https://gyazo.com/f24b3835a7d30d4c1a3d177c9fc50466" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/f24b3835a7d30d4c1a3d177c9fc50466/raw" /></a></li>
+<li>scb table lineはtab delimitorだが、先頭に限っては normalize してるせいで space delimitor になってる</li>
+<li>table:たとえば</li>
+</ul></li>
+</ul></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th></th>
+<th>a</th>
+<th>a</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>a</td>
+<td>a</td>
+<td>a</td>
+<td>a</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>↑ これの1行目は <code>\t\ta\tb</code>ではなく<code>a\tb</code>になってる</li>
+</ul></li>
+<li>できた
+<ul>
+<li><a href="https://gyazo.com/5dd713a1ab78c360562853d2a2e88aa3" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/5dd713a1ab78c360562853d2a2e88aa3/raw" /></a></li>
+<li>tab delimitorをリストアする、という初見では意味不明な概念が出てきたｗ</li>
+<li><a href="https://github.com/stakiran/scbjson2ghpages/commit/5e2fe474354684ca3756ceeab87b54b75958f5b5" class="uri">https://github.com/stakiran/scbjson2ghpages/commit/5e2fe474354684ca3756ceeab87b54b75958f5b5</a></li>
+</ul></li>
+</ul></li>
+<li>あとは<code>| - |</code> 、つまりは table separator の個数をちゃんと反映するだけです
+<ul>
+<li>これでようやくテーブルが終わるはず……</li>
+<li><code>| - |</code> 生成アルゴリズム
+<ul>
+<li>1 <code>| - |</code></li>
+<li>2 <code>| - | - |</code></li>
+<li>3 <code>| - | - | - |</code></li>
+<li>だから、
+<ul>
+<li><code>|</code></li>
+<li>loop
+<ul>
+<li><code>- |</code></li>
+</ul></li>
+</ul></li>
+<li>これでいけるね</li>
+</ul></li>
+<li>個数は
+<ul>
+<li><a href="https://gyazo.com/9daebfa87a671b42cc66b3db545a514e" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/9daebfa87a671b42cc66b3db545a514e/raw" /></a></li>
+<li>そうか、context.nextline必要だと思って準備したけど</li>
+<li>newlineあるからそれ使えばええやん</li>
+<li>newlineのタブ数
+<ul>
+<li>table:1</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>a</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>table:2</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>a</th>
+<th>a</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>table:3</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>a</th>
+<th>a</th>
+<th>a</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>それぞれタブ数は0, 1, 2</li>
+<li><del>タブ数+1回繰り返せばいい</del>違います</li>
+</ul></li>
+<li>もう markdown table line なので、<code>|</code>の個数</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb22"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>| a |</span></code></pre></div>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>…</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb23"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>| a | a |</span></code></pre></div>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>…</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb24"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>| a | a | a |</span></code></pre></div>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>それぞれパイプ数は 2, 3, 4</li>
+<li>パイプ数-1回繰り返せばいい
+<ul>
+<li>合わないけど</li>
+<li>-2？</li>
+<li>いや、上記見る限りでは-1でしょ……</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb25"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>pipecount <span class="op">=</span> <span class="bu">len</span>(newline.split(<span class="st">&#39;|&#39;</span>))</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>cellcount <span class="op">=</span> pipecount <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>table_separator <span class="op">=</span> <span class="st">&#39;|&#39;</span> <span class="op">+</span> <span class="st">&#39; - |&#39;</span><span class="op">*</span>cellcount</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> [newline, table_separator]</span></code></pre></div>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>どこがおかしい？</li>
+<li>ああ、pipecountおかしいわ
+<ul>
+<li><code>len('| a |'.split('|'))</code>は3だ</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>あとは名前
+<ul>
+<li><code>| - | - | - |</code></li>
+<li>これなんて呼べばいい？</li>
+<li><a href="https://gyazo.com/416b2c0205594cabe1ce6e1b460e6856" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/416b2c0205594cabe1ce6e1b460e6856/raw" /></a></li>
+<li>1はtabletitle</li>
+<li>2はtablecontents</li>
+<li>3は？
+<ul>
+<li>table separatorだった（by一昨日の俺）</li>
+<li>別にtableを分けてるわけじゃないからこのネーミングはおかしいのだが</li>
+<li>いったんオレオレツールで俺には馴染んでるから許してくれ</li>
+</ul></li>
+</ul></li>
+<li>done
+<ul>
+<li><a href="https://github.com/stakiran/scbjson2ghpages/commit/944e742c90f6ea4924bb699bd75aca7db5c62cf0" class="uri">https://github.com/stakiran/scbjson2ghpages/commit/944e742c90f6ea4924bb699bd75aca7db5c62cf0</a></li>
+</ul></li>
+</ul></li>
+<li>末尾問題……
+<ul>
+<li><a href="https://gyazo.com/9e0d8d2f47da49977aca8add82fe4840" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/9e0d8d2f47da49977aca8add82fe4840/raw" /></a></li>
+<li>expectでは末尾スペースなしにしてる</li>
+<li>どうしようかなこれ
+<ul>
+<li><a href="Scrapbox_to_Markdown#6081f6f479d3a90000cd1855.md">Scrapbox to Markdown#6081f6f479d3a90000cd1855</a></li>
+<li>今はappend-in-loopアルゴリズムの仕様</li>
+</ul></li>
+<li>しかしテストコードでは末尾スペースアリで書いてるｗ</li>
+<li>ok</li>
+</ul></li>
+<li>table中のリンクは？
+<ul>
+<li>今の実装的にエグそうなので、いったんパス……</li>
+</ul></li>
+<li>これでようやくtableワンパス通った！cong！</li>
+</ul>
+<p><br></p>
+<h2 id="links">Links</h2>
+<ul>
+<li>← <a href="Scrapbox_to_Markdown.md">Scrapbox to Markdown</a></li>
+</ul>
+<h2 id="hop-links">2hop Links</h2>
+<ul>
+<li>→ <a href="GFM.md">GFM</a>
+<ul>
+<li>← <a href="Markdownは段落の次に空行を入れなくてもテーブルを認識できるか.md">Markdownは段落の次に空行を入れなくてもテーブルを認識できるか</a></li>
+<li>← <a href="Scrapbox_to_Markdown_コードブロック.md">Scrapbox to Markdown コードブロック</a></li>
+</ul></li>
+<li>→ <a href="推測するな、計測せよ.md">推測するな、計測せよ</a>
+<ul>
+<li>← <a href="✅Linksに相当するFooterをつける.md">✅Linksに相当するFooterをつける</a></li>
+<li>← <a href="富豪的プログラミング.md">富豪的プログラミング</a></li>
+<li>← <a href="Tritask-scrapbox.md">Tritask-scrapbox</a></li>
+</ul></li>
+<li>→ <a href="Markdownではリスト中のコードハイライト_とテーブル_を表現できない.md">Markdownではリスト中のコードハイライト（とテーブル）を表現できない</a>
+<ul>
+<li>← <a href="Scrapbox_to_Markdown_文法変換の設計やら実装やら.md">Scrapbox to Markdown 文法変換の設計やら実装やら</a></li>
+<li>← <a href="Scrapbox_to_Markdown_リスト中のテーブルやらコードやらブロック.md">Scrapbox to Markdown リスト中のテーブルやらコードやらブロック</a></li>
+<li>← <a href="ダミーリスト.md">ダミーリスト</a></li>
+</ul></li>
+</ul>

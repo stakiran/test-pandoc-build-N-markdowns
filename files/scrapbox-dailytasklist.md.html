@@ -1,0 +1,427 @@
+<h2 id="scrapbox-dailytasklist">scrapbox-dailytasklist</h2>
+<p><a href="https://gyazo.com/f2f088e82a7a289de13337936f904e42" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/f2f088e82a7a289de13337936f904e42/raw" /></a></p>
+<p><br></p>
+<ul>
+<li><a href="scrapbox-dailytasklist-specs.md">scrapbox-dailytasklist-specs</a></li>
+<li><a href="scrapbox-dailytasklist-impls.md">scrapbox-dailytasklist-impls</a></li>
+<li><a href="scrapbox-dailytasklist-sandbox.md">scrapbox-dailytasklist-sandbox</a></li>
+<li><a href="scrapbox-dailytasklist-readme.md">scrapbox-dailytasklist-readme</a></li>
+<li>todo
+<ul>
+<li><del><a href="https://scrapbox.io/sta">/sta</a>で試す(3000page超で現実的なパフォーマンスになるか）</del>5-7秒待つが許容範囲</li>
+<li>2021/02/08 19:03:12 特に強い必要性もないので停滞中…:sta:</li>
+<li><a href="UserScriptでメッセージを表示したい.md">UserScriptでメッセージを表示したい</a>
+<ul>
+<li>表示する部分を組み込む
+<ul>
+<li>エラー出すだけだしalertでよくない？</li>
+<li>:sta:たぶんtrue（明日の僕さん、どうですかね</li>
+</ul></li>
+<li>fitやsecの文法ミス</li>
+<li>page fetch時のprogress</li>
+</ul></li>
+<li>呼び出し元からパラメーター渡すようにする</li>
+<li>配布方法を考える
+<ul>
+<li>スクリは1ページ内に収める etc</li>
+<li>UserScriptやJS知らない人でもコピペ+αで使えるようにしたい</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">const</span> VERSION <span class="op">=</span> <span class="st">&#39;scrapbox dailytasklist v0.0.1&#39;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">//後で外に出す</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">//const __projectName__ = &#39;sta-routinetask-sample&#39;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> __projectName__ <span class="op">=</span> <span class="st">&#39;sta&#39;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> __sections__ <span class="op">=</span> [<span class="st">&#39;朝休&#39;</span><span class="op">,</span><span class="st">&#39;朝&#39;</span><span class="op">,</span><span class="st">&#39;昼休&#39;</span><span class="op">,</span><span class="st">&#39;昼&#39;</span><span class="op">,</span><span class="st">&#39;夕休&#39;</span><span class="op">,</span><span class="st">&#39;夕&#39;</span><span class="op">,</span><span class="st">&#39;夜休&#39;</span><span class="op">,</span><span class="st">&#39;夜&#39;</span>]</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> LB <span class="op">=</span> <span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> DELIM_ATTRIBUTE <span class="op">=</span> <span class="st">&#39;:&#39;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">// @todo どうせなら fit で使ってる , と / も定数化しませんか？</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> ATTRHEAD <span class="op">=</span> {</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;FIT&#39;</span> <span class="op">:</span> <span class="st">&#39;fit:&#39;</span><span class="op">,</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;SECTION&#39;</span> <span class="op">:</span> <span class="st">&#39;sec:&#39;</span><span class="op">,</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><br></p>
+<p>for debug</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> c <span class="op">=</span> (obj) <span class="kw">=&gt;</span> {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a> <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(obj)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><br></p>
+<p>util Datetime</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Datetime {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">constructor</span>(){</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">this</span><span class="op">.</span><span class="fu">_init</span>()</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a> <span class="fu">_init</span>(){</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> msecJST <span class="op">=</span> <span class="bu">Date</span><span class="op">.</span><span class="fu">now</span>()</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> dateJST <span class="op">=</span> <span class="kw">new</span> <span class="bu">Date</span>(msecJST)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`Datetimeクラス上の現在日時は </span><span class="sc">${</span>dateJST<span class="sc">}</span><span class="vs">`</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="at">_dateJST</span> <span class="op">=</span> dateJST</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a> get <span class="fu">day</span>(){</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> day <span class="op">=</span> <span class="kw">this</span><span class="op">.</span><span class="at">_dateJST</span><span class="op">.</span><span class="fu">getDate</span>()</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> day</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a> get <span class="fu">dowJP</span>(){</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> downum <span class="op">=</span> <span class="kw">this</span><span class="op">.</span><span class="at">_dateJST</span><span class="op">.</span><span class="fu">getDay</span>()</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> dowTable <span class="op">=</span> [<span class="st">&#39;日&#39;</span><span class="op">,</span> <span class="st">&#39;月&#39;</span><span class="op">,</span> <span class="st">&#39;火&#39;</span><span class="op">,</span> <span class="st">&#39;水&#39;</span><span class="op">,</span> <span class="st">&#39;木&#39;</span><span class="op">,</span> <span class="st">&#39;金&#39;</span><span class="op">,</span> <span class="st">&#39;土&#39;</span>]</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> dow <span class="op">=</span> dowTable[downum]</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> dow</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a> }  </span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>} </span></code></pre></div>
+<p><br></p>
+<p>lib from <a href="https://scrapbox.io/programming-notes/テキストを挿入するUserScript">/programming-notes/テキストを挿入するUserScript</a> 微修正</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">insertText</span>(text) {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> cursor <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">&#39;text-input&#39;</span>)<span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  cursor<span class="op">.</span><span class="fu">focus</span>()<span class="op">;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  cursor<span class="op">.</span><span class="at">value</span> <span class="op">=</span> text<span class="op">;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> uiEvent <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createEvent</span>(<span class="st">&#39;UIEvent&#39;</span>)<span class="op">;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  uiEvent<span class="op">.</span><span class="fu">initEvent</span>(<span class="st">&#39;input&#39;</span><span class="op">,</span> <span class="kw">true</span><span class="op">,</span> <span class="kw">false</span>)<span class="op">;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  cursor<span class="op">.</span><span class="fu">dispatchEvent</span>(uiEvent)<span class="op">;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><br></p>
+<p>全ページ取得</p>
+<p>APIの仕様で先頭5行まで</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">// @return [] 範囲外に対して取得しに行ったとき</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> getSpecificRange <span class="op">=</span> (start<span class="op">,</span> count) <span class="kw">=&gt;</span> {</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">fetch</span>(<span class="vs">`https://scrapbox.io/api/pages/</span><span class="sc">${</span>__projectName__<span class="sc">}</span><span class="vs">?skip=</span><span class="sc">${</span>start<span class="sc">}</span><span class="vs">&amp;limit=</span><span class="sc">${</span>count<span class="sc">}</span><span class="vs">`</span>)<span class="op">.</span><span class="fu">then</span>((res) <span class="kw">=&gt;</span> {</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>     <span class="cf">return</span> res<span class="op">.</span><span class="fu">json</span>()</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    })<span class="op">.</span><span class="fu">then</span>((json) <span class="kw">=&gt;</span> {</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>     <span class="cf">return</span> json<span class="op">.</span><span class="at">pages</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> getAllPages <span class="op">=</span> <span class="kw">async</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a> <span class="kw">let</span> start <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a> <span class="kw">const</span> fetchWindow <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a> <span class="kw">const</span> allPages <span class="op">=</span> []</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a> <span class="cf">while</span>(<span class="kw">true</span>){</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>     <span class="kw">const</span> pages <span class="op">=</span> <span class="cf">await</span> <span class="fu">getSpecificRange</span>(start<span class="op">,</span> fetchWindow)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>     <span class="kw">const</span> isReachedEnd <span class="op">=</span> pages<span class="op">.</span><span class="at">length</span> <span class="op">==</span> <span class="dv">0</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>     <span class="cf">if</span>(isReachedEnd){</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>     }</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>     <span class="co">// Python でいう extend がないので, 仕方なく愚直に辿って入れる...</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>     <span class="cf">for</span>(<span class="kw">const</span> page <span class="kw">of</span> pages){</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>      allPages<span class="op">.</span><span class="fu">push</span>(page)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>     }</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>     start <span class="op">+=</span> fetchWindow</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a> <span class="cf">return</span> allPages</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><br></p>
+<p>全ページのうちタスクページだけを抽出</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> isTaskPage <span class="op">=</span> (page) <span class="kw">=&gt;</span> {</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a> <span class="kw">const</span> lines <span class="op">=</span> page<span class="op">.</span><span class="at">descriptions</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a> <span class="kw">const</span> tooShort <span class="op">=</span> lines<span class="op">.</span><span class="at">length</span> <span class="op">&lt;=</span> <span class="dv">1</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a> <span class="cf">if</span>(tooShort){</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="kw">false</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a> <span class="co">// タスクページかどうかを判定する</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a> <span class="co">// - 速度優先のため単純な文字列比較で判定したい</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a> <span class="co">// - fit: fit: でも満たしちゃうけど気にしない</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a> <span class="kw">let</span> foundCount <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a> <span class="kw">const</span> REQUIRED_COUNT <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a> <span class="cf">for</span>(<span class="kw">const</span> line <span class="kw">of</span> lines){</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> foundFitAttr <span class="op">=</span> line<span class="op">.</span><span class="fu">startsWith</span>(ATTRHEAD<span class="op">.</span><span class="at">FIT</span>)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> foundSectionAttr <span class="op">=</span> line<span class="op">.</span><span class="fu">startsWith</span>(ATTRHEAD<span class="op">.</span><span class="at">SECTION</span>)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(foundFitAttr){</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>   foundCount<span class="op">++</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(foundSectionAttr){</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>   foundCount<span class="op">++</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(foundCount <span class="op">==</span> REQUIRED_COUNT){</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>   <span class="cf">break</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a> <span class="kw">const</span> notFoundAllRequiredAttr <span class="op">=</span> foundCount <span class="op">!=</span> REQUIRED_COUNT</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a> <span class="cf">if</span>(notFoundAllRequiredAttr){</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="kw">false</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a> <span class="cf">return</span> <span class="kw">true</span>    </span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> pagesToTaskPages <span class="op">=</span> (pages) <span class="kw">=&gt;</span>{</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a> <span class="kw">let</span> taskPages <span class="op">=</span> []</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a> <span class="cf">for</span>(<span class="kw">const</span> page <span class="kw">of</span> pages){</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> isNotTaskPage <span class="op">=</span> <span class="op">!</span><span class="fu">isTaskPage</span>(page)</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(isNotTaskPage){</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>   <span class="cf">continue</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>  taskPages<span class="op">.</span><span class="fu">push</span>(page)</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a> <span class="cf">return</span> taskPages</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><br></p>
+<p>task</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Task{</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">constructor</span>(page){</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">this</span><span class="op">.</span><span class="at">_title</span> <span class="op">=</span> page<span class="op">.</span><span class="at">title</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">this</span><span class="op">.</span><span class="at">_lines</span> <span class="op">=</span> page<span class="op">.</span><span class="at">descriptions</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">this</span><span class="op">.</span><span class="at">_fit</span> <span class="op">=</span> <span class="kw">null</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">this</span><span class="op">.</span><span class="at">_section</span> <span class="op">=</span> <span class="kw">null</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">this</span><span class="op">.</span><span class="fu">_parseLines</span>(<span class="kw">this</span><span class="op">.</span><span class="at">_lines</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a> <span class="fu">_parseLines</span>(lines){</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(<span class="kw">const</span> line <span class="kw">of</span> lines){</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>   <span class="kw">this</span><span class="op">.</span><span class="fu">_parseLine</span>(line)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a> <span class="fu">_parseLine</span>(line){</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 毎回全パターンを parse することになるが</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ルーチンタスク数は高々数百なので性能なんて気にしなくていい.</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  <span class="kw">this</span><span class="op">.</span><span class="fu">_parseAsFitAttr</span>(line)</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  <span class="kw">this</span><span class="op">.</span><span class="fu">_parseAsSectionAttr</span>(line)</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a> <span class="fu">_parseAsFitAttr</span>(line){</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>   <span class="kw">const</span> vOrNull <span class="op">=</span> <span class="kw">this</span><span class="op">.</span><span class="fu">_parseAsXXXAttr_and_get</span>(line<span class="op">,</span> ATTRHEAD<span class="op">.</span><span class="at">FIT</span>)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(vOrNull <span class="op">==</span> <span class="kw">null</span>){</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>  <span class="kw">this</span><span class="op">.</span><span class="at">_fit</span> <span class="op">=</span> vOrNull</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">_parseAsSectionAttr</span>(line){</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>   <span class="kw">const</span> vOrNull <span class="op">=</span> <span class="kw">this</span><span class="op">.</span><span class="fu">_parseAsXXXAttr_and_get</span>(line<span class="op">,</span> ATTRHEAD<span class="op">.</span><span class="at">SECTION</span>)</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(vOrNull <span class="op">==</span> <span class="kw">null</span>){</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>  <span class="kw">this</span><span class="op">.</span><span class="at">_section</span> <span class="op">=</span> vOrNull</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a> <span class="fu">_parseAsXXXAttr_and_get</span>(line<span class="op">,</span> headOfAttr){</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> foundAttr <span class="op">=</span> line<span class="op">.</span><span class="fu">startsWith</span>(headOfAttr)</span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="op">!</span>foundAttr){</span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> <span class="kw">null</span></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> v <span class="op">=</span> line<span class="op">.</span><span class="fu">substr</span>(headOfAttr<span class="op">.</span><span class="at">length</span>)</span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> v</span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a> <span class="fu">isFit</span>(day<span class="op">,</span> dowJP){</span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> ret <span class="op">=</span> <span class="kw">false</span></span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>  ret <span class="op">=</span> ret <span class="op">||</span> <span class="kw">this</span><span class="op">.</span><span class="fu">_isFitAsEveryDay</span>()</span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>  ret <span class="op">=</span> ret <span class="op">||</span> <span class="kw">this</span><span class="op">.</span><span class="fu">_isFitAsDow</span>(dowJP)</span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>  ret <span class="op">=</span> ret <span class="op">||</span> <span class="kw">this</span><span class="op">.</span><span class="fu">_isFitAsSingleDay</span>(day)</span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>  ret <span class="op">=</span> ret <span class="op">||</span> <span class="kw">this</span><span class="op">.</span><span class="fu">_isFitAsEnumedDay</span>(day)</span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>  ret <span class="op">=</span> ret <span class="op">||</span> <span class="kw">this</span><span class="op">.</span><span class="fu">_isFitAsPerNDay</span>(day)</span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> ret</span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a> <span class="fu">_isFitAsDow</span>(dowJP){</span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> myfit <span class="op">=</span> <span class="kw">this</span><span class="op">.</span><span class="at">_fit</span></span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> found <span class="op">=</span> myfit<span class="op">.</span><span class="fu">indexOf</span>(dowJP) <span class="op">!=</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(found){</span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> <span class="kw">true</span></span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="kw">false</span></span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a> <span class="fu">_isFitAsEveryDay</span>(){</span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="kw">this</span><span class="op">.</span><span class="at">_fit</span> <span class="op">==</span> <span class="st">&#39;every&#39;</span></span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a> <span class="fu">_isFitAsSingleDay</span>(day){</span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> myday <span class="op">=</span> <span class="kw">this</span><span class="op">.</span><span class="fu">_stringDayToNumberDay</span>(<span class="kw">this</span><span class="op">.</span><span class="at">_fit</span>)</span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(myday <span class="op">==</span> <span class="op">-</span><span class="dv">1</span>){</span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> <span class="kw">false</span></span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> isEqual <span class="op">=</span> myday <span class="op">==</span> day</span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(isEqual){</span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> <span class="kw">true</span></span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="kw">false</span></span>
+<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a> <span class="fu">_isFitAsEnumedDay</span>(day){</span>
+<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> myfit <span class="op">=</span> <span class="kw">this</span><span class="op">.</span><span class="at">_fit</span></span>
+<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> fitdays <span class="op">=</span> myfit<span class="op">.</span><span class="fu">split</span>(<span class="st">&#39;,&#39;</span>)</span>
+<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> isNotEnumedDayFormat <span class="op">=</span> fitdays<span class="op">.</span><span class="at">length</span> <span class="op">==</span> <span class="dv">0</span></span>
+<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(isNotEnumedDayFormat){</span>
+<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> <span class="kw">false</span></span>
+<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(<span class="kw">const</span> fitdayByString <span class="kw">of</span> fitdays){</span>
+<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a>   <span class="kw">const</span> fitday <span class="op">=</span> <span class="kw">this</span><span class="op">.</span><span class="fu">_stringDayToNumberDay</span>(fitdayByString)</span>
+<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a>       <span class="cf">if</span>(fitday <span class="op">==</span> <span class="op">-</span><span class="dv">1</span>){</span>
+<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
+<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a>       }</span>
+<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a>       <span class="kw">const</span> isNotEqual <span class="op">=</span> fitday <span class="op">!=</span> day</span>
+<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a>       <span class="cf">if</span>(isNotEqual){</span>
+<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
+<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a>       }</span>
+<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a>       <span class="cf">return</span> <span class="kw">true</span></span>
+<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="kw">false</span></span>
+<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a> <span class="fu">_isFitAsPerNDay</span>(day){</span>
+<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a>   <span class="kw">const</span> myfit <span class="op">=</span> <span class="kw">this</span><span class="op">.</span><span class="at">_fit</span></span>
+<span id="cb7-108"><a href="#cb7-108" aria-hidden="true" tabindex="-1"></a>   <span class="kw">const</span> maybeExpression <span class="op">=</span> myfit<span class="op">.</span><span class="fu">split</span>(<span class="st">&#39;/&#39;</span>)</span>
+<span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a>   <span class="kw">const</span> isNotExpression <span class="op">=</span> maybeExpression<span class="op">.</span><span class="at">length</span> <span class="op">!=</span> <span class="dv">2</span></span>
+<span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span>(isNotExpression){</span>
+<span id="cb7-111"><a href="#cb7-111" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">false</span></span>
+<span id="cb7-112"><a href="#cb7-112" aria-hidden="true" tabindex="-1"></a>   }</span>
+<span id="cb7-113"><a href="#cb7-113" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb7-114"><a href="#cb7-114" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> radix <span class="op">=</span> <span class="dv">10</span>        </span>
+<span id="cb7-115"><a href="#cb7-115" aria-hidden="true" tabindex="-1"></a>   <span class="kw">const</span> [a<span class="op">,</span> b] <span class="op">=</span> maybeExpression</span>
+<span id="cb7-116"><a href="#cb7-116" aria-hidden="true" tabindex="-1"></a>   <span class="kw">const</span> routineIntervalDay <span class="op">=</span> <span class="pp">parseInt</span>(a<span class="op">,</span> radix)</span>
+<span id="cb7-117"><a href="#cb7-117" aria-hidden="true" tabindex="-1"></a>   <span class="kw">const</span> hitPoint <span class="op">=</span> <span class="pp">parseInt</span>(b<span class="op">,</span> radix) <span class="co">// RPG における HP ではない</span></span>
+<span id="cb7-118"><a href="#cb7-118" aria-hidden="true" tabindex="-1"></a>   <span class="co">// @todo ユーザーに書式正しくない旨伝えた方が易しいと思う</span></span>
+<span id="cb7-119"><a href="#cb7-119" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span>(<span class="bu">Number</span><span class="op">.</span><span class="fu">isNaN</span>(routineIntervalDay)){</span>
+<span id="cb7-120"><a href="#cb7-120" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">false</span></span>
+<span id="cb7-121"><a href="#cb7-121" aria-hidden="true" tabindex="-1"></a>   }</span>
+<span id="cb7-122"><a href="#cb7-122" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span>(<span class="bu">Number</span><span class="op">.</span><span class="fu">isNaN</span>(hitPoint)){</span>
+<span id="cb7-123"><a href="#cb7-123" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">false</span></span>
+<span id="cb7-124"><a href="#cb7-124" aria-hidden="true" tabindex="-1"></a>   }</span>
+<span id="cb7-125"><a href="#cb7-125" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb7-126"><a href="#cb7-126" aria-hidden="true" tabindex="-1"></a>   <span class="kw">const</span> mod <span class="op">=</span> day <span class="op">%</span> routineIntervalDay</span>
+<span id="cb7-127"><a href="#cb7-127" aria-hidden="true" tabindex="-1"></a>   <span class="kw">const</span> isMatched <span class="op">=</span> mod <span class="op">==</span> hitPoint</span>
+<span id="cb7-128"><a href="#cb7-128" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span>(isMatched){</span>
+<span id="cb7-129"><a href="#cb7-129" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">true</span></span>
+<span id="cb7-130"><a href="#cb7-130" aria-hidden="true" tabindex="-1"></a>   }</span>
+<span id="cb7-131"><a href="#cb7-131" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> <span class="kw">false</span></span>
+<span id="cb7-132"><a href="#cb7-132" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb7-133"><a href="#cb7-133" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb7-134"><a href="#cb7-134" aria-hidden="true" tabindex="-1"></a> <span class="co">// @return -1 日としておかしい値だった</span></span>
+<span id="cb7-135"><a href="#cb7-135" aria-hidden="true" tabindex="-1"></a> <span class="fu">_stringDayToNumberDay</span>(stringDay){</span>
+<span id="cb7-136"><a href="#cb7-136" aria-hidden="true" tabindex="-1"></a>  <span class="co">// &#39;25&#39;  -&gt; 25</span></span>
+<span id="cb7-137"><a href="#cb7-137" aria-hidden="true" tabindex="-1"></a>  <span class="co">// &#39;25a&#39; -&gt; 25</span></span>
+<span id="cb7-138"><a href="#cb7-138" aria-hidden="true" tabindex="-1"></a>  <span class="co">// &#39;2a5&#39; -&gt; 2</span></span>
+<span id="cb7-139"><a href="#cb7-139" aria-hidden="true" tabindex="-1"></a>  <span class="co">// &#39;a25&#39; -&gt; NaN</span></span>
+<span id="cb7-140"><a href="#cb7-140" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> radix <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb7-141"><a href="#cb7-141" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> numberOrNaN <span class="op">=</span> <span class="pp">parseInt</span>(stringDay<span class="op">,</span> radix)</span>
+<span id="cb7-142"><a href="#cb7-142" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="bu">Number</span><span class="op">.</span><span class="fu">isNaN</span>(numberOrNaN)){</span>
+<span id="cb7-143"><a href="#cb7-143" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb7-144"><a href="#cb7-144" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-145"><a href="#cb7-145" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> day <span class="op">=</span> numberOrNaN</span>
+<span id="cb7-146"><a href="#cb7-146" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> day</span>
+<span id="cb7-147"><a href="#cb7-147" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb7-148"><a href="#cb7-148" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb7-149"><a href="#cb7-149" aria-hidden="true" tabindex="-1"></a> <span class="fu">toLine</span>(){</span>
+<span id="cb7-150"><a href="#cb7-150" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> title <span class="op">=</span> <span class="kw">this</span><span class="op">.</span><span class="at">_title</span></span>
+<span id="cb7-151"><a href="#cb7-151" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> indentForScrapboxList <span class="op">=</span> <span class="st">&#39; &#39;</span></span>
+<span id="cb7-152"><a href="#cb7-152" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> linkedTitle <span class="op">=</span> <span class="vs">`[</span><span class="sc">${</span>title<span class="sc">}</span><span class="vs">]`</span></span>
+<span id="cb7-153"><a href="#cb7-153" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> line <span class="op">=</span> <span class="vs">`</span><span class="sc">${</span>indentForScrapboxList<span class="sc">}</span><span class="vs">- </span><span class="sc">${</span>linkedTitle<span class="sc">}</span><span class="vs">]`</span></span>
+<span id="cb7-154"><a href="#cb7-154" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> line</span>
+<span id="cb7-155"><a href="#cb7-155" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb7-156"><a href="#cb7-156" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb7-157"><a href="#cb7-157" aria-hidden="true" tabindex="-1"></a> get <span class="fu">section</span>(){</span>
+<span id="cb7-158"><a href="#cb7-158" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="kw">this</span><span class="op">.</span><span class="at">_section</span></span>
+<span id="cb7-159"><a href="#cb7-159" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb7-160"><a href="#cb7-160" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><br></p>
+<p>task enumer</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TaskEnumer{</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">constructor</span>(tasks<span class="op">,</span> sections){</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">this</span><span class="op">.</span><span class="at">_tasks</span> <span class="op">=</span> tasks</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">this</span><span class="op">.</span><span class="at">_sections</span> <span class="op">=</span> sections</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a> <span class="co">// @return [line, line, ...]</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a> <span class="kw">enum</span>(){</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> indentForScrapboxList <span class="op">=</span> <span class="st">&#39; &#39;</span>     </span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> outLines <span class="op">=</span> []</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">// @todo ネスト深くて不吉な臭い</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(<span class="kw">const</span> section <span class="kw">of</span> <span class="kw">this</span><span class="op">.</span><span class="at">_sections</span>){</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>   outLines<span class="op">.</span><span class="fu">push</span>(<span class="vs">`</span><span class="sc">${</span>indentForScrapboxList<span class="sc">}${</span>section<span class="sc">}</span><span class="vs">`</span>)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span>(<span class="kw">const</span> task <span class="kw">of</span> <span class="kw">this</span><span class="op">.</span><span class="at">_tasks</span>){</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> sectionOfTheTask <span class="op">=</span> task<span class="op">.</span><span class="at">section</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> isNotMatched <span class="op">=</span> section <span class="op">!=</span> sectionOfTheTask</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(isNotMatched){</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>     <span class="cf">continue</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    outLines<span class="op">.</span><span class="fu">push</span>(<span class="vs">`</span><span class="sc">${</span>task<span class="op">.</span><span class="fu">toLine</span>()<span class="sc">}</span><span class="vs">`</span>)</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>      } </span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> outLines</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><br></p>
+<p>entrypoint</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">getDailyTaskList</span>(){</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> dt <span class="op">=</span>  <span class="kw">new</span> <span class="fu">Datetime</span>()</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> nowday <span class="op">=</span> dt<span class="op">.</span><span class="at">day</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> nowdow <span class="op">=</span> dt<span class="op">.</span><span class="at">dowJP</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">getAllPages</span>()<span class="op">.</span><span class="fu">then</span>((allPages) <span class="kw">=&gt;</span> {</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>     <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`page count is </span><span class="sc">${</span>allPages<span class="op">.</span><span class="at">length</span><span class="sc">}</span><span class="vs">`</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>     <span class="kw">const</span> taskPages <span class="op">=</span> <span class="fu">pagesToTaskPages</span>(allPages)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>     <span class="kw">const</span> tasks <span class="op">=</span> []</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>     <span class="cf">for</span>(<span class="kw">const</span> taskPage <span class="kw">of</span> taskPages){</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> task <span class="op">=</span> <span class="kw">new</span> <span class="fu">Task</span>(taskPage)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>      tasks<span class="op">.</span><span class="fu">push</span>(task)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>     }</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>     <span class="kw">const</span> fittedTasks <span class="op">=</span> []</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>     <span class="cf">for</span>(<span class="kw">const</span> task <span class="kw">of</span> tasks){</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> isNotFit <span class="op">=</span> <span class="op">!</span>(task<span class="op">.</span><span class="fu">isFit</span>(nowday<span class="op">,</span> nowdow))</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>(isNotFit){</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>       <span class="cf">continue</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>      fittedTasks<span class="op">.</span><span class="fu">push</span>(task)</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>     }</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>     <span class="kw">const</span> enumer <span class="op">=</span> <span class="kw">new</span> <span class="fu">TaskEnumer</span>(fittedTasks<span class="op">,</span> __sections__)</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>     <span class="kw">const</span> dailyTaskList <span class="op">=</span> enumer<span class="op">.</span><span class="fu">enum</span>()</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>     <span class="kw">const</span> dailyTaskListByStr <span class="op">=</span> dailyTaskList<span class="op">.</span><span class="fu">join</span>(<span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>)</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>     <span class="fu">insertText</span>(dailyTaskListByStr)</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><br></p>
+<p>UI</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> MENUNAME <span class="op">=</span> <span class="st">&#39;DailyTaskList&#39;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> SCRAPBOX_FAVICON_PATH <span class="op">=</span> <span class="st">&#39;https://scrapbox.io/assets/img/favicon/favicon.ico&#39;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>scrapbox<span class="op">.</span><span class="at">PageMenu</span><span class="op">.</span><span class="fu">addMenu</span>({</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a> <span class="dt">title</span><span class="op">:</span> MENUNAME<span class="op">,</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a> <span class="dt">image</span><span class="op">:</span> SCRAPBOX_FAVICON_PATH<span class="op">,</span> <span class="co">// 良いアイコン案ないのでテキトーに favicon で</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> menu <span class="op">=</span> scrapbox<span class="op">.</span><span class="fu">PageMenu</span>(MENUNAME)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>menu<span class="op">.</span><span class="fu">addItem</span>({</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a> <span class="dt">title</span><span class="op">:</span> <span class="st">&#39;Create daily tasklist&#39;</span><span class="op">,</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a> <span class="dt">onClick</span><span class="op">:</span> getDailyTaskList<span class="op">,</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<p><br></p>
+<h2 id="links">Links</h2>
+<ul>
+<li>← <a href="UserScriptとの付き合い方を再考する.md">UserScriptとの付き合い方を再考する</a></li>
+<li>← <a href="Scrapbox_As_A_TaskManagement.md">Scrapbox As A TaskManagement</a></li>
+<li>← <a href="プログラミングフットワーク.md">プログラミングフットワーク</a></li>
+<li>← <a href="Most_viewedのページをたまにメンテナンスする.md">Most viewedのページをたまにメンテナンスする</a></li>
+<li>← <a href="Scrapboxでタスク管理.md">Scrapboxでタスク管理</a></li>
+<li>← <a href="指定タグを含むページ名の一覧をつくるUserScript.md">指定タグを含むページ名の一覧をつくるUserScript</a></li>
+<li>← <a href="Gyampっぽいの自作したい.md">Gyampっぽいの自作したい</a></li>
+<li>← <a href="ScrapboxでGTD.md">ScrapboxでGTD</a></li>
+<li>← <a href="じぶんリリースノート_0.32.1.md">じぶんリリースノート 0.32.1</a></li>
+<li>← <a href="Scrapbox_As_A_Configuration.md">Scrapbox As A Configuration</a></li>
+<li>← <a href="scrapbox-dailytasklist-readme.md">scrapbox-dailytasklist-readme</a></li>
+<li>← <a href="TeamsチームXXXを覗く.md">TeamsチームXXXを覗く</a></li>
+<li>← <a href="scrapbox-dailytasklist-specs.md">scrapbox-dailytasklist-specs</a></li>
+<li>← <a href="UserScriptでメッセージを表示したい.md">UserScriptでメッセージを表示したい</a></li>
+<li>← <a href="scrapbox-routinearea.md">scrapbox-routinearea</a></li>
+<li>← <a href="Scrapbox上でルーチンタスク管理したい.md">Scrapbox上でルーチンタスク管理したい</a></li>
+</ul>
+<h2 id="hop-links">2hop Links</h2>
+<ul>
+<li>→ <a href="scrapbox-dailytasklist-sandbox.md">scrapbox-dailytasklist-sandbox</a>
+<ul>
+<li>← <a href="scrapbox-dailytasklist-readme.md">scrapbox-dailytasklist-readme</a></li>
+</ul></li>
+</ul>

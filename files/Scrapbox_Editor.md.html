@@ -1,0 +1,60 @@
+<h2 id="scrapbox-editor">Scrapbox Editor</h2>
+<p>**[sta.icon**[sbq]でやります]</p>
+<p><br></p>
+<p><br></p>
+<ul>
+<li>以下のようなことがしたい
+<ul>
+<li>uglyマークをつけたページを一気に削除する
+<ul>
+<li><a href="taint.md">taint</a></li>
+</ul></li>
+<li>全ページをまたいだ置換</li>
+<li>行数、文字数、リンク数など数値データのビジュアライズ</li>
+</ul></li>
+<li>どうするか？
+<ul>
+<li>エクスポートしたjsonをいじるしかあるまい</li>
+<li>必要なら「加工後のjson」も出力して、こいつをインポートせい、にする</li>
+</ul></li>
+</ul>
+<p><br></p>
+<ul>
+<li>:sta:直近欲しいのが「（転職活動のために）このScrapboxから醜いページを消したい」「でもそいつらもせっかく書いたものなので保持しておきたい」
+<ul>
+<li>このEditorがあればできる
+<ul>
+<li>uglyマークで消す</li>
+<li>消したのを別jsonに出しておく</li>
+<li>:sta:これ無理だった
+<ul>
+<li>ページAが存在する場合、json側でAを消してインポートし直してもAは消えない（当たり前だが</li>
+<li>一度つくったページを import 操作で消す手段はない</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br></p>
+<ul>
+<li>I/F
+<ul>
+<li>自分用ならPythonでCLI</li>
+<li>もうちょっとグラフィカルな操作が必要そうなら、jsonを適当にjs化した上で、フロントエンドで処理する</li>
+</ul></li>
+</ul>
+<p><br></p>
+<h2 id="links">Links</h2>
+<ul>
+<li>← <a href="sbq.md">sbq</a></li>
+</ul>
+<h2 id="hop-links">2hop Links</h2>
+<ul>
+<li>→ <a href="sbq.md">sbq</a>
+<ul>
+<li>← <a href="Scrapbox_to_Markdown_基本方針.md">Scrapbox to Markdown 基本方針</a></li>
+</ul></li>
+<li>→ <a href="taint.md">taint</a>
+<ul>
+<li>← <a href="Terraform学習.md">Terraform学習</a></li>
+</ul></li>
+</ul>

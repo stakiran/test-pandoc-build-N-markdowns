@@ -1,0 +1,163 @@
+<h2 id="scrapboxの別ページリンク記法にマッチする正規表現">Scrapboxの別ページリンク記法にマッチする正規表現</h2>
+<p>linktoのみ検出したい</p>
+<p><br></p>
+<ul>
+<li>o
+<ul>
+<li><a href="リンク.md">リンク</a></li>
+<li><a href="リンク.md">リンク</a>と<a href="リンク.md">リンク</a></li>
+</ul></li>
+<li>x
+<ul>
+<li><code>[りんく](りんく.md)</code></li>
+<li><strong>太字</strong></li>
+<li><strong>太字</strong></li>
+<li><del>斜体</del></li>
+<li><a href="存在しないリンク.md">存在しないリンク</a></li>
+<li><a href="https://scrapbox.io/sta">/sta</a></li>
+<li><a href="http://www.google.co.jp">google(text後)</a></li>
+<li><a href="http://www.google.co.jp">google(text前)</a></li>
+<li><a href="https://gyazo.com/505861e8a5c21ae87eb972c4affd8841" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/505861e8a5c21ae87eb972c4affd8841/raw" /></a></li>
+<li>:sta:</li>
+</ul></li>
+<li><a href="Repl.itでPythonの正規表現reを試す.md">Repl.itでPythonの正規表現reを試す</a></li>
+</ul>
+<p><br></p>
+<p>うーん……</p>
+<ul>
+<li>一つの正規表現だけで頑張るのは無理がありそう</li>
+<li>n個の正規表現使った方がいいか
+<ul>
+<li>xの方を除外する正規表現を複数用意して、判定したいline（のコピー）を書き換える</li>
+<li>で、最後に、そのコピーに対して、シンプルに<code>[xxx](xxx.md)</code>を探す正規表現を使う</li>
+</ul></li>
+<li>これ使う？
+<ul>
+<li><a href="https://gyazo.com/de8a245a5c67b82f945649fa508e37a8" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/de8a245a5c67b82f945649fa508e37a8/raw" /></a></li>
+<li>が、問題が二点</li>
+<li>1 そもそも他から使えるようI/F整えてない
+<ul>
+<li>ここに書くのも違うし</li>
+</ul></li>
+<li>2 これは to markdown 用の正規表現であって、純粋にscb記法のリンクを取りたい場合とは文脈が違う
+<ul>
+<li>たとえばRE_LINK_ANOTHER_PAGEは、（既にmarkdown記法のリンクに変換された後に生成される）<code>[](</code>の<code>(</code>の存在を前提とした表現になっている</li>
+</ul></li>
+</ul></li>
+<li>もうこれ愚直にparseした方が早くね？
+<ul>
+<li>いや、状態遷移ゲーはもうこりごり。。。</li>
+</ul></li>
+<li>実装し直すかー
+<ul>
+<li><a href="https://github.com/stakiran/scbjson2ghpages/commit/39f0ba9adafc4ecafbc327f5febecfe93b6620c1" class="uri">https://github.com/stakiran/scbjson2ghpages/commit/39f0ba9adafc4ecafbc327f5febecfe93b6620c1</a></li>
+</ul></li>
+<li>粗いけどいったんdone</li>
+</ul>
+<p><br></p>
+<p>いやハッシュタグがまだ</p>
+<ul>
+<li>そして難しい</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>RE_HASHTAG <span class="op">=</span> re.<span class="bu">compile</span>(<span class="vs">r&#39;( |^|\n|\r)#(.+?)( |$|\n|\r)&#39;</span>)</span></code></pre></div>
+<ul>
+<li>…
+<ul>
+<li>これだと<code>#hash [#hash</code>みたいにスペース区切りで連続してるケースをキャプチャできん](hash`みたいにスペース区切りで連続してるケースをキャプチャできん.md)</li>
+<li>どうすれば</li>
+<li><code>\b</code>？
+<ul>
+<li><blockquote>
+単語の境界。これはゼロ幅アサーションで、単語の始まりか終わりにのみマッチします。単語は英数文字のシーケンスとして定義されます、つまり単語の終わりは空白か非英数文字として表われます。 <a href="https://docs.python.org/ja/3/howto/regex.html">正規表現 HOWTO — Python 3.9.4 ドキュメント</a>
+</blockquote></li>
+<li>たぶんこれだ</li>
+<li>あ、でも日本語も非英数文字なのでダメかな</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>RE_HASHTAG <span class="op">=</span> re.<span class="bu">compile</span>(<span class="vs">r&#39;\b#(.+?)\b&#39;</span>)</span></code></pre></div>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>だめ</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>RE_HASHTAG <span class="op">=</span> re.<span class="bu">compile</span>(<span class="vs">r&#39;( |^|\n|\r|\b)#(.+?)( |$|\n|\r)&#39;</span>)</span></code></pre></div>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>これだと<code>あああ#ここは検出されない</code>も検出されてしまう</li>
+</ul></li>
+<li>ドキュメント見ても無さそうだが</li>
+<li>先読みアサーション？
+<ul>
+<li><blockquote>
+(?=…)
+</blockquote></li>
+<li><blockquote>
+肯定先読みアサーション。 … で表わす正規表現が現在位置でマッチすれば成功し、それ以外の場合失敗します。しかし、表現が試行された場合でもエンジンは先に進みません
+</blockquote></li>
+<li>エンジンを先に進ませないんだよな、つまりは</li>
+</ul></li>
+</ul></li>
+</ul>
+<pre class="整理"><code>今起きてるの
+ aaa #hash1 #hash2 aaa
+    ^^^^^^^^
+ aaa #hash1 #hash2 aaa
+            ^
+          エンジンはここからスタートしてしまう
+          しかし #(.+?) みたいな表現にすると aaa#aaa こういう文字列もヒットしてしまう</code></pre>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>んー、ちょっとわからん</li>
+</ul></li>
+</ul></li>
+<li>ググる
+<ul>
+<li><a href="https://teratail.com/questions/299251">Python - Python 正規表現で適切にハッシュタグを抽出したい｜teratail</a>
+<ul>
+<li>ダメ。<code>aaa#aaa</code>もヒットしちまう</li>
+</ul></li>
+<li>他にヒットした記事も同じ感じでうーん:sta:</li>
+</ul></li>
+<li>仕方ない、プリプロセスで対処する</li>
+</ul>
+<pre class="プリプロセス対象の考察"><code>#hash
+#hash #hash
+#hash aaa #hash
+#hash #hash #hash
+     ^^    ^^</code></pre>
+<ul>
+<li>…
+<ul>
+<li><code>[#</code>を<code>](</code>を<code>.md)  [#</code>などに変えてしまう、が思いついたんだが](`などに変えてしまう、が思いついたんだが.md)
+<ul>
+<li>原意削がれないよな？</li>
+</ul></li>
+</ul></li>
+<li>対応してみた
+<ul>
+<li><a href="https://github.com/stakiran/scbjson2ghpages/commit/603868e64d57e9e09a94f5976981382e4c620d18" class="uri">https://github.com/stakiran/scbjson2ghpages/commit/603868e64d57e9e09a94f5976981382e4c620d18</a></li>
+<li>実装がエレガントじゃなくて<a href="不吉な臭い.md">不吉な臭い</a>するけど。。。:sta:</li>
+</ul></li>
+</ul>
+<p><br></p>
+<p>まだ</p>
+<ul>
+<li>codeの中身を弾く</li>
+</ul>
+<p><br></p>
+<h2 id="links">Links</h2>
+<ul>
+<li>← <a href="✅Linksに相当するFooterをつける.md">✅Linksに相当するFooterをつける</a></li>
+</ul>
+<h2 id="hop-links">2hop Links</h2>

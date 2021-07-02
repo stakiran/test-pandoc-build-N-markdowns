@@ -1,0 +1,68 @@
+<h2 id="scrapbox-to-markdown-画像の実装はいったん捨てる">Scrapbox to Markdown 画像の実装はいったん捨てる</h2>
+<p>画像いったん捨てませんか？</p>
+<ul>
+<li>目的は「ghpagesに公開してみたらどうなるかを手早く試したい」なので素早い方がいい
+<ul>
+<li>画像はテキトーなアイコンを決め打ちしつつ、View at scrapboxリンクつけておけば「オリジナルはscrapbox側見てね」にできる</li>
+<li><a href="https://scrapbox.io/sta">/sta</a>はテキストメインなので、たぶん画像はなくても大丈夫</li>
+<li>:sta:いや、リンクにしちゃえばいいのでは？
+<ul>
+<li>x <code>![](https://i.gyazo.com/e4aae2345d1927c777db267138d1e419.jpg)</code></li>
+<li>o <code>[image](https://gyazo.com/e4aae2345d1927c777db267138d1e419)</code></li>
+</ul></li>
+</ul></li>
+<li><del>これ<a href="本心ではもう決めている.md">本心ではもう決めている</a>っぽいけど、本当にこれでいいか少し寝かせたい</del>数時間寝かせた結果、yes</li>
+<li>from
+<ul>
+<li><a href="https://github.com/stakiran/scbjson2ghpages/commit/3699779f691c77111337379b35d1bdf3b3bb9c39" class="uri">https://github.com/stakiran/scbjson2ghpages/commit/3699779f691c77111337379b35d1bdf3b3bb9c39</a></li>
+</ul></li>
+<li>これ、画像だけでなくて<code>[url](url.md)</code>を<code>[media](url)</code>に一般化できない？
+<ul>
+<li>scb記法改めて調べてみる</li>
+<li><a href="Scrapboxで書けるmedia系の記法.md">Scrapboxで書けるmedia系の記法</a></li>
+<li>基本的に<code>[]</code>で統一されている
+<ul>
+<li>地図は違う</li>
+</ul></li>
+<li>:sta:拡張性持たせないとダメだなこりゃ
+<ul>
+<li><code>scb_to_markdown_in_line()</code>に追加してテストコード使えばよろしい</li>
+</ul></li>
+<li>地図は使ってないしいったんスルー</li>
+<li><code>[MEDIAURL](MEDIAURL.md)</code>は<code>[media](MEDIAURL)</code>にしたい</li>
+<li><code>[link](link.md)</code>は<code>[link](link.md)</code>にしたい</li>
+<li>できた</li>
+</ul></li>
+<li>あとはicon記法の撲滅
+<ul>
+<li>1
+<ul>
+<li><code>:xxx:</code> → ``</li>
+<li><code>:xxx:</code> → ``</li>
+</ul></li>
+<li>2
+<ul>
+<li><code>:xxx:</code> → <code>(XXX.ICON)</code></li>
+<li><code>:xxx:</code> → <code>(XXX.ICON*3)</code></li>
+</ul></li>
+<li>3
+<ul>
+<li><code>:xxx:</code> → <code>(xxx)</code></li>
+<li><code>:xxx:</code> → <code>(xxx)</code></li>
+</ul></li>
+<li>4
+<ul>
+<li><code>:xxx:</code> → <code>:xxx:</code></li>
+<li><code>:xxx:</code> → <code>:xxx:</code></li>
+<li><a href="https://scrapbox.io/icons">/icons</a>のような使い方してたとしたら絵文字としてヒットワンチャンある</li>
+<li>どうせ文字で示すだけだし、これでいいか？</li>
+<li>ok</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br></p>
+<h2 id="links">Links</h2>
+<ul>
+<li>← <a href="Scrapbox_to_Markdown.md">Scrapbox to Markdown</a></li>
+</ul>
+<h2 id="hop-links">2hop Links</h2>

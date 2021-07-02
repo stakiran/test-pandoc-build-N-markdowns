@@ -1,0 +1,152 @@
+<h2 id="scrapbox-to-markdown">Scrapbox to Markdown</h2>
+<p>背景</p>
+<ul>
+<li><a href="承認欲求.md">承認欲求</a>満たしたい</li>
+<li>ScrapboxだとSEOが弱いし、そもそも承認成分を持ち込みたくない</li>
+<li>どうするか
+<ul>
+<li>静的サイトに変換すればいい</li>
+<li>1ページを1ファイルに変換する</li>
+</ul></li>
+<li><a href="GitHub_Pages.md">GitHub Pages</a>が楽そうでいいかな
+<ul>
+<li><a href="tit.md">tit</a>や<a href="monolithic.md">monolithic</a>みたいなテイストをイメージしている</li>
+<li>つまり<a href="Markdown.md">Markdown</a>に変換する</li>
+</ul></li>
+</ul>
+<p><br></p>
+<p>サンプル</p>
+<ul>
+<li><a href="scrapbox-sta.md">scrapbox-sta</a></li>
+</ul>
+<p><br></p>
+<p>resources</p>
+<ul>
+<li>repo
+<ul>
+<li><a href="https://github.com/stakiran/scbjson2ghpages/" class="uri">https://github.com/stakiran/scbjson2ghpages/</a></li>
+</ul></li>
+<li>testdata
+<ul>
+<li><a href="https://scrapbox.io/testdata-for-to-markdown">/testdata-for-to-markdown</a></li>
+</ul></li>
+</ul>
+<p><br></p>
+<p>progress</p>
+<ul>
+<li>2021/05/06 一通り落ち着いたしGW終わるのでいったんここまで
+<ul>
+<li><a href="https://github.com/stakiran/scbjson2ghpages/releases/tag/v0.1.0" class="uri">https://github.com/stakiran/scbjson2ghpages/releases/tag/v0.1.0</a></li>
+</ul></li>
+</ul>
+<p><br></p>
+<p>:hr:</p>
+<p>以下作業メモ</p>
+<p><br></p>
+<p>todo</p>
+<ul>
+<li><a href="ビルドにCPUパワーとI_Oを酷使するので何とかする.md">ビルドにCPUパワーとI/Oを酷使するので何とかする</a></li>
+<li><a href="パイプ直書きでpipe_trapが発動するのを防ぐ.md">パイプ直書きでpipe trapが発動するのを防ぐ</a></li>
+<li><a href="デバッグプリント用フラグを実行時コマンドラインオプションで与える.md">デバッグプリント用フラグを実行時コマンドラインオプションで与える</a></li>
+<li><a href="DrawingなどScrapboxのストレージを使っている画像を表示する.md">DrawingなどScrapboxのストレージを使っている画像を表示する</a></li>
+<li><a href="各ページに「view_on_scrapbox」リンクをつける.md">各ページに「view on scrapbox」リンクをつける</a></li>
+<li><a href="リンクの種類を視覚的に区別する.md">リンクの種類を視覚的に区別する</a></li>
+<li>解析的にむずかしい
+<ul>
+<li><a href="引用中のリンクを反映させる.md">引用中のリンクを反映させる</a></li>
+<li><a href="アスタリスクを2つ以上重ねた太字表記内のリンクも正しく変換する.md">アスタリスクを2つ以上重ねた太字表記内のリンクも正しく変換する</a></li>
+</ul></li>
+<li><a href="cssで(icon記法からつくった)絵文字を強調する.md">cssで(icon記法からつくった)絵文字を強調する</a></li>
+<li><a href="アイコン記法を画像として埋め込む.md">アイコン記法を画像として埋め込む</a></li>
+<li><a href="レンダリングエンジンを模索する.md">レンダリングエンジンを模索する</a>
+<ul>
+<li><a href="レンダリングエンジンをMkDocsに変える.md">レンダリングエンジンをMkDocsに変える</a></li>
+<li><a href="❌レンダリングエンジンをHugoに変える.md">❌レンダリングエンジンをHugoに変える</a></li>
+</ul></li>
+<li><a href="でかすぎるリンクとその接続先を表示するページ.md">でかすぎるリンクとその接続先を表示するページ</a>
+<ul>
+<li>タグ名指定出来たほうがいいかも</li>
+</ul></li>
+<li><a href="index.mdに書く「projectごとに固有の部分」を自由にいじれるようにする.md">index.mdに書く「projectごとに固有の部分」を自由にいじれるようにする</a></li>
+<li><a href="Linksの表示順序を上手い感じに並び替える.md">Linksの表示順序を上手い感じに並び替える</a></li>
+<li><a href="✅Linksに載せるリンク数はオプションで指定できるようにする.md">✅Linksに載せるリンク数はオプションで指定できるようにする</a></li>
+<li><a href="✅Linksに相当するFooterをつける.md">✅Linksに相当するFooterをつける</a>
+<ul>
+<li>16-8-4 cutはもうちょっとなんとかしたい</li>
+<li><a href="F,T,H_limitを微調整してちょうどよい塩梅を探す.md">F,T,H limitを微調整してちょうどよい塩梅を探す</a></li>
+</ul></li>
+<li><a href="✅リスト中のブロックを含んだページの変換に穴があるのを修正する.md">✅リスト中のブロックを含んだページの変換に穴があるのを修正する</a></li>
+<li><a href="✅全ページリンク集をつくる.md">✅全ページリンク集をつくる</a></li>
+<li><a href="✅各ページに大見出しを入れる.md">✅各ページに大見出しを入れる</a></li>
+<li><a href="✅各ページにタイトルを入れる.md">✅各ページにタイトルを入れる</a></li>
+<li><a href="✅結果的に_から始まるファイル名にアクセスできないので何とかする.md">✅結果的に_から始まるファイル名にアクセスできないので何とかする</a></li>
+<li><a href="✅jekyllで日本語ファイル名が正しくリンクされない問題を修正する.md">✅jekyllで日本語ファイル名が正しくリンクされない問題を修正する</a></li>
+<li><a href="✅GitHub_Pagesでsourceをルートにしている場合に、ルートにアクセスしてもindex.htmlに転送されない.md">✅GitHub Pagesでsourceをルートにしている場合に、ルートにアクセスしてもindex.htmlに転送されない</a></li>
+<li><a href="✅Gyazo埋め込みの画像を表示する.md">✅Gyazo埋め込みの画像を表示する</a></li>
+<li><a href="✅index.mdを自動生成する.md">✅index.mdを自動生成する</a></li>
+<li>testpageでテストしたいやつ
+<ul>
+<li><a href="✅画像にリンク貼ってる場合に表記がおかしい件の修正.md">✅画像にリンク貼ってる場合に表記がおかしい件の修正</a></li>
+<li><a href="✅アイコン記法の後に文字を書くと解釈がおかしくなるのを修正する.md">✅アイコン記法の後に文字を書くと解釈がおかしくなるのを修正する</a></li>
+<li><a href="✅リンクの後にアイコン記法が続く場合に変換がおかしくなるのを修正する.md">✅リンクの後にアイコン記法が続く場合に変換がおかしくなるのを修正する</a></li>
+<li><a href="✅URL直書きをリンクにする.md">✅URL直書きをリンクにする</a></li>
+<li><a href="✅リンク中に-(パイプ)が含まれるとテーブルとして解釈されてしまう問題.md">✅リンク中に-(パイプ)が含まれるとテーブルとして解釈されてしまう問題</a></li>
+</ul></li>
+</ul>
+<p><br></p>
+<p>サンプルつくるまでの作業ログ</p>
+<ul>
+<li><a href="種々のタスクをScrapbox上でどうまとめるかを検討する.md">種々のタスクをScrapbox上でどうまとめるかを検討する</a></li>
+<li><a href="sta.json加えてghpagesリリースします.md">sta.json加えてghpagesリリースします</a></li>
+<li><a href="Scrapbox_to_Markdown_sta.jsonを食わせて全部通るまで帰れま10.md">Scrapbox to Markdown sta.jsonを食わせて全部通るまで帰れま１０</a></li>
+<li><a href="Scrapbox_to_Markdown_リスト中のテーブルやらコードやらブロック.md">Scrapbox to Markdown リスト中のテーブルやらコードやらブロック</a></li>
+<li><a href="Scrapbox_to_Markdown_テーブル.md">Scrapbox to Markdown テーブル</a></li>
+<li><a href="ファイル内容が一致していてもリストとリストをassertEqualしていればFalseになることがある.md">ファイル内容が一致していてもリストとリストをassertEqualしていればFalseになることがある</a></li>
+<li><a href="Scrapbox_to_Markdown_コードブロック.md">Scrapbox to Markdown コードブロック</a></li>
+<li><a href="Scrapbox_to_Markdown_画像の実装はいったん捨てる.md">Scrapbox to Markdown 画像の実装はいったん捨てる</a></li>
+<li><a href="Scrapbox_to_Markdown_画像とicon記法の実装.md">Scrapbox to Markdown 画像とicon記法の実装</a></li>
+<li><a href="Scrapbox_to_Markdown_テストコード設計.md">Scrapbox to Markdown テストコード設計</a></li>
+<li><a href="Scrapbox_to_Markdown_文法変換の設計やら実装やら.md">Scrapbox to Markdown 文法変換の設計やら実装やら</a></li>
+<li>2021/04/07 <a href="Scrapbox_to_Markdown_基本方針.md">Scrapbox to Markdown 基本方針</a>
+<ul>
+<li>:sta:時期結構離れてる
+<ul>
+<li>突然モチベーション湧いたんだよなぁ</li>
+<li>あとちょうど<a href="House2.md">House2</a>検討始めて他のタスク（≒<a href="いせむげ.md">いせむげ</a>）を手放したからってのもある</li>
+</ul></li>
+</ul></li>
+<li>2020/06/27 <a href="Scrapbox_to_Markdown_事前調査.md">Scrapbox to Markdown 事前調査</a></li>
+</ul>
+<p><br></p>
+<p><a href="開発ネタ.md">#開発ネタ</a> ## Links - ← <a href="真の意味でものづくりがしたいんだよ.md">真の意味でものづくりがしたいんだよ</a> - ← <a href="じぶんリリースノート_0.32.5.md">じぶんリリースノート 0.32.5</a> - ← <a href="いせむげを再開する.md">いせむげを再開する</a> - ← <a href="計画をつくるのが苦手.md">計画をつくるのが苦手</a> - ← <a href="Scrapbox_As_A_Brarea.md">Scrapbox As A Brarea</a> - ← <a href="飼われるためには.md">飼われるためには</a> - ← <a href="tilをScrapboxに統合したい.md">tilをScrapboxに統合したい</a> - ← <a href="やりたいことがない.md">やりたいことがない</a> - ← <a href="noteネタ.md">noteネタ</a> - ← <a href="ドッグフーディング.md">ドッグフーディング</a> - ← <a href="Scrapbox四天王のうち誰になりたいか.md">Scrapbox四天王のうち誰になりたいか</a> - ← <a href="タスク管理の体系化をGitHub_Pagesに置いてみた.md">タスク管理の体系化をGitHub Pagesに置いてみた</a> - ← <a href="✅Linksに相当するFooterをつける.md">✅Linksに相当するFooterをつける</a> - ← <a href="各ページに「view_on_scrapbox」リンクをつける.md">各ページに「view on scrapbox」リンクをつける</a> - ← <a href="scrapbox-sta.md">scrapbox-sta</a> - ← <a href="✅index.mdを自動生成する.md">✅index.mdを自動生成する</a> - ← <a href="種々のタスクをScrapbox上でどうまとめるかを検討する.md">種々のタスクをScrapbox上でどうまとめるかを検討する</a> - ← <a href="ひとりScrapbox開発.md">ひとりScrapbox開発</a> - ← <a href="Markdown記法で書かれた「Markdownファイルへのリンク」部分をWindowsで保存できる名前に変換する.md">Markdown記法で書かれた「Markdownファイルへのリンク」部分をWindowsで保存できる名前に変換する</a> - ← <a href="知的生産で食べていきたい.md">知的生産で食べていきたい</a> - ← <a href="Markdownでテーブルタイトルをテーブルに埋め込む.md">Markdownでテーブルタイトルをテーブルに埋め込む</a> - ← <a href="Markdownは段落の次に空行を入れなくてもテーブルを認識できるか.md">Markdownは段落の次に空行を入れなくてもテーブルを認識できるか</a> - ← <a href="ファイル内容が一致していてもリストとリストをassertEqualしていればFalseになることがある.md">ファイル内容が一致していてもリストとリストをassertEqualしていればFalseになることがある</a> - ← <a href="PythonでinlineのScrapbox記法をMarkdown記法に変換する正規表現.md">PythonでinlineのScrapbox記法をMarkdown記法に変換する正規表現</a> - ← <a href="Scrapboxで実装を考える世界.md">Scrapboxで実装を考える世界</a> - ← <a href="Gyazo_API.md">Gyazo API</a> - ← <a href="そろそろペインでもタブでもない新しいUIが欲しい.md">そろそろペインでもタブでもない新しいUIが欲しい</a> - ← <a href="Markdownの挙動調べてると1日30commitすぐに超える.md">Markdownの挙動調べてると1日30commitすぐに超える</a> - ← <a href="全部入りScrapboxで開発進めると楽しい.md">全部入りScrapboxで開発進めると楽しい</a> - ← <a href="Markdownの「リストと段落の塊」の表現力が弱い件.md">Markdownの「リストと段落の塊」の表現力が弱い件</a></p>
+<h2 id="hop-links">2hop Links</h2>
+<ul>
+<li>→ <a href="tit.md">tit</a>
+<ul>
+<li>← <a href="自分の過程を収集.md">自分の過程を収集</a></li>
+</ul></li>
+<li>→ <a href="✅jekyllで日本語ファイル名が正しくリンクされない問題を修正する.md">✅jekyllで日本語ファイル名が正しくリンクされない問題を修正する</a>
+<ul>
+<li>← <a href="✅結果的に_から始まるファイル名にアクセスできないので何とかする.md">✅結果的に_から始まるファイル名にアクセスできないので何とかする</a></li>
+<li>← <a href="Jekyllのincludeに_と.から始まる文字列を追加する.md">Jekyllのincludeに_と.から始まる文字列を追加する</a></li>
+<li>← <a href="半角英数字の全角化.md">半角英数字の全角化</a></li>
+</ul></li>
+<li>→ <a href="✅画像にリンク貼ってる場合に表記がおかしい件の修正.md">✅画像にリンク貼ってる場合に表記がおかしい件の修正</a>
+<ul>
+<li>← <a href="✅Gyazo埋め込みの画像を表示する.md">✅Gyazo埋め込みの画像を表示する</a></li>
+</ul></li>
+<li>→ <a href="Scrapbox_to_Markdown_文法変換の設計やら実装やら.md">Scrapbox to Markdown 文法変換の設計やら実装やら</a>
+<ul>
+<li>← <a href="Scrapbox_to_Markdown_コードブロック.md">Scrapbox to Markdown コードブロック</a></li>
+</ul></li>
+<li>→ <a href="✅全ページリンク集をつくる.md">✅全ページリンク集をつくる</a>
+<ul>
+<li>← <a href="✅index.mdを自動生成する.md">✅index.mdを自動生成する</a></li>
+</ul></li>
+<li>→ <a href="scrapbox-sta.md">scrapbox-sta</a>
+<ul>
+<li>← <a href="じぶんリリースノート_0.32.5.md">じぶんリリースノート 0.32.5</a></li>
+<li>← <a href="飼われるためには.md">飼われるためには</a></li>
+<li>← <a href="tilをScrapboxに統合したい.md">tilをScrapboxに統合したい</a></li>
+</ul></li>
+</ul>

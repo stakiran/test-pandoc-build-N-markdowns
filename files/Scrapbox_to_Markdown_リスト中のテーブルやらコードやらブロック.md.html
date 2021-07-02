@@ -1,0 +1,1086 @@
+<h2 id="scrapbox-to-markdown-リスト中のテーブルやらコードやらブロック">Scrapbox to Markdown リスト中のテーブルやらコードやらブロック</h2>
+<p>鬼門の<a href="https://scrapbox.io/testdata-for-to-markdown/nested%20block">/testdata-for-to-markdown/nested block</a></p>
+<ul>
+<li>とりあえずファイル名やりづらいのでシンプルに
+<ul>
+<li>before: <a href="https://scrapbox.io/testdata-for-to-markdown/markdownの語彙に含まれていない表現">/testdata-for-to-markdown/markdownの語彙に含まれていない表現</a></li>
+</ul></li>
+<li>page-to-scbが効かないと思ったら
+<ul>
+<li><blockquote>
+python scbjson2ghpages.py -i test_lib_scblines2markdown.py –page-to-scb codeblock
+</blockquote></li>
+<li>なんでpyファイル与えてん
+<ul>
+<li>そしてこれに気付くのに数分かかるという<a href="天然.md">天然</a></li>
+<li>勘弁してー</li>
+<li>2回目なのでtodo入れとく</li>
+</ul></li>
+<li><code>python scbjson2ghpages.py -i testdata-for-to-markdown.json --page-to-scb "nested block" &gt; 1_input_nested_block.scb</code>
+<ul>
+<li>ok</li>
+</ul></li>
+</ul></li>
+<li>期待値書いたけど、これ相当しんどそう
+<ul>
+<li>特にテーブル前後の<a href="ダミーリスト.md">ダミーリスト</a>がえぐい</li>
+<li><a href="https://github.com/stakiran/scbjson2ghpages/blob/3128999cae2c6a03d540fb09fb59c20f78db536d/testdata/2_nested_block_expect.md" class="uri">https://github.com/stakiran/scbjson2ghpages/blob/3128999cae2c6a03d540fb09fb59c20f78db536d/testdata/2_nested_block_expect.md</a></li>
+<li>そもそもわかりづらい
+<ul>
+<li>before
+<ul>
+<li><a href="https://gyazo.com/9c63f22966e5faaf6cce5c6e7856e9a5" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/9c63f22966e5faaf6cce5c6e7856e9a5/raw" /></a></li>
+</ul></li>
+<li>after
+<ul>
+<li><a href="https://gyazo.com/e52fc7a97262cedcae2f01f425522e26" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/e52fc7a97262cedcae2f01f425522e26/raw" /></a></li>
+</ul></li>
+</ul></li>
+<li>慣れの問題だろうか？</li>
+<li>ダミーリスト以外も考えた方がいい？
+<ul>
+<li>だがmarkdownがnested block対応してないので、blockはゼロインデントで書くってのはまず確定</li>
+<li>そうなると、あとは前後の「ネストされてるリスト」をどう表現するかの問題</li>
+<li>ちなみにmarkdownではいきなり「nネストのリスト」は書けない</li>
+<li>例 - こういうのはかけない</li>
+<li>例
+<ul>
+<li>markdownで書くには
+<ul>
+<li>こんな風に
+<ul>
+<li>一段ごとに順番に書いていかないといけない</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>だからこその<a href="ダミーリスト.md">ダミーリスト</a>なわけだが</li>
+</ul></li>
+<li>ダミーリスト、<code>...</code>が（インデント数nに対して）n-1行つづくのしんどみがある</li>
+<li>別案
+<ul>
+<li>コードは全部別ファイルに移してリンクさせる
+<ul>
+<li>x markdown側のSEOが乱れる（普段見かけない構成だろうからgoogleにランク落とされるかもしれん）</li>
+<li>o 実装が少し楽になる</li>
+<li>x ファイル数が増える増える
+<ul>
+<li>nested blockのコードやテーブルが仮に300あったとしたら、300ファイル増えるんだぜ？</li>
+</ul></li>
+</ul></li>
+<li>コードやテーブルはファイルの下にまとめる（注釈みたいな）
+<ul>
+<li>「ブロック注釈」とか名付けられそうｗ</li>
+<li>x アンカーの考慮が必要
+<ul>
+<li><a href="intoc.md">intoc</a>で散々やったけど、できればアンカーの世界には携わりたくない……</li>
+</ul></li>
+<li>x 実装もまあまあだるそう
+<ul>
+<li>読み込んだブロックを保持しておいて、最後にまとめて配置みたいなことする必要</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>いや、直感を信じよう
+<ul>
+<li>読み手側の慣れでしょ</li>
+</ul></li>
+<li>ダミーリストの実装がダメだったら、別案しますわ</li>
+</ul></li>
+<li>ほいじゃー、やりましょう</li>
+<li>とりあえず実行してみたが、まあひどい
+<ul>
+<li><a href="https://gyazo.com/1bc868623281376b929fe59011fcef06" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/1bc868623281376b929fe59011fcef06/raw" /></a></li>
+<li>終端が上手くつくられてない</li>
+<li>ダミーリストがない</li>
+<li>開始行の前に空行が空いてない</li>
+</ul></li>
+<li>とりあえず前々からずっとスキップしてた★2の部分を見る
+<ul>
+<li><a href="https://gyazo.com/fc3da11ee964a07e3b9b2d840243c01f" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/fc3da11ee964a07e3b9b2d840243c01f/raw" /></a></li>
+<li>呼び出し元はこう</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a> <span class="co"># list or blockが終わった</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a> <span class="cf">if</span> p<span class="op">==</span><span class="dv">0</span>:</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>     extra_insertion <span class="op">=</span> end_of_list_or_block(inblockstate_user)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>     <span class="cf">return</span> extra_insertion</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a> <span class="co"># list or block が続いている(インデントは変わらず or 深くなった)</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a> <span class="co"># 先頭行のときもここに入る.</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a> is_more_deepen <span class="op">=</span> c<span class="op">&gt;=</span>p</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a> <span class="cf">if</span> is_more_deepen:</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>     <span class="cf">return</span> IGNORE</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a> <span class="co"># list or block が続いている(インデントは変わらず or 深くなった or 浅くなった)</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a> <span class="co"># インデント 1 以上の深さで block が終わっているケース, もここに入る.</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a> extra_insertion <span class="op">=</span> continuous_indent(c, inblockstate_user)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a> <span class="cf">return</span> extra_insertion</span></code></pre></div>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li><a href="Scrapbox_to_Markdown_文法変換の設計やら実装やら#607a160279d3a90000545b64.md">Scrapbox to Markdown 文法変換の設計やら実装やら#607a160279d3a90000545b64</a></li>
+<li>p&gt;=1 and p&gt;c
+<ul>
+<li><del>p=1, c=0</del> end_of_list_or_block</li>
+<li><del>p=2, c=0</del> end_of_list_or_block</li>
+<li><del>p=2, c=1</del> ~~list or block が続いている(インデントは深くなった) ★これ嘘だろ（深くなってない） ~~ok</li>
+<li><del>p=3, c=0</del> end_of_list_or_block</li>
+<li><del>p=3, c=1</del> <del>list or block が続いている(インデントは深くなった) ★これ嘘だろ（深くなってない）</del>ok</li>
+<li>p=3, c=2</li>
+<li><del>p=3, c=0</del> end_of_list_or_block</li>
+</ul></li>
+<li>p&gt;=1 and c&gt;1 and p&gt;c
+<ul>
+<li>p=3, c=2</li>
+<li>p=4, c=2</li>
+<li>…</li>
+<li>p=4, c=3</li>
+<li>p=5, c=3</li>
+<li>…</li>
+</ul></li>
+</ul></li>
+<li>嘘だろ部分、たぶん動いてないのでけしてみる
+<ul>
+<li>ok</li>
+</ul></li>
+<li>うん、これで「nインデントに入っているときに、インデントが減った」ケースになった</li>
+<li>ケース全部洗い出す
+<ul>
+<li>1
+<ul>
+<li>リスト</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#comment</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#comment</span></span></code></pre></div>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>リスト</li>
+</ul></li>
+<li>2
+<ul>
+<li>リスト</li>
+<li>table:table</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>a</th>
+<th>b</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>a</td>
+<td>b</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>リスト</li>
+</ul></li>
+<li>3
+<ul>
+<li>リスト</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#comment</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#comment</span></span></code></pre></div>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>…</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#comment</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#comment</span></span></code></pre></div>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>4
+<ul>
+<li>リスト</li>
+<li>table:table</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>a</th>
+<th>b</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>a</td>
+<td>b</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>table:table</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>a</th>
+<th>b</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>a</td>
+<td>b</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>…
+<ul>
+<li>あと終わりがリストじゃなくて段落や空行になってるケースもある
+<ul>
+<li>いずれにせよ終端をちゃんとすれば次がどれであっても対応できる</li>
+<li>ただしダミーリストはちゃんと入れておく必要がある</li>
+</ul></li>
+<li>まとめると
+<ul>
+<li>終端は空行入れてちゃんとする
+<ul>
+<li>tableの場合は空行だけでいい</li>
+<li>codeの場合は<code>｀｀｀</code>と空行</li>
+</ul></li>
+<li>インデントが続いている場合、ダミーリストの挿入も必要</li>
+</ul></li>
+</ul></li>
+<li>終端
+<ul>
+<li><a href="https://gyazo.com/e8ac1c1657cbfa184ac9c385b40d9048" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/e8ac1c1657cbfa184ac9c385b40d9048/raw" /></a></li>
+<li>ok</li>
+</ul></li>
+<li>始点
+<ul>
+<li>start_of_list_or_block?
+<ul>
+<li>いや、これは現在行が<code>code:xxx</code>や<code>table:xxx</code>のときの、次の行をどうするかって話</li>
+<li>今回欲しいのは現在行が「<code>code:xxx</code>や<code>table:xxx</code>の“前の”行」であるときの話
+<ul>
+<li>先読みなんて実装してないんですけど……:sta:</li>
+</ul></li>
+</ul></li>
+<li>道は二つあるな
+<ul>
+<li>1: 先読みを実装する≒先読み機能を持つcontextあたりを渡すようにする</li>
+<li>2: convert_step2()で「cur/prev式のパースで対応できなかった部分に対処する後処理」を入れる
+<ul>
+<li>こっちかな</li>
+</ul></li>
+</ul></li>
+<li>後処理とは？
+<ul>
+<li>上記画像 1 の部分に空行を入れる</li>
+<li>もっと言うと、以下のパターンが出た時に空行を差し込む
+<ul>
+<li>インデント1以上の行 → <code>｀｀｀xxx</code></li>
+<li>インデント1以上の行 → <code>| xxx | ...</code></li>
+</ul></li>
+<li>あ、待てよ、ダミーリストもここでやればええんちゃう？？:sta:</li>
+</ul></li>
+<li>決まり</li>
+<li>で、スケルトン書いたけど
+<ul>
+<li><a href="https://gyazo.com/f3d302ba920f6bf7ba3195d4a6daebed" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/f3d302ba920f6bf7ba3195d4a6daebed/raw" /></a></li>
+<li>これ、もう一度 inblockstate 使って注意深く書かないとダメだわ
+<ul>
+<li>「今はリストの中にいます」「今はコードの中にいます」 ← こういうの全部考慮しなきゃいけないから</li>
+</ul></li>
+<li>仮に愚直に「リストが来た後、<code>｀｀｀</code>が来たら挿入する」処理を書いたとすると
+<ul>
+<li>コードブロックの中でそういうパターンが来たらどうするねんって話になる</li>
+<li>無論、除外しないといけない</li>
+<li>そのためには「今コードブロックに入っているかどうか」も知る必要がある</li>
+<li>……</li>
+<li>と処理がややこい</li>
+<li>このややこい部分は、inblockstate 周りのパースでつくっている（のでそれもう一度使うしかない）</li>
+</ul></li>
+</ul></li>
+<li><code>_step2_insert_extra_insertion()</code>かな
+<ul>
+<li>つまり cur/prev 式で入れていくのが append_extra_insertion</li>
+<li>今つくろうとしてる、append だけでは無理ゲーな分を改めて入れていく insert_extra_insertion</li>
+<li>うん、いけそ:sta:
+<ul>
+<li>スマートではないが、そもそも表現語彙全然違うmarkdownへの変換なんだから、こういうもんでしょ</li>
+<li>だからこそ今まで誰もつくってないんだろうし
+<ul>
+<li>簡単な scb to markdown なら何個もあるけど</li>
+<li><a href="Markdownではリスト中のコードハイライト_とテーブル_を表現できない.md">Markdownではリスト中のコードハイライト（とテーブル）を表現できない</a> ← たとえばこういうのをどう対処するかまで踏み込んだツールはまだない</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>パターンを実装風に言い換える
+<ul>
+<li><blockquote>
+インデント1以上の行 → <code>｀｀｀xxx</code>
+</blockquote>
+<ul>
+<li>end of code blockであり、in listである</li>
+</ul></li>
+<li><blockquote>
+インデント1以上の行 → <code>| xxx | ...</code>
+</blockquote>
+<ul>
+<li>end of table blockであり、in listである</li>
+</ul></li>
+</ul></li>
+<li>脳内だと追いつかん</li>
+</ul></li>
+</ul>
+<pre class="scb"><code>paragraph
+ list1
+  list2      --- A
+```py    --- B
+   #comment  --- C
+   #comment
+   if True:  --- D
+       pass  --- F
+   #comment  --- G
+  list2      --- H
+ list
+paragraph    --- I
+```py      --- J
+ #comment</code></pre>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>a-b（preがaで、curがb）
+<ul>
+<li>挿入するべきパターン
+<ul>
+<li>preがin listである</li>
+<li>curがblockである</li>
+</ul></li>
+</ul></li>
+<li>b-c
+<ul>
+<li>挿入してはいけないパターン</li>
+<li>a-bの条件だけだとこれも該当してしまう</li>
+<li>弾くには？
+<ul>
+<li>indentdepth_of_start？
+<ul>
+<li>ダメ</li>
+<li>curがBになった時点で値が入ってしまう</li>
+<li>やっぱり「先読み」か<del>「is_entered_just_now()」的なものが要る……</del>is_next_the_enterring_timing()的なやつ
+<ul>
+<li>つまりは先読みですね</li>
+<li>実装が煩雑になるから先読み入れたくない……:sta:</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>done
+<ul>
+<li>prevのin block状態覚えるフラグ導入するだけでよかた</li>
+<li><a href="https://github.com/stakiran/scbjson2ghpages/commit/100b37d94a83e25acb243e13a7953c6f03050e06" class="uri">https://github.com/stakiran/scbjson2ghpages/commit/100b37d94a83e25acb243e13a7953c6f03050e06</a></li>
+</ul></li>
+</ul></li>
+<li>終点</li>
+</ul>
+<pre class="step2"><code>    print(os.environ)</code></pre>
+<p>もちろん維持されます（深さ含めて） —- ここが cur になったとき</p>
+<pre><code>
+- ...
+    - prevはblankline
+    - curはin listで、インデントが1よりも大きい
+        - だったらインデント1から順に入れればいいだけか
+    - Q: 他に被るパターンはない？条件それだけで大丈夫？
+        - curがin blockではない、も必要だな
+    - ああ、ダメ
+
+```py
+# (A)
+if is_prev_in_list and not is_prev_in_block and is_cur_in_block:
+    ADD_LINEFEED = &#39;&#39;
+    outlines.append(ADD_LINEFEED)
+    
+# (B)
+# - ただしここは tabletitle と tablecontents の間の空行を通る時にも入るので, 弾く
+if not is_prev_in_list and not is_cur_in_block and cur_indentdepth&gt;1:
+    if lines_context.is_first_of_tablecontents():
+        pass
+    else:
+        outlines.append(&#39;- ...&#39;)</code></pre>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>みたいな実装しようとしたけど、そもそも linescontextって、step2_conveter_lines 限定だったわ……</li>
+</ul></li>
+<li>わかった
+<ul>
+<li><a href="https://gyazo.com/c15a256d97b68b443e9aba905b0531f7" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/c15a256d97b68b443e9aba905b0531f7/raw" /></a></li>
+<li>二つ前を見る必要がある
+<ul>
+<li>curが11行目（でダミーリストの<code>- ...</code>決め打ちを入れる前）のときに、2つ前である9行目がtabletitleであるかどうか</li>
+<li>いや、curが単に<code>\t</code>もってたら、にすれば？
+<ul>
+<li>table:こういう一列テーブルを捕捉できないが？</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>a</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>b</td>
+</tr>
+<tr class="even">
+<td>c</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>一列テーブルなんて使ってないから、いいかい？ｗ</li>
+</ul></li>
+</ul></li>
+<li>おかしいな、これで弾けるはずだが</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (B)</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># - ただしここは tabletitle と tablecontents の間の空行を通る時にも入るので, 弾く</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> is_prev_in_list <span class="kw">and</span> <span class="kw">not</span> is_cur_in_block <span class="kw">and</span> cur_indentdepth<span class="op">&gt;</span><span class="dv">1</span>:</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    outlines.append(<span class="st">&#39;- ...&#39;</span>)</span></code></pre></div>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>not is_cur_in_block（ブロックの中ではない）、を既に判定している</li>
+<li>これはテーブルブロックの中ではない、も判定できている（はず）</li>
+</ul></li>
+<li>inblockstateのtable版、テストコード書いてねえな……
+<ul>
+<li>書いたけど、異常ないです</li>
+</ul></li>
+<li>なんで……
+<ul>
+<li>debugprint仕込んでみた結果、そもそも入ってないことがわかった</li>
+<li>あとdebugprintがそもそも動かん
+<ul>
+<li>なぜ動かんかがわからん</li>
+<li>ぐー</li>
+</ul></li>
+<li>スペルミス
+<ul>
+<li>20min悩むという……:sta:</li>
+<li><a href="天然.md">天然</a>すぎる……</li>
+</ul></li>
+</ul></li>
+<li>結果</li>
+</ul></li>
+</ul></li>
+</ul>
+<pre class="terminal"><code>$ python test_pagetest.py
+..F.is_prev_in_list, cur_indent, is_cur_in_block = False, 2, False, L:  重要でな重要である
+is_prev_in_list, cur_indent, is_cur_in_block = False, 2, False, L:  a   b       c</code></pre>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>in table blockのはずなのに、blockではないと判定されている</li>
+<li>なんでだっけ？</li>
+<li>step2のappend時点でこうなるからだよな</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<pre class="scb"><code>table:matrix_空白セルあり
+★ここをパースした時点で blank line と解釈する（ので in block 状態も解除される）
+  重要でない 重要である
+ 緊急でない  第一領域    第二領域
+ 緊急である  第三領域    第四領域</code></pre>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>ああ、そうか、思い出した</li>
+<li>これを防ぐために lines context 導入してるんだった
+<ul>
+<li>かつ、lines contextへのセットはパース時に自分で行う必要があるんだった</li>
+<li><a href="https://gyazo.com/7d64c909c1362a9fb9e5f21a65b6f95e" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/7d64c909c1362a9fb9e5f21a65b6f95e/raw" /></a></li>
+<li>これと同じよう、パースする側でenableする</li>
+</ul></li>
+<li>実装も思い出した
+<ul>
+<li>enable しておけば、inblockstate user側で勝手に上記の解除無効をやってくれるんだ</li>
+<li>first_of_tablecontentsじゃなくてtable_top_blankだった</li>
+</ul></li>
+</ul></li>
+<li>長かったがdone</li>
+</ul></li>
+</ul></li>
+<li>あとはダミーリストを正しく入れるだけだ……</li>
+<li>正しく動かん
+<ul>
+<li><a href="https://gyazo.com/28a05cc7b4a9818d599014f29596fb1b" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/28a05cc7b4a9818d599014f29596fb1b/raw" /></a></li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb11"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>...</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>...</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        - </span>もちろん</span></code></pre></div>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>こうなるはずなんだが</li>
+<li>appendしなければ何も起こらない
+<ul>
+<li><a href="https://gyazo.com/f727e94e101b99c9836cf6456c4048e2" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/f727e94e101b99c9836cf6456c4048e2/raw" /></a></li>
+</ul></li>
+<li><code>outlines.extend(dummylist)</code> の有無だけで、上記のような<code>- - ...</code> になるってどういうことだ</li>
+<li>appendeeもおかしくはない</li>
+</ul></li>
+</ul></li>
+</ul>
+<pre class="terminal"><code>$ python test_pagetest.py
+..is_prev_in_list, cur_indent, is_cur_in_block = False, 3, False, L:   もちろん維持されます（
+深さ含めて）
+[&#39;- ...&#39;, &#39;    - ...&#39;]</code></pre>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li><code>['- ...']('-_...'.md)</code>ハードコードで入れた場合
+<ul>
+<li><a href="https://gyazo.com/f40b179d37a953b5952534d706324729" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/f40b179d37a953b5952534d706324729/raw" /></a></li>
+<li><code>-</code>という余分がついているのは何なんだ……？</li>
+<li>いや、<code>[' - ...']('_-_...'.md)</code>という入力データミスしてた（先頭スペース要らない）</li>
+</ul></li>
+<li><code>['AAA']('AAA'.md)</code>の場合
+<ul>
+<li><a href="https://gyazo.com/f973d9111354bffa8d3b9b4fe4ed233a" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/f973d9111354bffa8d3b9b4fe4ed233a/raw" /></a></li>
+<li><code>-</code>どこ行った？</li>
+<li>なんだ、このC言語のメモリ一部上書きしちゃってますを彷彿とさせるこの挙動は……:sta:</li>
+</ul></li>
+<li>うん、問題ない</li>
+<li>ああ、そうかわかった！
+<ul>
+<li>この時点ではまだ scb 記法だから、挿入するの違う
+<ul>
+<li>bf <code>['- ...','    - ...']('-_...','____-_...'.md)</code></li>
+<li>af <code>[' ...','  ...']('_...','__...'.md)</code></li>
+</ul></li>
+</ul></li>
+<li>done
+<ul>
+<li><a href="https://gyazo.com/5c8ce07d3fb2a3de8fbdf3768eebeb72" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/5c8ce07d3fb2a3de8fbdf3768eebeb72/raw" /></a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>コードブロックはok</li>
+<li>次はテーブル
+<ul>
+<li>step3
+<ul>
+<li><a href="https://gyazo.com/0f4f92e391081c3ac34bbdb684c995e9" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/0f4f92e391081c3ac34bbdb684c995e9/raw" /></a></li>
+</ul></li>
+<li>tabletitleが上手く処理されてない
+<ul>
+<li>一つ上のリストに紐付けちゃうのが自然か
+<ul>
+<li>が、今の実装的にエグそうなかほり……</li>
+</ul></li>
+</ul></li>
+<li>step2
+<ul>
+<li><a href="https://gyazo.com/3e0f7f3b6f6dc141e4946acd9cc01959" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/3e0f7f3b6f6dc141e4946acd9cc01959/raw" /></a></li>
+<li>何の因子が絡んでるのか、パット見わからねえな</li>
+</ul></li>
+<li>in list において、3通りあるんだよな
+<ul>
+<li><a href="Scrapbox_to_Markdown#60849c1679d3a90000883fe5.md">Scrapbox to Markdown#60849c1679d3a90000883fe5</a>
+<ul>
+<li>table → list</li>
+<li>table → table</li>
+<li>table → code</li>
+</ul></li>
+<li>いや、この辺掌握するのは修羅の道</li>
+<li><del>コードブロックと同じように処理するしかない</del>してました</li>
+<li><code>(table|code) → (table|code)</code>の連チャンはまだ想定してないから、後にする</li>
+</ul></li>
+<li>要するにtabletitleという異端児をどう扱うか、に帰着される
+<ul>
+<li>案1: リスト中で扱う</li>
+<li>案2: ゼロインデントにしてしまう</li>
+</ul></li>
+<li>案1が自然だが
+<ul>
+<li>画像の1の空行除去が必要(step2)</li>
+<li>tablecontentsとの間には空行が必要(step3)</li>
+</ul></li>
+<li>案2
+<ul>
+<li>画像の2に空行追加が必要(step2)</li>
+<li>tablecontentsとの間には空行が必要(step3)</li>
+</ul></li>
+<li>どっちもエグいので自然な案1にする</li>
+<li>……わからん
+<ul>
+<li>なんでこの挙動になるのか（画像の1でなぜ空行が入ってるか）作者自身も俺でも追いつかないん……</li>
+</ul></li>
+<li>デバッグログ仕込んだ
+<ul>
+<li><a href="https://gyazo.com/d14b5bbfb1a260dbea6ad07f06f7fedb" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/d14b5bbfb1a260dbea6ad07f06f7fedb/raw" /></a></li>
+<li>結論、ここに入ってる
+<ul>
+<li><a href="https://gyazo.com/6223b258a71a9b425797bde2fe7a0546" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/6223b258a71a9b425797bde2fe7a0546/raw" /></a></li>
+<li>ignoreだから何も挿入されないはずだが</li>
+</ul></li>
+<li>あ、こっちや
+<ul>
+<li><a href="https://gyazo.com/f5be1f737f25f9fa6ff17d4c73f125db" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/f5be1f737f25f9fa6ff17d4c73f125db/raw" /></a></li>
+</ul></li>
+</ul></li>
+<li>ダメ、わからん</li>
+<li>step2の空行除去はできた
+<ul>
+<li><a href="https://gyazo.com/8594575bfce2996bc98766081a1f38ad" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/8594575bfce2996bc98766081a1f38ad/raw" /></a></li>
+<li>けど、てーぶるは空行空いててテーブルが空いてない理由がわからん</li>
+</ul></li>
+<li>step3は問題が二つあって、
+<ul>
+<li>1 リストになってない</li>
+<li>2 table separatorが入ってない（前述のテーブルで空いてないのと関係してる気がする）</li>
+<li><code>&lt;a href="https://gyazo.com/0721669fefaf172521667b63862f4bac" target="_blank" rel="noopener noreferrer"&gt;![](https://gyazo.com/0721669fefaf172521667b63862f4bac/raw)&lt;/a&gt;</code></li>
+</ul></li>
+<li>力尽きたので終わり</li>
+</ul></li>
+<li>とりあえずrevertしてもう一度</li>
+</ul>
+<div class="sourceCode" id="cb13"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># paragraph</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  list1</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   list2</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ★ここに空行を差し込む処理(A)</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   code:py</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">#    print(&#39;hello&#39;)</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ```</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co">#  ... ★ここに左記のようなダミーリストを差し込む処理(B)</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   list2</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co"># paragraph</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co">#  list1</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co">#   list2</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="co">#   table:xxx</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co"># ★ここに空行を差し込む処理(C)</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="co">#    a b</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="co">#    c d</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="co">#   list2</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>……</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> is_prev_start_of_table <span class="kw">and</span> is_cur_in_tableblock:</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># (C)</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    ADD_LINEFEED <span class="op">=</span> <span class="st">&#39;&#39;</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>    outlines.append(ADD_LINEFEED)</span></code></pre></div>
+<ul>
+<li>…
+<ul>
+<li>これ入れると破綻する</li>
+<li>step3
+<ul>
+<li><a href="https://gyazo.com/d3b6965bd82a36fc0ec96e08050b471a" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/d3b6965bd82a36fc0ec96e08050b471a/raw" /></a></li>
+</ul></li>
+</ul></li>
+<li>とりあえずa b cてーぶるの方でseparator入ってない問題を
+<ul>
+<li><a href="https://gyazo.com/2169de80bca5296b25f9d6af357f9cef" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/2169de80bca5296b25f9d6af357f9cef/raw" /></a></li>
+<li>どっちもstep3で t f t t。状態は正しい</li>
+<li>table separatorを返すのは、scb_to_markdown_in_line() で lines_context.is_first_of_tablecontents のとき</li>
+<li>enable_first_of_tablecontents() されるのは、in table block のときかつModer.is_blankline(line)のとき</li>
+<li>done
+<ul>
+<li><a href="https://github.com/stakiran/scbjson2ghpages/commit/5ef49b2ca3098ea04cb020fcd4bc873f08c060ec" class="uri">https://github.com/stakiran/scbjson2ghpages/commit/5ef49b2ca3098ea04cb020fcd4bc873f08c060ec</a></li>
+<li>ややこしすぎて死ぬ</li>
+</ul></li>
+</ul></li>
+<li>あと二つ
+<ul>
+<li><a href="https://gyazo.com/ebda52f934b52b7c9e9f988199257d29" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/ebda52f934b52b7c9e9f988199257d29/raw" /></a></li>
+<li>1 リスト記法にする</li>
+<li>2 空行を入れる</li>
+</ul></li>
+<li>リスト記法にする
+<ul>
+<li>done</li>
+<li><a href="https://github.com/stakiran/scbjson2ghpages/commit/973df67f7f54a5bf2734f1023f7f8c994f79234f" class="uri">https://github.com/stakiran/scbjson2ghpages/commit/973df67f7f54a5bf2734f1023f7f8c994f79234f</a></li>
+</ul></li>
+<li>空行を入れる
+<ul>
+<li>がー、ややこしそう:sta:
+<ul>
+<li>これ以上step3でn行 returnをつくるわけにはいかない（table separatorだけで懲り懲り）</li>
+<li>のでstep2しかないわけだが、そうすると状態が変わってまた泥沼になりそうなよかん。。。</li>
+</ul></li>
+<li>ああ、だよな、これで上記の (C) 問題に帰ってきたわけだ</li>
+<li>前半done</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (C)</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> is_prev_in_list <span class="kw">and</span> is_prev_start_of_table <span class="kw">and</span> is_cur_in_tableblock:</span></code></pre></div>
+<ul>
+<li>あと一つ！
+<ul>
+<li>step3
+<ul>
+<li><a href="https://gyazo.com/6f7e2e3ebfe74a0445db6e703757bff2" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/6f7e2e3ebfe74a0445db6e703757bff2/raw" /></a></li>
+</ul></li>
+<li>なんで入らない？</li>
+<li>一列目が空になってるせいで is_cur_in_tableblock 入らないとか？</li>
+<li>デバッグログで状態可視化</li>
+</ul></li>
+</ul>
+<pre class="前半"><code>[step2](pL, pB, pSoT), (cB, cCB, cTB, cSoT) = 
+       (True, False, False), (True, False, True, True) L:  table:てーぶる ★1
+[step2]enable table_top_blank about line:  table:てーぶる
+[step2](pL, pB, pSoT), (cB, cCB, cTB, cSoT) =
+       (True, True, True), (True, False, True, False) L:   a   b       c ★2
+[step2](pL, pB, pSoT), (cB, cCB, cTB, cSoT) =
+       (True, True, False), (True, False, True, False) L:   e  1       2</code></pre>
+<ul>
+<li>…</li>
+</ul>
+<pre class="後半"><code>[step2](pL, pB, pSoT), (cB, cCB, cTB, cSoT) =
+        (False, True, False), (False, False, False, True) L:  table:テーブル ★3
+[step2](pL, pB, pSoT), (cB, cCB, cTB, cSoT) =
+        (True, False, True), (False, False, False, False) L:    重要    重要でない ★4
+[step2](pL, pB, pSoT), (cB, cCB, cTB, cSoT) =
+        (True, False, False), (False, False, False, False) L:   緊急</code></pre>
+<ul>
+<li>…
+<ul>
+<li>★1は正しい
+<ul>
+<li>in blockで、in tableblock で、 start of table</li>
+</ul></li>
+<li>★2も正しい
+<ul>
+<li>in block で、in tableblockだが、 start of table ではない</li>
+</ul></li>
+<li>★3はおかしいね
+<ul>
+<li>in block判定されてない</li>
+</ul></li>
+<li>★4もおかしいね
+<ul>
+<li>3でブロック判定されてないのでここでもされてない</li>
+</ul></li>
+<li>3でブロック判定されないバグを調べよう:sta:</li>
+</ul></li>
+<li>step2で空行入ってないのがおかしいか？
+<ul>
+<li>step2をした結果
+<ul>
+<li><a href="https://gyazo.com/e6d62fce1497d37b0bbb81e40f0981fc" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/e6d62fce1497d37b0bbb81e40f0981fc/raw" /></a></li>
+<li>oの方みたいに空行が入れば、enable table_top_blank になってテーブルブロック判定されるはず</li>
+</ul></li>
+<li>step1をした結果
+<ul>
+<li><a href="https://gyazo.com/dd547c421b16c8b3c4b0df9ccd79da93" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/dd547c421b16c8b3c4b0df9ccd79da93/raw" /></a></li>
+<li>結果は正しいが、上記のxの部分が（続くstep2で）対処されない
+<ul>
+<li>これ、ブロックの直後にブロック続くケースだよな</li>
+<li>たぶん end of block と start of block が被ってる、でもコードは被りを想定してない……みたいな実装の穴な気がする:sta:</li>
+</ul></li>
+</ul></li>
+<li>step2がおかしい</li>
+<li>(A)かなぁ……</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb17"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (A)</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># - ただしテーブルの場合は(tabletitleをリストの一行として扱うのが自然なので)差し込まない</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> is_prev_in_list <span class="kw">and</span> <span class="kw">not</span> is_prev_in_block <span class="kw">and</span> is_cur_in_codeblock:</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    ADD_LINEFEED <span class="op">=</span> <span class="st">&#39;&#39;</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    outlines.append(ADD_LINEFEED)</span></code></pre></div>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>うん、入らないね</li>
+<li>デバッグログは？</li>
+</ul></li>
+</ul></li>
+</ul>
+<pre class="terminal"><code>[step2](pL, pB, pSoT), (cB, cCB, cTB, cSoT)
+       (True, True, False), (True, False, True, False)   L:   f  3       4
+[step2](pL, pB, pSoT), (cB, cCB, cTB, cSoT)
+       (True, True, False), (True, False, True, False)   L:
+[step2](pL, pB, pSoT), (cB, cCB, cTB, cSoT)
+       (False, True, False), (False, False, False, True) L:  table:テーブル</code></pre>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>…</li>
+</ul></li>
+</ul></li>
+</ul>
+<pre class="summarized"><code>   f    3   4     in-table-block
+                  in-table-block ★ここやなぁ……
+  table:テーブル   not in-block</code></pre>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>ちょっとどこがおかしいかわからん</li>
+</ul></li>
+<li>合ってる方</li>
+</ul></li>
+</ul></li>
+</ul>
+<pre class="terminal"><code>[step2](pL, pB, pSoT), (cB, cCB, cTB, cSoT)
+       (False, False, False), (False, False, False, False) L: ネスト1
+[step2](pL, pB, pSoT), (cB, cCB, cTB, cSoT)
+       (True, False, False), (True, False, True, True)      L:  table:てーぶる
+[step2]enable table_top_blank about line:  table:てーぶる
+[step2](pL, pB, pSoT), (cB, cCB, cTB, cSoT)
+       (True, True, True), (True, False, True, False)       L:   a   b       c</code></pre>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>…</li>
+</ul></li>
+</ul></li>
+</ul>
+<pre class="summerized"><code> ネスト1          not in-block
+  table:てーぶる  in-table-block and start-of-table
+
+   a    b   c    in-table-block</code></pre>
+<ul>
+<li>…
+<ul>
+<li>…
+<ul>
+<li>tableが終わった後の空行は all false にならないといけない
+<ul>
+<li><a href="https://gyazo.com/808f9a7907df67ee1601bfc663e0f4e5" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/808f9a7907df67ee1601bfc663e0f4e5/raw" /></a></li>
+</ul></li>
+</ul></li>
+<li>見てて気になったところ
+<ul>
+<li><a href="https://gyazo.com/f74714c41e2d8b74c94dbd8d8c339646" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/f74714c41e2d8b74c94dbd8d8c339646/raw" /></a>
+<ul>
+<li>終わってないやろ、むしろ始まってるやろ</li>
+</ul></li>
+<li>自分で脳内で状態遷移ぐるぐる回してて、これあかんわってなってる
+<ul>
+<li><a href="https://gyazo.com/e4d11ea630be038a46d3f3693d4d5d8a" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/e4d11ea630be038a46d3f3693d4d5d8a/raw" /></a></li>
+<li>全パターン書こうとしてるけど、書けない……</li>
+</ul></li>
+<li><del>リーダブルに組み直すか……？</del>
+<ul>
+<li><del>たぶん diff 使うのが良い</del>
+<ul>
+<li><del>cとpのインデント数の差</del></li>
+</ul></li>
+<li>と思ったが、普通に条件式圧縮できた
+<ul>
+<li><a href="https://github.com/stakiran/scbjson2ghpages/commit/066b83b4960e790e27ec5f5536d88bca7903ab65" class="uri">https://github.com/stakiran/scbjson2ghpages/commit/066b83b4960e790e27ec5f5536d88bca7903ab65</a></li>
+<li><a href="https://github.com/stakiran/scbjson2ghpages/commit/5b183b335c3aa4ed885e799f8138e1a6fbd59ff9" class="uri">https://github.com/stakiran/scbjson2ghpages/commit/5b183b335c3aa4ed885e799f8138e1a6fbd59ff9</a></li>
+</ul></li>
+</ul></li>
+<li>が、ここは関係なかった</li>
+</ul></li>
+<li>どこだ？
+<ul>
+<li>InBlockStateUser?</li>
+<li><a href="https://gyazo.com/8449ad2f7945aa5fc2a1b76242e20fd4" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/8449ad2f7945aa5fc2a1b76242e20fd4/raw" /></a></li>
+<li>allfalse になる＝ブロック状態から解除されるっつーことは、こっから下に来てないってことだよな</li>
+<li>で、来るための条件は「現在行のインデント数」が「今のブロックのstart行のインデント数」以下であること
+<ul>
+<li>満たしてるよな</li>
+</ul></li>
+</ul></li>
+<li>うーん、これはわからんー</li>
+<li><a href="https://gyazo.com/0a9c880bdabd4cc3f2c0a36ff42cd9b2" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/0a9c880bdabd4cc3f2c0a36ff42cd9b2/raw" /></a>
+<ul>
+<li>空行なのになんでブロックが続いてんだ……？</li>
+</ul></li>
+<li>だよな、やっぱりtable_top_blank問題が誤って発動してるとしか思えない
+<ul>
+<li>で、デバッグ仕込んでみたら、all false になった
+<ul>
+<li>is_table_top_blank() は内部でクリアしているので、デバッグログ側で呼び出してFalseになってるってことは、すでにenableが走ってたことを意味する</li>
+</ul></li>
+<li>ここしかないんやが
+<ul>
+<li><a href="https://gyazo.com/d5b68ff7d234ca5338985b82c57152ad" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/d5b68ff7d234ca5338985b82c57152ad/raw" /></a></li>
+<li>でもここ入ったらデバッグログにも enable表示でるはずやが</li>
+<li>矛盾起きてるんだが</li>
+</ul></li>
+<li>だめだわかんねぇ……</li>
+</ul></li>
+<li>また明日…… - —</li>
+<li>(B)をコメントアウトしても入らなかったので、ダミーリスト処理部分は関係ない</li>
+<li>あ、こうするか？
+<ul>
+<li><code>[step2](pL, pB, pSoT), (cB, cCB, cTB, cSoT) 2 = (False, True, False), (False, False, False, True) L:  table:テーブル</code></li>
+<li>start of tableなのに cTB(in-table-block)じゃない、というおかしな状態になってる</li>
+<li>ので、in-table-block に無理やりしちゃう……とか</li>
+</ul></li>
+<li>とりあえず、ここが肝やな
+<ul>
+<li>cTBじゃないからtable top blankに入らないんだ
+<ul>
+<li><code>if state.is_in_table_block() and is_cur_start_of_table:</code></li>
+</ul></li>
+</ul></li>
+<li>cTB判定は<code>is_cur_in_tableblock = state.is_in_table_block()</code></li>
+<li>突き止めた
+<ul>
+<li><a href="https://gyazo.com/edc00c69705efb2c628db84f9c29c1f5" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/edc00c69705efb2c628db84f9c29c1f5/raw" /></a></li>
+<li>enableした後、俺は「次行でtable top blank判定している」つもりでいたが、そうじゃない</li>
+<li>だいぶ離れて、今空行が入らない部分でなぜか判定が入っている……</li>
+<li>普通はこうならなきゃいけない
+<ul>
+<li><a href="https://gyazo.com/a84172a98ef8572eda287f1a5ffb4615" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/a84172a98ef8572eda287f1a5ffb4615/raw" /></a></li>
+</ul></li>
+</ul></li>
+<li>できた
+<ul>
+<li><a href="https://gyazo.com/fa645aea8e1aafb97fa73030c6b0a440" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/fa645aea8e1aafb97fa73030c6b0a440/raw" /></a></li>
+</ul></li>
+</ul></li>
+<li>ダミーリスト足りてないが……
+<ul>
+<li><code>if not is_prev_in_list and not is_cur_in_block and cur_indentdepth&gt;1:</code></li>
+<li>start of table は既に in-table-blockなので、二番目を満たしてないな</li>
+<li><code>if not is_prev_in_list and cur_indentdepth&gt;1:</code>？
+<ul>
+<li>いや、これだとブロック中が全部ヒットしてしまう？</li>
+<li>いや、いいのでは？
+<ul>
+<li>in-listはin-blockでもある
+<ul>
+<li>（紛らわしいけど in list とはインデント持ってるって意味）</li>
+</ul></li>
+<li>not in-listってことは、少なくともブロックには入ってないってことだ</li>
+</ul></li>
+</ul></li>
+<li>ok</li>
+</ul></li>
+<li>が、今度はテーブル側で変な行できてる……
+<ul>
+<li><a href="https://gyazo.com/7524f20dee932e4af3eacf79640c5117" target="_blank" rel="noopener noreferrer"><img src="https://gyazo.com/7524f20dee932e4af3eacf79640c5117/raw" /></a></li>
+<li>これは弾かないといけない</li>
+<li>最初だけダミーが入ってないのも気になる</li>
+</ul></li>
+<li>条件追加で対処した
+<ul>
+<li><a href="https://github.com/stakiran/scbjson2ghpages/commit/4f229fa4219cfe53b4834c70f683f0114dfea214" class="uri">https://github.com/stakiran/scbjson2ghpages/commit/4f229fa4219cfe53b4834c70f683f0114dfea214</a></li>
+</ul></li>
+</ul>
+<p><br></p>
+<p>たぶん code → code と table → code のパターン足りてないかもー。。。</p>
+<p><br></p>
+<h2 id="links">Links</h2>
+<ul>
+<li>← <a href="Scrapbox_to_Markdown.md">Scrapbox to Markdown</a></li>
+</ul>
+<h2 id="hop-links">2hop Links</h2>
+<ul>
+<li>→ <a href="天然.md">天然</a>
+<ul>
+<li>← <a href="✅Linksに相当するFooterをつける.md">✅Linksに相当するFooterをつける</a></li>
+<li>← <a href="なぜ自動テストの導入は失敗するのか_.md">なぜ自動テストの導入は失敗するのか？</a></li>
+<li>← <a href="House1の火災保険を解約する.md">House1の火災保険を解約する</a></li>
+</ul></li>
+<li>→ <a href="ダミーリスト.md">ダミーリスト</a>
+<ul>
+<li>← <a href="真の意味でものづくりがしたいんだよ.md">真の意味でものづくりがしたいんだよ</a></li>
+<li>← <a href="Markdownではリスト中のコードハイライト_とテーブル_を表現できない.md">Markdownではリスト中のコードハイライト（とテーブル）を表現できない</a></li>
+</ul></li>
+<li>→ <a href="Markdownではリスト中のコードハイライト_とテーブル_を表現できない.md">Markdownではリスト中のコードハイライト（とテーブル）を表現できない</a>
+<ul>
+<li>← <a href="Scrapbox_to_Markdown_文法変換の設計やら実装やら.md">Scrapbox to Markdown 文法変換の設計やら実装やら</a></li>
+<li>← <a href="Scrapbox_to_Markdown_テーブル.md">Scrapbox to Markdown テーブル</a></li>
+<li>← <a href="ダミーリスト.md">ダミーリスト</a></li>
+</ul></li>
+<li>→ <a href="intoc.md">intoc</a>
+<ul>
+<li>← <a href="GFM.md">GFM</a></li>
+</ul></li>
+</ul>

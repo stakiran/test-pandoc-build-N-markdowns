@@ -4,7 +4,8 @@ setlocal
 set selfdir=%~dp0
 set targetdir=%selfdir%files
 
-for %%f in (%targetdir%\*.md) do (
-	echo %%f...
+pushd %targetdir%
+for %%f in (*.md) do (
+	pandoc -f markdown+emoji -t html4 %%f -o %%f.html
 )
-
+popd
