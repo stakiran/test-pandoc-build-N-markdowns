@@ -28,7 +28,7 @@ markdown_files = glob.glob(query, recursive=False)
 
 lines = []
 for filepath in markdown_files:
-    basename = get_basename(filepath).lower()
+    basename = get_basename(filepath)
 
     text = basename
     url = '{}.html'.format(basename)
